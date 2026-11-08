@@ -1,0 +1,22 @@
+UTC: 2026-11-07T08:42:39+00:00
+Scope: host prerequisite probes; this is NOT a PERIOD experiment log.
+
+$ uname -s
+Darwin
+[exit_code=0]
+
+$ uname -m
+arm64
+[exit_code=0]
+
+$ bash -c command -v docker
+[exit_code=1]
+
+$ bash -c docker --version
+bash: docker: command not found
+[exit_code=127]
+
+Decision: NOT_RUN (official doubleFree build / systematic test / replay).
+Reason: host is Darwin arm64; Linux scheduling APIs unavailable natively; Docker CLI not found.
+No official checkout, dependency installation, image pull, container launch, or official build script was executed.
+No measured schedule count or ASan double-free result is available.

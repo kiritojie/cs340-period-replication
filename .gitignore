@@ -1,0 +1,76 @@
+# Local editors and OS metadata
+.DS_Store
+._*
+.idea/
+.vscode/
+*~
+*.swp
+
+# Credentials and machine-specific settings
+.env
+.env.*
+!.env.example
+.aws/
+.ssh/
+.docker/
+credentials*.json
+service-account*.json
+*.pem
+*.key
+id_rsa*
+id_ed25519*
+
+# External checkouts, downloaded toolchains, images, datasets, raw runs
+/external/
+/third_party/
+/downloads/
+/artifacts/
+/results/
+/clang+llvm/
+/PERIOD/
+*.tar
+*.tar.gz
+*.tgz
+*.tar.xz
+*.zip
+*.7z
+*.qcow2
+*.img
+*.iso
+
+# Native/LLVM build products and PERIOD generated outputs
+build/
+Release-build/
+CMakeFiles/
+CMakeCache.txt
+compile_commands.json
+*.o
+*.a
+*.so
+*.dylib
+*.dll
+*.exe
+*.bc
+*.ll
+*.out
+*.core
+core
+core.[0-9]*
+out_*/
+mssa.*
+mempair.*
+mempair_all.*
+ConConfig.*
+dryRun.*
+*.npy
+*.npz
+
+# Python caches/environments
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+
+# Keep small, curated week-one evidence under docs/results in Git.
+# Do not add a blanket *.txt / *.log rule: real experiment evidence is valuable.

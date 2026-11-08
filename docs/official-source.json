@@ -1,0 +1,124 @@
+{
+  "schema_version": 1,
+  "checked_on": "2026-11-07",
+  "repository": "https://github.com/wcventure/PERIOD",
+  "ref_resolved": "main",
+  "commit": "cb8deb9a176e5bb292d70d46557dd61dc0e98069",
+  "commit_author_date_utc": "2022-10-09T07:21:09Z",
+  "commit_subject": "fix Install.md",
+  "verification": "Commit and file blob IDs read from GitHub API via connected GitHub tools; upstream source not vendored.",
+  "tree_sha": "7855535f7c711dc0379cb3e77f6633e5f1f07e0c",
+  "paper": {
+    "title": "Controlled Concurrency Testing via Periodical Scheduling",
+    "venue": "ICSE 2022",
+    "doi": "10.1145/3510003.3510178",
+    "author_preprint_url": "https://wcventure.github.io/pdf/ICSE2022_PERIOD.pdf"
+  },
+  "files": [
+    {
+      "path": "README.md",
+      "git_blob_sha": "9573a77dbfab0e382106e4a13a4b5de2d1fbaab1",
+      "url": "https://github.com/wcventure/PERIOD/blob/cb8deb9a176e5bb292d70d46557dd61dc0e98069/README.md"
+    },
+    {
+      "path": "INSTALL.md",
+      "git_blob_sha": "eccb55f5d16b3d71e6d3dc2ab386128fd40ae016",
+      "url": "https://github.com/wcventure/PERIOD/blob/cb8deb9a176e5bb292d70d46557dd61dc0e98069/INSTALL.md"
+    },
+    {
+      "path": "REQUIREMENTS.md",
+      "git_blob_sha": "0b752f5bede6a22a2c704ec1ca81d267fd237ac6",
+      "url": "https://github.com/wcventure/PERIOD/blob/cb8deb9a176e5bb292d70d46557dd61dc0e98069/REQUIREMENTS.md"
+    },
+    {
+      "path": "Dockerfile",
+      "git_blob_sha": "c390f67ab1a706737da31f9be35114db487967ba",
+      "url": "https://github.com/wcventure/PERIOD/blob/cb8deb9a176e5bb292d70d46557dd61dc0e98069/Dockerfile"
+    },
+    {
+      "path": "test/doubleFree/README.md",
+      "git_blob_sha": "c6abc9b0c38d2b2a3b450d7d52cb6d628c78ffed",
+      "url": "https://github.com/wcventure/PERIOD/blob/cb8deb9a176e5bb292d70d46557dd61dc0e98069/test/doubleFree/README.md"
+    },
+    {
+      "path": "test/doubleFree/df.c",
+      "git_blob_sha": "e76c700e1079420b63628386264961ce58475fac",
+      "url": "https://github.com/wcventure/PERIOD/blob/cb8deb9a176e5bb292d70d46557dd61dc0e98069/test/doubleFree/df.c"
+    },
+    {
+      "path": "test/doubleFree/build.sh",
+      "git_blob_sha": "709d4bac09fcce68c08d676858418642f42efe9c",
+      "url": "https://github.com/wcventure/PERIOD/blob/cb8deb9a176e5bb292d70d46557dd61dc0e98069/test/doubleFree/build.sh"
+    },
+    {
+      "path": "test/doubleFree/cleanDIR.sh",
+      "git_blob_sha": "89577182ca514635b712e14c30d038062bb5bdf6",
+      "url": "https://github.com/wcventure/PERIOD/blob/cb8deb9a176e5bb292d70d46557dd61dc0e98069/test/doubleFree/cleanDIR.sh"
+    },
+    {
+      "path": "tool/init_env.sh",
+      "git_blob_sha": "34d3490771ad7f2509e1a02196edcea81734c8b0",
+      "url": "https://github.com/wcventure/PERIOD/blob/cb8deb9a176e5bb292d70d46557dd61dc0e98069/tool/init_env.sh"
+    },
+    {
+      "path": "tool/install_llvm.sh",
+      "git_blob_sha": "6d80e93c919e7d90f1540efad21a1e2302413aed",
+      "url": "https://github.com/wcventure/PERIOD/blob/cb8deb9a176e5bb292d70d46557dd61dc0e98069/tool/install_llvm.sh"
+    },
+    {
+      "path": "tool/install_SVF.sh",
+      "git_blob_sha": "f511c8871b72665a99e432d26d11d21787adf714",
+      "url": "https://github.com/wcventure/PERIOD/blob/cb8deb9a176e5bb292d70d46557dd61dc0e98069/tool/install_SVF.sh"
+    },
+    {
+      "path": "tool/install_staticAnalysis.sh",
+      "git_blob_sha": "879c0cdcdbce726f9cda2170f9b9511d1ad88bf8",
+      "url": "https://github.com/wcventure/PERIOD/blob/cb8deb9a176e5bb292d70d46557dd61dc0e98069/tool/install_staticAnalysis.sh"
+    },
+    {
+      "path": "tool/staticAnalysis/staticAnalysis.sh",
+      "git_blob_sha": "b3e5dee7030dafa3bdcc4201c09a1af047bd9222",
+      "url": "https://github.com/wcventure/PERIOD/blob/cb8deb9a176e5bb292d70d46557dd61dc0e98069/tool/staticAnalysis/staticAnalysis.sh"
+    },
+    {
+      "path": "tool/DBDS/sched.h",
+      "git_blob_sha": "77ed64898258357bb195c26b6b1f97ff0c8b60bf",
+      "url": "https://github.com/wcventure/PERIOD/blob/cb8deb9a176e5bb292d70d46557dd61dc0e98069/tool/DBDS/sched.h"
+    },
+    {
+      "path": "tool/DBDS/sbp_sched.py",
+      "git_blob_sha": "392ffd2939b1db7cfd0fb16fdd780427ee948294",
+      "url": "https://github.com/wcventure/PERIOD/blob/cb8deb9a176e5bb292d70d46557dd61dc0e98069/tool/DBDS/sbp_sched.py"
+    },
+    {
+      "path": "tool/DBDS/sbp_sched_mixed_end.py",
+      "git_blob_sha": "32d37dddc1733e033de6f65414a5fee4e1424d09",
+      "url": "https://github.com/wcventure/PERIOD/blob/cb8deb9a176e5bb292d70d46557dd61dc0e98069/tool/DBDS/sbp_sched_mixed_end.py"
+    },
+    {
+      "path": "tool/DBDS/run_PDS.py",
+      "git_blob_sha": "3d234cb7baa4d5c3f90b88a2bc964386b966b0b8",
+      "url": "https://github.com/wcventure/PERIOD/blob/cb8deb9a176e5bb292d70d46557dd61dc0e98069/tool/DBDS/run_PDS.py"
+    },
+    {
+      "path": "tool/DBDS/ipc.py",
+      "git_blob_sha": "25a0f6c94278032591c4af0f833acc43dc3368f4",
+      "url": "https://github.com/wcventure/PERIOD/blob/cb8deb9a176e5bb292d70d46557dd61dc0e98069/tool/DBDS/ipc.py"
+    },
+    {
+      "path": "tool/staticAnalysis/DBDS-INSTRU/llvm-mode/DBDSFunction.cpp",
+      "git_blob_sha": "e77e724d1c9e3a6ce604e462edb27d2276bd4c46",
+      "url": "https://github.com/wcventure/PERIOD/blob/cb8deb9a176e5bb292d70d46557dd61dc0e98069/tool/staticAnalysis/DBDS-INSTRU/llvm-mode/DBDSFunction.cpp"
+    },
+    {
+      "path": "tool/staticAnalysis/DBDS-INSTRU/llvm-mode/sched.h",
+      "git_blob_sha": "77ed64898258357bb195c26b6b1f97ff0c8b60bf",
+      "url": "https://github.com/wcventure/PERIOD/blob/cb8deb9a176e5bb292d70d46557dd61dc0e98069/tool/staticAnalysis/DBDS-INSTRU/llvm-mode/sched.h"
+    },
+    {
+      "path": "tool/staticAnalysis/DBDS-INSTRU/llvm-mode/Makefile",
+      "git_blob_sha": "c9ae8572ebc6ed447a8523eb5430f456834bb0cf",
+      "url": "https://github.com/wcventure/PERIOD/blob/cb8deb9a176e5bb292d70d46557dd61dc0e98069/tool/staticAnalysis/DBDS-INSTRU/llvm-mode/Makefile"
+    }
+  ]
+}

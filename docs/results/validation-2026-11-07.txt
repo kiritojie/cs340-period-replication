@@ -1,0 +1,72 @@
+UTC: 2026-11-07T08:45:40+00:00
+Scope: local static checks and evidence consistency; no official experiment executed.
+PASS: Bash syntax: bash -n; exit_code=0
+PASS: Script executable bit
+PASS: Pinned source metadata: 21 unique file blob IDs and fixed URLs
+PASS: Required official files documented
+PASS: Repository Markdown links: 5 Markdown files checked
+PASS: Final script matches real run fingerprint: f4e079815f427383adf430844b505079bdb523c93f27a5306df0e94dc224c0a2
+PASS: Environment runs completed
+PASS: Unrun experiment labeled accurately
+PASS: Ignore rules: 14 ignored / 7 reviewable paths verified
+FAIL: Whitespace in all new files: .gitignore: ; README.md: ; docs/algorithm-notes.md: ; docs/official-code-analysis.md: ; docs/official-source.json: ; docs/reproduction-plan.md: ; docs/results/doublefree-feasibility-2026-11-07.txt: ; docs/results/environment-2026-11-07.txt: ; docs/results/validation-2026-11-07.txt: ; docs/week1-results.md: ; scripts/check_environment.sh:
+PASS: No large new files: each file below 100 KB
+PASS: Common credential signatures: no AWS access IDs, GitHub token signatures or private key blocks found; limited pattern check
+PASS: No staged changes
+
+$ git status --short --branch --untracked-files=all
+## No commits yet on main...origin/main [gone]
+?? .gitignore
+?? README.md
+?? docs/algorithm-notes.md
+?? docs/official-code-analysis.md
+?? docs/official-source.json
+?? docs/reproduction-plan.md
+?? docs/results/doublefree-feasibility-2026-11-07.txt
+?? docs/results/environment-2026-11-07.txt
+?? docs/results/validation-2026-11-07.txt
+?? docs/week1-results.md
+?? scripts/check_environment.sh
+
+Validation result: FAIL: Whitespace in all new files
+
+=== Validation correction and final whitespace check ===
+UTC: 2026-11-07T08:46:16+00:00
+The first harness incorrectly treated every nonzero --no-index exit as a whitespace error.
+In --no-index mode, exit 1 with empty check output indicates a content difference; this is expected for a new file.
+PASS: Whitespace checker controls; clean exit=1, trailing-space exit=3 with expected diagnostic=True
+FAIL: Whitespace in all new files; 11 files; docs/results/validation-2026-11-07.txt: /Users/yehaoming/Desktop/cs340-period-replication/docs/results/validation-2026-11-07.txt:12: trailing whitespace.
++FAIL: Whitespace in all new files: .gitignore: ; README.md: ; docs/algorithm-notes.md: ; docs/official-code-analysis.md: ; docs/official-source.json: ; docs/reproduction-plan.md: ; docs/results/doublefree-feasibility-2026-11-07.txt: ; docs/results/environment-2026-11-07.txt: ; docs/results/validation-2026-11-07.txt: ; docs/week1-results.md: ; scripts/check_environment.sh:
+Other checks from the first pass remain valid; no project files were changed to address whitespace.
+Final validation result: FAIL
+
+=== Final validation ===
+UTC: 2026-11-07T08:46:43+00:00
+Formatting correction: trimmed trailing blanks emitted by the validation harness in its own log, lines=[12]
+Raw environment and feasibility logs were not edited.
+PASS: Whitespace in all 11 new files; no diagnostics
+Final validation result: PASS
+
+=== Pre-commit review (2026-11-07) ===
+Scope: review the same 11 new files; no official doubleFree execution, staging, Commit or Push.
+Historical output above is retained. Correction: "21 unique file blob IDs" means 21 unique file paths with 20 distinct blob IDs. The two sched.h paths share identical content; the source manifest is correct.
+The following checks were actually rerun; prior timestamps cannot be independently authenticated by rerunning them.
+UTC: 2026-11-07T08:50:46+00:00
+PASS: Environment script rerun; exit_code=0; output matches archived run 2 except timestamps; elapsed=0.154s
+PASS: Script SHA-256 matches archived fingerprint: f4e079815f427383adf430844b505079bdb523c93f27a5306df0e94dc224c0a2
+PASS: Prerequisite rerun ['uname', '-s']; exit_code=0; stdout='Darwin'; stderr=''
+PASS: Prerequisite rerun ['uname', '-m']; exit_code=0; stdout='arm64'; stderr=''
+PASS: Prerequisite rerun ['bash', '-c', 'command -v docker']; exit_code=1; stdout=''; stderr=''
+PASS: Prerequisite rerun ['bash', '-c', 'docker --version']; exit_code=127; stdout=''; stderr='bash: docker: command not found'
+PASS: Bash syntax and executable bit
+PASS: Exactly 11 untracked files; no staged changes
+PASS: Whitespace checks for all 11 new files
+PASS: Local Markdown links: 16 links across 5 files
+PASS: Ignore rules: 15 excluded and 5 reviewable probes
+PASS: Official GitHub commit metadata, tree SHA and all 21 path/blob/URL records independently matched
+PASS: All new files are small UTF-8 text; no symlinks, nested repositories, build products or common credential signatures found
+PASS: Repository root and origin identify kiritojie/cs340-period-replication; remote branches API returned []
+Documentation correction: reproduction-plan.md now derives -t from pinned source, because upstream -h omits it; replay requires an external timeout.
+UTC: 2026-11-07T08:51:51+00:00
+PASS: Post-edit whitespace, links, Bash syntax/executable, file types/sizes, NOT_RUN label, initial-run output consistency and unstaged 11-file scope.
+Pre-commit review result: PASS for week-one documentation and environment inventory; official doubleFree remains NOT_RUN.

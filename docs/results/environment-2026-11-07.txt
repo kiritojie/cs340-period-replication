@@ -1,0 +1,177 @@
+$ ./scripts/check_environment.sh
+
+=== Report metadata ===
+UTC: 2026-11-07T08:42:39Z
+Asia/Shanghai: 2026-11-07T16:42:39+0800
+Official source: wcventure/PERIOD@cb8deb9a176e5bb292d70d46557dd61dc0e98069
+Scope: read-only inventory; no software installation or scheduler changes.
+
+=== Host operating system and CPU ===
+OS family: Darwin
+CPU architecture: arm64
+$ uname -r
+27.0.0
+[exit_code=0]
+$ uname -v
+Darwin Kernel Version 27.0.0: Tue Aug 11 21:06:24 PDT 2026; root:xnu-13432.1.9~1/RELEASE_ARM64_T6030
+[exit_code=0]
+$ sw_vers
+ProductName:		macOS
+ProductVersion:		27.0.1
+BuildVersion:		26A434
+[exit_code=0]
+$ sysctl -n hw.logicalcpu
+sysctl: sysctl fmt -1 1024 1: Operation not permitted
+[exit_code=1]
+Linux kernel: NOT APPLICABLE (host uses Darwin).
+Native official PERIOD execution: BLOCKED (requires Linux scheduling APIs).
+Architecture differs from the official x86_64 Linux LLVM binary target.
+
+=== Build and analysis commands ===
+$ git --version
+git version 2.50.1 (Apple Git-155)
+[exit_code=0]
+$ python3 --version
+Python 3.12.8
+[exit_code=0]
+$ clang --version
+Apple clang version 17.0.0 (clang-1700.3.19.1)
+Target: arm64-apple-darwin27.0.0
+Thread model: posix
+InstalledDir: /Library/Developer/CommandLineTools/usr/bin
+[exit_code=0]
+$ clang++ --version
+Apple clang version 17.0.0 (clang-1700.3.19.1)
+Target: arm64-apple-darwin27.0.0
+Thread model: posix
+InstalledDir: /Library/Developer/CommandLineTools/usr/bin
+[exit_code=0]
+llvm-config: NOT FOUND in PATH
+$ cmake --version
+cmake version 3.30.3
+
+CMake suite maintained and supported by Kitware (kitware.com/cmake).
+[exit_code=0]
+$ make --version
+GNU Make 3.81
+Copyright (C) 2006  Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.
+There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A
+PARTICULAR PURPOSE.
+
+This program built for i386-apple-darwin11.3.0
+[exit_code=0]
+
+=== Python dependency imports ===
+Python runtime: 3.12.8 (v3.12.8:2dc476bcb91, Dec  3 2024, 14:43:19) [Clang 13.0.0 (clang-1300.0.29.30)]
+numpy: IMPORT FAILED; ModuleNotFoundError: No module named 'numpy'
+sysv_ipc: IMPORT FAILED; ModuleNotFoundError: No module named 'sysv_ipc'
+[exit_code=0; module failures are reported individually]
+
+=== Linux scheduling prerequisites (read only) ===
+SCHED_DEADLINE and Linux /proc scheduling data: NOT APPLICABLE on Darwin.
+
+=== Docker client and daemon ===
+Docker CLI: NOT FOUND in PATH.
+Docker daemon and local PERIOD images: NOT CHECKED without the CLI.
+
+=== Interpretation ===
+Official baseline: multicore Ubuntu >=18.04, Linux kernel >=4.x, Docker >18.09.7.
+Official Dockerfile: Ubuntu 18.04; LLVM 10 x86_64 Linux toolchain.
+Official container launch uses --privileged; Linux SCHED_DEADLINE needs runtime validation.
+Docker CLI/daemon availability does not prove scheduler privileges or example success.
+Inventory completed. No doubleFree build, systematic test or replay was performed by this script.
+
+[script_exit_code=0]
+
+
+=== Run 2: final script with getconf CPU fallback ===
+Script SHA-256: f4e079815f427383adf430844b505079bdb523c93f27a5306df0e94dc224c0a2
+$ ./scripts/check_environment.sh
+
+=== Report metadata ===
+UTC: 2026-11-07T08:43:18Z
+Asia/Shanghai: 2026-11-07T16:43:18+0800
+Official source: wcventure/PERIOD@cb8deb9a176e5bb292d70d46557dd61dc0e98069
+Scope: read-only inventory; no software installation or scheduler changes.
+
+=== Host operating system and CPU ===
+OS family: Darwin
+CPU architecture: arm64
+$ uname -r
+27.0.0
+[exit_code=0]
+$ uname -v
+Darwin Kernel Version 27.0.0: Tue Aug 11 21:06:24 PDT 2026; root:xnu-13432.1.9~1/RELEASE_ARM64_T6030
+[exit_code=0]
+$ sw_vers
+ProductName:		macOS
+ProductVersion:		27.0.1
+BuildVersion:		26A434
+[exit_code=0]
+$ sysctl -n hw.logicalcpu
+sysctl: sysctl fmt -1 1024 1: Operation not permitted
+[exit_code=1]
+$ getconf _NPROCESSORS_ONLN
+11
+[exit_code=0]
+Linux kernel: NOT APPLICABLE (host uses Darwin).
+Native official PERIOD execution: BLOCKED (requires Linux scheduling APIs).
+Architecture differs from the official x86_64 Linux LLVM binary target.
+
+=== Build and analysis commands ===
+$ git --version
+git version 2.50.1 (Apple Git-155)
+[exit_code=0]
+$ python3 --version
+Python 3.12.8
+[exit_code=0]
+$ clang --version
+Apple clang version 17.0.0 (clang-1700.3.19.1)
+Target: arm64-apple-darwin27.0.0
+Thread model: posix
+InstalledDir: /Library/Developer/CommandLineTools/usr/bin
+[exit_code=0]
+$ clang++ --version
+Apple clang version 17.0.0 (clang-1700.3.19.1)
+Target: arm64-apple-darwin27.0.0
+Thread model: posix
+InstalledDir: /Library/Developer/CommandLineTools/usr/bin
+[exit_code=0]
+llvm-config: NOT FOUND in PATH
+$ cmake --version
+cmake version 3.30.3
+
+CMake suite maintained and supported by Kitware (kitware.com/cmake).
+[exit_code=0]
+$ make --version
+GNU Make 3.81
+Copyright (C) 2006  Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.
+There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A
+PARTICULAR PURPOSE.
+
+This program built for i386-apple-darwin11.3.0
+[exit_code=0]
+
+=== Python dependency imports ===
+Python runtime: 3.12.8 (v3.12.8:2dc476bcb91, Dec  3 2024, 14:43:19) [Clang 13.0.0 (clang-1300.0.29.30)]
+numpy: IMPORT FAILED; ModuleNotFoundError: No module named 'numpy'
+sysv_ipc: IMPORT FAILED; ModuleNotFoundError: No module named 'sysv_ipc'
+[exit_code=0; module failures are reported individually]
+
+=== Linux scheduling prerequisites (read only) ===
+SCHED_DEADLINE and Linux /proc scheduling data: NOT APPLICABLE on Darwin.
+
+=== Docker client and daemon ===
+Docker CLI: NOT FOUND in PATH.
+Docker daemon and local PERIOD images: NOT CHECKED without the CLI.
+
+=== Interpretation ===
+Official baseline: multicore Ubuntu >=18.04, Linux kernel >=4.x, Docker >18.09.7.
+Official Dockerfile: Ubuntu 18.04; LLVM 10 x86_64 Linux toolchain.
+Official container launch uses --privileged; Linux SCHED_DEADLINE needs runtime validation.
+Docker CLI/daemon availability does not prove scheduler privileges or example success.
+Inventory completed. No doubleFree build, systematic test or replay was performed by this script.
+
+[script_exit_code=0]
