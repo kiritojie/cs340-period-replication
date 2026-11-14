@@ -1,0 +1,37 @@
+=================================================================
+==228==ERROR: AddressSanitizer: attempting double-free on 0x602000000010 in thread T2:
+    #0 0x4941dd  (/workdir/PERIOD/test/doubleFree/df+0x4941dd)
+    #1 0x4c65b1  (/workdir/PERIOD/test/doubleFree/df+0x4c65b1)
+    #2 0x7275e533a6da  (/lib/x86_64-linux-gnu/libpthread.so.0+0x76da)
+    #3 0x7275e431871e  (/lib/x86_64-linux-gnu/libc.so.6+0x12171e)
+
+0x602000000010 is located 0 bytes inside of 7-byte region [0x602000000010,0x602000000017)
+freed by thread T1 here:
+    #0 0x4941dd  (/workdir/PERIOD/test/doubleFree/df+0x4941dd)
+    #1 0x4c6511  (/workdir/PERIOD/test/doubleFree/df+0x4c6511)
+
+previously allocated by thread T0 here:
+    #0 0x49445d  (/workdir/PERIOD/test/doubleFree/df+0x49445d)
+    #1 0x4c66d0  (/workdir/PERIOD/test/doubleFree/df+0x4c66d0)
+    #2 0x7275e4218bf6  (/lib/x86_64-linux-gnu/libc.so.6+0x21bf6)
+
+Thread T2 created by T0 here:
+    #0 0x47f20a  (/workdir/PERIOD/test/doubleFree/df+0x47f20a)
+    #1 0x4c6772  (/workdir/PERIOD/test/doubleFree/df+0x4c6772)
+    #2 0x7275e4218bf6  (/lib/x86_64-linux-gnu/libc.so.6+0x21bf6)
+
+Thread T1 created by T0 here:
+    #0 0x47f20a  (/workdir/PERIOD/test/doubleFree/df+0x47f20a)
+    #1 0x4c674f  (/workdir/PERIOD/test/doubleFree/df+0x4c674f)
+    #2 0x7275e4218bf6  (/lib/x86_64-linux-gnu/libc.so.6+0x21bf6)
+
+SUMMARY: AddressSanitizer: double-free (/workdir/PERIOD/test/doubleFree/df+0x4941dd) 
+==228==ABORTING
+opts: [('-r', 'out_df_1/Errors/000001_0000003_double-free')]
+args: ['./df']
+reproduceFile: out_df_1/Errors/000001_0000003_double-free
+
+
+[4;36mPerform Dry Run![0m
+
+[4;36mPerform Reproduction![0m

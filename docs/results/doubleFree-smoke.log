@@ -1,0 +1,106 @@
+Installation completed. Everything's fine!
++ cd /workdir/PERIOD/test/doubleFree/
++ ./cleanDIR.sh
++ clang -g -emit-llvm -c ./df.c -o df.bc
+./df.c:16:1: warning: non-void function does not return a value [-Wreturn-type]
+}
+^
+./df.c:24:1: warning: non-void function does not return a value [-Wreturn-type]
+}
+^
+2 warnings generated.
++ /workdir/PERIOD/tool/staticAnalysis/staticAnalysis.sh df
+[*] Making static analysis directory
+[*] DIR: /workdir/PERIOD/test/doubleFree
+[*] ROOT_DIR: /workdir/PERIOD
+[*] Generating mssa.df
+[*] Change format for instrumentation
+[*] Analyze Sensitive Memory Operations
+[*] Update Memory Group with Sensitive Memory Operations
+[*] Dumps mempairs and save it into .npz file
+-rw-r--r-- 1 root root   48 Nov  7 09:01 ConConfig.df
+-rw-r--r-- 1 root root 5.5K Nov  7 09:01 df.bc
+-rw-rw-r-- 1 root root  558 Jan 16  2022 df.c
+-rw-r--r-- 1 root root  833 Nov  7 09:01 mempair.df
+-rw-r--r-- 1 root root 5.2K Nov  7 09:01 mempair.df.npz
+-rw-r--r-- 1 root root  782 Nov  7 09:01 mssa.df
+-rw-r--r-- 1 root root  564 Nov  7 09:01 so.df
+/workdir/PERIOD/test/doubleFree
++ export Con_PATH=/workdir/PERIOD/test/doubleFree/ConConfig.df
++ Con_PATH=/workdir/PERIOD/test/doubleFree/ConConfig.df
++ /workdir/PERIOD/tool/staticAnalysis/DBDS-INSTRU/dbds-clang-fast -g -fsanitize=address -c ./df.c -o df.o
+./df.c:16:1: warning: non-void function does not return a value [-Wreturn-type]
+}
+^
+./df.c:24:1: warning: non-void function does not return a value [-Wreturn-type]
+}
+^
+2 warnings generated.
+[DEBUG] The ConConfig file was successfully opened.
+[DEBUG] The file is /workdir/PERIOD/test/doubleFree/ConConfig.df
+[DEBUG]
+[DEBUG] Instrumentation for df.c:11
+[DEBUG] Instrumentation for df.c:13
+[DEBUG] Instrumentation for df.c:20
+[DEBUG] Instrumentation for df.c:22
+[DEBUG] Instrumentation for df.c:28
+[DEBUG] Instrumentation for df.c:29
++ clang++ ./df.o /workdir/PERIOD/tool/staticAnalysis/DBDS-INSTRU/DBDSFunction.o -g -o df -lpthread -fsanitize=address -ldl
+start
+free 1
+NULL 1
+free 2
+NULL 2
+finished
+opts: [('-y', ''), ('-d', '3')]
+args: ['./df']
+bugDepth: 3
+
+
+[4;36mPerform Dry Run![0m
+
+[4;36mPerform DBDS Run with default system scheduling![0m
+
+--------------------------------------
+Runtime: 9710
+ThreadNum:  2
+MaxKpNum:  2
+TupleScheduling: 0
+kpNumArray: 2 2 
+prefix: []
+coverage_hashID: 4
+--------------------------------------
+Enter 'debug' to view the debug information
+Consider all variables
+
+[4;36mStart Testing![0m
+Targeting bugs that bug depth = 1 . Iterate for 2 periods
+[4;36mtest 0001:[0m [[0, 0], [1, 1]]
+[4;36mtest 0002:[0m [[1, 1], [0, 0]]
+Targeting bugs that bug depth = 2 . Iterate for 3 periods
+[4;36mtest 0003:[0m [[0], [1, 1], [0]]
+[31m	[Error Found]: NO.1 double-free[0m
+[31m	The interleavings saved in out_df_1/Errors/000001_0000003_double-free [0m
+[4;36mtest 0004:[0m [[1], [0, 0], [1]]
+[31m	[Error Found]: NO.2 double-free[0m
+[31m	The interleavings saved in out_df_1/Errors/000002_0000004_double-free [0m
+Targeting bugs that bug depth = 3 . Iterate for 4 periods
+[4;36mtest 0005:[0m [[0], [1], [0], [1]]
+[31m	[Error Found]: NO.3 double-free[0m
+[31m	The interleavings saved in out_df_1/Errors/000003_0000005_double-free [0m
+[4;36mtest 0006:[0m [[1], [0], [1], [0]]
+[31m	[Error Found]: NO.4 double-free[0m
+[31m	The interleavings saved in out_df_1/Errors/000004_0000006_double-free [0m
+[4;36mEnd Testing!
+[0m
+[1;35m
+Total Error Interleavings: 4
+Total Timeouts Interleavings: 0
+2 status found:
+	 [0, -6]
+0 results found:
+--------------------------------------------------
+	Last New Find		Total
+Round	0			6
+Time	00:00:00.00000		00:00:00.34745
+[0m
