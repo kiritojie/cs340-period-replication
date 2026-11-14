@@ -15,9 +15,27 @@
 
 环境检测脚本退出码为 0 仅表示盘点完成。官方示例的 6 个调度、4 个错误交错、首次错误在第 3 个调度，均为作者提供的验收对照，并非本组实验结果。
 
+
+## 第二周进展：跑通 PERIOD 的 `doubleFree` 示例
+
+第一周在 Mac 上检查了运行条件。随后在 Windows 上通过 WSL2 和 Podman 运行 Ubuntu 容器，成功构建并测试了论文作者提供的 `doubleFree` 示例。运行时使用 Ubuntu 18.04.5 和 Clang 10.0.0，完整版本见[环境记录](docs/results/environment.txt)。
+
+`doubleFree` 是一个用来验证工具能否正常工作的小程序。某些线程执行顺序会让程序对同一块内存释放两次。PERIOD 会在程序的关键位置安排线程的执行顺序，每尝试一套安排，日志就记下一次测试。
+
+| 实际结果 | 怎么理解 | 在日志里找什么 |
+| --- | --- | --- |
+| 共尝试 6 次 | PERIOD 测试了 6 套线程执行顺序。 | `test 0001` 到 `test 0006` |
+| 第 3 次首次报错 | 前两次未报告该错误，第 3 次第一次触发。 | `test 0003` 后的第一条 `Error Found` |
+| 4 次触发错误 | 6 套顺序中有 4 套触发了同一个重复释放问题。 | `Total Error Interleavings: 4` |
+
+PERIOD 保存了报错时的执行顺序。按第 3 次的顺序重新运行，就是一次**回放**。回放时，内存错误检测工具 AddressSanitizer 再次报告 `double-free`，确认保存的顺序能再次触发示例里的错误。
+
+组员第一次看时，可以先读[第二周运行说明](docs/week2-doublefree.md)，再打开[原始运行日志](docs/results/doubleFree-smoke.log)，用 `Ctrl+F` 找 `test 0003`。最后到[回放日志](docs/results/doubleFree-replay.log)找 `SUMMARY: AddressSanitizer: double-free`。这一步验证了 PERIOD 的运行和回放流程。论文表 2 的正式对照实验使用的是另一组 `reorder` 用例。
+
+
 ## 正式复现范围
 
-先用官方 `doubleFree` 示例验证构建、受控调度和回放。正式实验从[论文 Table 1（RQ2）](https://wcventure.github.io/pdf/ICSE2022_PERIOD.pdf#page=8) 的 `CVE-2016-7911` 开始，验证 PERIOD 能否在该用例上触发已知并发错误。
+已用官方 `doubleFree` 示例验证构建、受控调度和回放，详见[第二周运行说明](docs/week2-doublefree.md)。正式实验从[论文 Table 1（RQ2）](https://wcventure.github.io/pdf/ICSE2022_PERIOD.pdf#page=8) 的 `CVE-2016-7911` 开始，验证 PERIOD 能否在该用例上触发已知并发错误。
 
 计划按论文设置独立完整运行至少三次，记录与论文相同的三项 PERIOD 指标：首次触发错误的调度序号、总调度数、触发错误的调度数。报告均值与样本标准差，逐项链接原始日志，并注明运行次数、环境或参数与论文的差异。超时与未发现错误单独记录。该范围仅覆盖 Table 1 的部分结果。
 
@@ -65,8 +83,8 @@ exit 0 不表示依赖全部存在。缺少工具、模块导入失败、Docker 
 
 ## 下一步与验收
 
-1. **准备 x86_64 多核 Linux VM。** 记录发行版、内核、CPU 核数、工具版本和官方镜像摘要或构建来源；在容器内实际验证 `SCHED_DEADLINE` 可用。
-2. **跑通工具验收。** 在固定版本的官方源码目录构建 `doubleFree`，按官方示例执行 `run_PDS.py -y -d 3 ./df`，保留构建和运行日志、错误调度文件；使用保存的调度回放一次并确认 ASan 报告 double-free。
+1. **运行环境已搭好。** 在 Windows 的 WSL2 + Podman 环境中运行了 Ubuntu 容器，版本见[环境记录](docs/results/environment.txt)。
+2. **工具运行与回放已验证。** `doubleFree` 示例已成功构建和运行，回放时再次检测到重复释放错误。详见[第二周运行说明](docs/week2-doublefree.md)。
 3. **产出第一组论文对照数据。** 在已验证环境中执行 `CVE-2016-7911`，按上述指标生成第一条 `Paper vs. Ours` 对照记录。小型原始日志、用于回放的调度文件和回放输出摘存到 `docs/results/`，并记录对应的命令与参数。
 
 具体命令及环境要求见[复现计划](docs/reproduction-plan.md)。
