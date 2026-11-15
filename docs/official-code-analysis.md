@@ -6,6 +6,18 @@
 - 分析版本：[cb8deb9a176e5bb292d70d46557dd61dc0e98069](https://github.com/wcventure/PERIOD/commit/cb8deb9a176e5bb292d70d46557dd61dc0e98069)，提交时间 2022-10-09 07:21:09 UTC，提交说明 `fix Install.md`。
 - 论文：[Controlled Concurrency Testing via Periodical Scheduling](https://wcventure.github.io/pdf/ICSE2022_PERIOD.pdf)，ICSE 2022，DOI [10.1145/3510003.3510178](https://doi.org/10.1145/3510003.3510178)。
 
+<a id="version-comparison"></a>
+
+## 实验版本补充（2026-11-15 整理）
+
+第二周[环境日志](results/environment.txt)记录的实际源码提交为 `b6f72a7b06d01ffa7114b640312873ec2578a5ea`，与本文的第一周分析版本不同。2026-11-14 的上游版本核对结论如下：
+
+- 两个固定提交中的 `tool/`、`test/`、`evaluation/` 目录和 `Dockerfile` 内容相同；净差异仅涉及四项文档更新，包括安装说明、用法说明和示例结果文字。[官方版本对比](https://github.com/wcventure/PERIOD/compare/b6f72a7b06d01ffa7114b640312873ec2578a5ea...cb8deb9a176e5bb292d70d46557dd61dc0e98069)
+- 本文对调度生成器、驱动、插桩运行时及 doubleFree 构建链的源码分析仍适用于该实验提交，无须仅为对齐提交编号而升级已跑通的环境。
+- 这一结论只覆盖上游源码，不能证明实验容器内没有本地修改，也不能证明预编译对象、插桩器和最终 `df` 来自该源码。
+
+后续应记录容器工作树状态、源码差异、镜像身份、构建日志及相关对象/可执行文件摘要；补采步骤见[第二周复现补采说明](week2-reproducibility.md)。文件摘要用于固定身份，不能单独证明源码与二进制的对应关系。
+
 ## 1. 目录与技术职责
 
 固定版本中的实际路径与 README 的概括存在大小写、单复数差异；运行命令应以源码树为准。

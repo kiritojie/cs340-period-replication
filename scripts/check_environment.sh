@@ -29,7 +29,7 @@ import subprocess
 import sys
 try:
     result = subprocess.run(sys.argv[1:], stdout=subprocess.PIPE,
-                            stderr=subprocess.PIPE, timeout=10, text=True)
+                            stderr=subprocess.PIPE, timeout=10, universal_newlines=True)
     print(result.stdout, end="")
     if result.stderr:
         print("[stderr omitted: Docker endpoint details may be private]")
@@ -61,7 +61,8 @@ PY
 section 'Report metadata'
 printf 'UTC: %s\n' "$(date -u '+%Y-%m-%dT%H:%M:%SZ')"
 printf 'Asia/Shanghai: %s\n' "$(TZ=Asia/Shanghai date '+%Y-%m-%dT%H:%M:%S%z')"
-printf 'Official source: wcventure/PERIOD@cb8deb9a176e5bb292d70d46557dd61dc0e98069\n'
+printf 'Analysis reference: wcventure/PERIOD@cb8deb9a176e5bb292d70d46557dd61dc0e98069\n'
+printf 'Actual PERIOD checkout: not inferred here; record git rev-parse HEAD in that checkout.\n'
 printf 'Scope: read-only inventory; no software installation or scheduler changes.\n'
 
 section 'Host operating system and CPU'
