@@ -4,6 +4,8 @@
 
 官方分析版本：[`cb8deb9a176e5bb292d70d46557dd61dc0e98069`](https://github.com/wcventure/PERIOD/commit/cb8deb9a176e5bb292d70d46557dd61dc0e98069)，2022-10-09，`fix Install.md`。文件级来源记录见 [official-source.json](docs/official-source.json)。本仓库汇总小组的分析、脚本和实验记录，不复制官方工具代码。README 记录小组整体进展；各成员的实际贡献通过各自的提交记录和报告中的分工说明体现。
 
+第二周实验环境记录的源码版本为 `b6f72a7b06d01ffa7114b640312873ec2578a5ea`。已核对两个上游提交：工具、示例和 evaluation 目录相同，净差异仅涉及文档；容器本地修改与编译对象身份仍需补证。见[版本核对](docs/official-code-analysis.md#version-comparison)。
+
 ## 小组第一周进展（2026-11-07）
 
 | 项目 | 状态 | 证据 |
@@ -17,6 +19,8 @@
 
 
 ## 第二周进展：跑通 PERIOD 的 `doubleFree` 示例
+
+**第二周证据复核（2026-11-14）：功能运行与回放已完成，完整可复现性验收暂未结项。** 尚缺原始错误调度文件、命令及退出码、镜像原始身份和当前 deadline 调度证据。详见[缺口、WSL2 补采命令及结项条件](docs/week2-reproducibility.md)。本次只整理证据，没有新增 PERIOD 实测数据。
 
 第一周在 Mac 上检查了运行条件。随后在 Windows 上通过 WSL2 和 Podman 运行 Ubuntu 容器，成功构建并测试了论文作者提供的 `doubleFree` 示例。运行时使用 Ubuntu 18.04.5 和 Clang 10.0.0，完整版本见[环境记录](docs/results/environment.txt)。
 
@@ -73,9 +77,10 @@ exit 0 不表示依赖全部存在。缺少工具、模块导入失败、Docker 
 | 文件 | 内容 |
 | --- | --- |
 | [algorithm-notes.md](docs/algorithm-notes.md) | period 有界探索、DKPS、prefix、反馈执行和适用边界 |
-| [official-code-analysis.md](docs/official-code-analysis.md) | 源码结构、doubleFree 时序、bitcode→分析→插桩→ASan 链接、官方文档差异 |
+| [official-code-analysis.md](docs/official-code-analysis.md) | 源码结构、doubleFree 时序、bitcode→分析→插桩→ASan 链接、实验版本核对 |
 | [reproduction-plan.md](docs/reproduction-plan.md) | 环境依赖、Linux 复现流程、验收指标及后续实验计划 |
 | [official-source.json](docs/official-source.json) | 官方 commit、文件 blob ID 和固定版本链接 |
+| [week2-reproducibility.md](docs/week2-reproducibility.md) | 第二周缺失证据、先归档后补跑的完整 WSL2 命令、退出码解释和结项条件 |
 | [week1-results.md](docs/week1-results.md) | 真实检查结论、未执行项、剩余问题与提交范围 |
 | [环境原始日志](docs/results/environment-2026-11-07.txt) | 两次真实检测；第二次加入 CPU 核数备用检测，附脚本 SHA-256 |
 | [doubleFree 前提检查日志](docs/results/doublefree-feasibility-2026-11-07.txt) | `docker --version` 实际失败输出与 NOT_RUN 决定 |
@@ -84,7 +89,7 @@ exit 0 不表示依赖全部存在。缺少工具、模块导入失败、Docker 
 ## 下一步与验收
 
 1. **运行环境已搭好。** 在 Windows 的 WSL2 + Podman 环境中运行了 Ubuntu 容器，版本见[环境记录](docs/results/environment.txt)。
-2. **工具运行与回放已验证。** `doubleFree` 示例已成功构建和运行，回放时再次检测到重复释放错误。详见[第二周运行说明](docs/week2-doublefree.md)。
+2. **工具运行与回放已有成功日志，第二周待补证后结项。** 优先补齐原始调度、退出码、环境身份及调度实测记录，详见[第二周补采说明](docs/week2-reproducibility.md)。
 3. **产出第一组论文对照数据。** 在已验证环境中执行 `CVE-2016-7911`，按上述指标生成第一条 `Paper vs. Ours` 对照记录。小型原始日志、用于回放的调度文件和回放输出摘存到 `docs/results/`，并记录对应的命令与参数。
 
 具体命令及环境要求见[复现计划](docs/reproduction-plan.md)。
