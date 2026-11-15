@@ -18,11 +18,11 @@
 
 ## 第二周证据审计补充
 
-- 原始日志支持 6 个调度、首次错误第 3 个、4 个错误交错、0 个超时及 ASan double-free 回放；4 个错误交错对应同一个示例缺陷。
-- 构建与探索合并在同一日志中，未保存外层完整命令、起止时间和 shell 退出码；回放日志同样没有 shell 退出码。探索末尾的 `[0, -6]` 是目标子进程状态集合，不能写成构建或 Python 驱动退出码。历史退出码保留为 **UNKNOWN**。
-- 日志中提到的 4 个 `out_df_1/Errors/` 原始文件没有进入本仓库；需从原容器恢复，或执行明确标为“补采”的新运行。不能用控制台打印的 period 列表伪造回放文件。
-- [版本核对](official-code-analysis.md#version-comparison)确认两个上游提交的 `tool/`、`test/`、`evaluation/` 相同；容器工作树和编译对象来源仍待记录。
-- [调度能力补证](week2-reproducibility.md#deadline-check)保留待执行的环境检查、单任务探针和实际调用链核验要求。`PREEMPT_DYNAMIC` 不能单独证明 SCHED_DEADLINE 已生效。
-- [补采说明](week2-reproducibility.md)包含先归档旧文件、再构建/探索/回放的完整命令及验收清单。
+> 2026-11-15 完成一轮新的 `doubleFree` 最小实验，并保留完整证据。
+> 使用固定 PERIOD 镜像完成构建、探索、回放和 `SCHED_DEADLINE` 验证。
+> 构建、探索、回放和调度探针的外层退出码均为 `0`。
+> 探索共执行 6 个调度，第 3 个调度首次触发 double-free，共保存 4 个错误调度，超时数为 0。
+> 回放第一个保存的错误调度时，AddressSanitizer 再次报告 `double-free`。
+> 镜像归档见 [Release](https://github.com/kiritojie/cs340-period-replication/releases/tag/doublefree-evidence-20261115)，完整命令、输出、退出码和原始错误调度文件见 [证据包](results/PERIOD_doubleFree_rerun_evidence-verified.zip)。
 
 这份记录覆盖 PERIOD 的示例运行与回放。论文表格对应的正式基准实验另行汇报。本说明初稿由 ChatGPT 协助整理。
