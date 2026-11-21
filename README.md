@@ -1,59 +1,70 @@
-# CS340 · PERIOD 论文复现（小组项目）
+# CS340 · PERIOD 论文复现
 
-项目论文：Cheng Wen 等，*Controlled Concurrency Testing via Periodical Scheduling*，ICSE 2022。[论文预印本](https://wcventure.github.io/pdf/ICSE2022_PERIOD.pdf) · [DOI](https://doi.org/10.1145/3510003.3510178) · [官方源码](https://github.com/wcventure/PERIOD)
+CS340 Operating Systems 小组项目。PERIOD 通过控制线程在关键位置的执行顺序，探索并发程序在不同调度下的行为。本仓库收录小组的源码分析、检查脚本和实验记录，官方工具源码由上游维护。
 
-官方分析版本：[`cb8deb9a176e5bb292d70d46557dd61dc0e98069`](https://github.com/wcventure/PERIOD/commit/cb8deb9a176e5bb292d70d46557dd61dc0e98069)，2022-10-09，`fix Install.md`。文件级来源记录见 [official-source.json](docs/official-source.json)。本仓库汇总小组的分析、脚本和实验记录，不复制官方工具代码。README 记录小组整体进展；各成员的实际贡献通过各自的提交记录和报告中的分工说明体现。
+Cheng Wen 等，*Controlled Concurrency Testing via Periodical Scheduling*，ICSE 2022。[论文 PDF](https://wcventure.github.io/pdf/ICSE2022_PERIOD.pdf) · [DOI](https://doi.org/10.1145/3510003.3510178) · [官方源码](https://github.com/wcventure/PERIOD)
 
-第二周实验环境记录的源码版本为 `b6f72a7b06d01ffa7114b640312873ec2578a5ea`。已核对两个上游提交：工具、示例和 evaluation 目录相同，净差异仅涉及文档；容器本地修改与编译对象身份仍需补证。见[版本核对](docs/official-code-analysis.md#version-comparison)。
+[复现入口](#复现入口) · [正式复现范围](#正式复现范围) · [更新历史](#更新历史)
 
-## 小组第一周进展（2026-11-07）
+## 项目进度
 
-| 项目 | 状态 | 证据 |
+| 阶段 | 进展 | 记录 |
 | --- | --- | --- |
-| 官方版本与构建链 | 已固定官方 commit；已梳理核心算法、构建、插桩与回放路径 | [源码分析](docs/official-code-analysis.md) · [算法笔记](docs/algorithm-notes.md) |
-| 实验准备：环境盘点 | 小组记录了在一台 ARM64 Mac 上执行的两次环境检查，保留输出和退出码 | [第一周记录](docs/week1-results.md) · [原始环境日志](docs/results/environment-2026-11-07.txt) |
-| PERIOD 构建、`doubleFree` 测试与回放 | **NOT_RUN**。已检查的 Mac 宿主不提供 Linux 调度接口，Docker CLI 不在当前 PATH 中；尚未验证 x86_64 Linux 环境 | [前提检查日志](docs/results/doublefree-feasibility-2026-11-07.txt) |
-| 论文基准复现 | **NOT_RUN**，暂无本组 `Paper vs. Ours` 数据 | [复现计划](docs/reproduction-plan.md) |
+| 第一周 · 论文与源码 | 固定上游版本，梳理调度算法、构建、插桩与回放路径，完成两次 ARM64 Mac 环境检查。 | [算法笔记](docs/algorithm-notes.md) · [源码分析](docs/official-code-analysis.md) · [第一周记录](docs/week1-results.md) |
+| 第二周 · 工具验收 | 在 Windows WSL2 + Podman 上跑通 `doubleFree` 的构建、探索和 ASan 回放，随后完成证据审计与重跑补采。 | [第二周记录](docs/week2-doublefree.md) |
+| 日志统计 | 已用首次探索日志与重跑探索日志核对统计脚本。 | [统计说明](docs/log-statistics.md) · [11 月 19 日独立统计核对](docs/results/doublefree-log-check-2026-11-19.md) |
+| 论文基准 | 首个正式用例待小组确认，暂无本组 `Paper vs. Ours` 数据。 | [复现计划](docs/reproduction-plan.md) |
 
-环境检测脚本退出码为 0 仅表示盘点完成。官方示例的 6 个调度、4 个错误交错、首次错误在第 3 个调度，均为作者提供的验收对照，并非本组实验结果。
+## 第二周 doubleFree 验证摘要
 
+官方 `doubleFree` 示例中，某些线程执行顺序会让同一块内存被释放两次。11 月 7 日的首次运行和 11 月 15 日的重跑分别记录了以下结果。
 
-## 第二周进展：跑通 PERIOD 的 `doubleFree` 示例
-
-**第二周证据复核（2026-11-14）：功能运行与回放已完成，完整可复现性验收暂未结项。** 尚缺原始错误调度文件、命令及退出码、镜像原始身份和当前 deadline 调度证据。详见[缺口、WSL2 补采命令及结项条件](docs/week2-reproducibility.md)。本次只整理证据，没有新增 PERIOD 实测数据。
-
-第一周在 Mac 上检查了运行条件。随后在 Windows 上通过 WSL2 和 Podman 运行 Ubuntu 容器，成功构建并测试了论文作者提供的 `doubleFree` 示例。运行时使用 Ubuntu 18.04.5 和 Clang 10.0.0，完整版本见[环境记录](docs/results/environment.txt)。
-
-`doubleFree` 是一个用来验证工具能否正常工作的小程序。某些线程执行顺序会让程序对同一块内存释放两次。PERIOD 会在程序的关键位置安排线程的执行顺序，每尝试一套安排，日志就记下一次测试。
-
-| 实际结果 | 怎么理解 | 在日志里找什么 |
+| 指标 | 两轮各自的记录 | 日志定位 |
 | --- | --- | --- |
-| 共尝试 6 次 | PERIOD 测试了 6 套线程执行顺序。 | `test 0001` 到 `test 0006` |
-| 第 3 次首次报错 | 前两次未报告该错误，第 3 次第一次触发。 | `test 0003` 后的第一条 `Error Found` |
-| 4 次触发错误 | 6 套顺序中有 4 套触发了同一个重复释放问题。 | `Total Error Interleavings: 4` |
+| 总调度次数 | 6 | `test 0001` 至 `test 0006`，汇总 `Round` 为 6 |
+| 首次触发错误 | 第 3 次 | `test 0003` 后首次出现 `Error Found` |
+| 错误调度次数 | 4，均触发同一示例缺陷 | `Total Error Interleavings: 4` |
+| 超时次数 | 0 | `Total Timeouts Interleavings: 0` |
+| 回放 | AddressSanitizer 再次检测到 `double-free` | `SUMMARY: AddressSanitizer: double-free` |
 
-PERIOD 保存了报错时的执行顺序。按第 3 次的顺序重新运行，就是一次**回放**。回放时，内存错误检测工具 AddressSanitizer 再次报告 `double-free`，确认保存的顺序能再次触发示例里的错误。
+- **2026-11-07** 在 WSL2 + Podman 容器完成首次构建、探索和回放。[首次探索日志](docs/results/doubleFree-smoke.log) · [首次回放日志](docs/results/doubleFree-replay.log)
+- **2026-11-14** 完成初步审计，发现首次运行的原始调度、外层命令及退出码、容器与构建身份、实际调度验证等证据尚不完整。[当日审计与补采方案](docs/week2-reproducibility.md)
+- **2026-11-15** 用固定镜像完成新一轮构建、探索与回放，归档命令、输出、退出码、4 份原始错误调度、镜像检查及 `SCHED_DEADLINE` 单任务策略读回。[重跑证据包](docs/results/PERIOD_doubleFree_rerun_evidence-verified.zip)
 
-组员第一次看时，可以先读[第二周运行说明](docs/week2-doublefree.md)，再打开[原始运行日志](docs/results/doubleFree-smoke.log)，用 `Ctrl+F` 找 `test 0003`。最后到[回放日志](docs/results/doubleFree-replay.log)找 `SUMMARY: AddressSanitizer: double-free`。这一步验证了 PERIOD 的运行和回放流程。论文表 2 的正式对照实验使用的是另一组 `reorder` 用例。
+工具功能验证已完成。完整独立复现仍有待核验项，包括重跑容器的源码工作树与编译对象身份、PERIOD 工作线程的实际调度调用链，以及由另一位组员独立构建和回放的记录。[验收状态明细](docs/week2-doublefree.md#独立复现验收状态)
 
+## 复现入口
+
+1. 核对已验证的 x86_64 Linux 路线，参见下方[环境检查](#环境检查)及首次运行的[环境记录](docs/results/environment.txt)。
+2. 从 [GitHub Release](https://github.com/kiritojie/cs340-period-replication/releases/tag/doublefree-evidence-20261115) 获取固定镜像归档 `PERIOD-amd64.oci.tar`。重跑证据包同时提供镜像身份、各阶段记录及附带的采集脚本。
+3. 参阅[第二周证据补采说明](docs/week2-reproducibility.md)中的环境、构建和记录保存方法。该文档记录 11 月 14 日的审计和当时拟定的命令，已执行的补采以[第二周记录](docs/week2-doublefree.md#2026-11-15-重跑与补采)为准。
 
 ## 正式复现范围
 
-已用官方 `doubleFree` 示例验证构建、受控调度和回放，详见[第二周运行说明](docs/week2-doublefree.md)。正式实验从[论文 Table 1（RQ2）](https://wcventure.github.io/pdf/ICSE2022_PERIOD.pdf#page=8) 的 `CVE-2016-7911` 开始，验证 PERIOD 能否在该用例上触发已知并发错误。
+| 用例 | 用途 | 本组进度 |
+| --- | --- | --- |
+| `doubleFree` | 工具功能验收，验证构建、受控调度和回放 | 已完成工具验证，示例数据仅用于验收 |
+| `CVE-2016-7911` | [论文 Table 1（RQ2）](https://wcventure.github.io/pdf/ICSE2022_PERIOD.pdf#page=8)，并发错误检测基准 | 原计划首选，待小组确认 |
+| `CS.reorder_3_bad` | [论文 Table 2（RQ1）](https://wcventure.github.io/pdf/ICSE2022_PERIOD.pdf#page=9)，并行调度评估基准 | 候选，待小组确认 |
 
-计划按论文设置独立完整运行至少三次，记录与论文相同的三项 PERIOD 指标：首次触发错误的调度序号、总调度数、触发错误的调度数。报告均值与样本标准差，逐项链接原始日志，并注明运行次数、环境或参数与论文的差异。超时与未发现错误单独记录。该范围仅覆盖 Table 1 的部分结果。
+确认首个正式用例后，按选定的论文设置至少独立完整运行三次，产出所选表中该用例的第一行 `Paper vs. Ours`。记录首次触发错误的调度序号、总调度数和错误调度数，报告均值和样本标准差，另记超时和未发现错误的情况。逐轮记录运行环境、命令和参数，说明与论文设置的差异，并链接原始日志。将小型原始日志、回放调度文件和回放输出保存至 `docs/results/`。[正式实验计划](docs/reproduction-plan.md) · [日志统计用法](docs/log-statistics.md)
 
-## 运行环境检查
+## 环境检查
 
-在仓库根目录执行（Bash 3.2+，支持 macOS/Linux）：
+首次验证环境为 Windows WSL2 + Podman 上的 x86_64 Ubuntu 18.04.5 容器，使用 Clang 10.0.0。第一周的 ARM64 Mac 检查保留了两次环境盘点和 Docker CLI 不在当时 PATH 中的记录，当时在该宿主上的示例状态为 `NOT_RUN`。[Mac 环境日志](docs/results/environment-2026-11-07.txt) · [示例前提检查](docs/results/doublefree-feasibility-2026-11-07.txt)
+
+在仓库根目录使用 Bash 3.2+ 执行（macOS/Linux）。
 
 ```bash
 ./scripts/check_environment.sh
 ```
 
-脚本只读报告系统/CPU/内核、构建工具、Python 模块、Linux 调度线索以及 Docker CLI/daemon 和已有 PERIOD 镜像。Docker 查询有超时；脚本不会安装软件、拉取镜像、启动容器或修改调度策略。它不自动确认环境满足官方要求，也不执行 doubleFree。
+[环境检查脚本](scripts/check_environment.sh)只读盘点系统、CPU、构建工具、Python 模块、Linux 调度线索和 Docker 状态。退出码 `0` 表示盘点完成。依赖是否齐全以报告为准，实际调度能力以运行记录为准。
 
-若要保存新检测记录，可用以下命令生成独立日志；`noclobber` 防止覆盖同名文件，输出保留在终端及文件中：
+<details>
+<summary><strong>保存环境检查日志与退出码</strong></summary>
+
+运行以下命令可将报告同时保留在终端和文件中。`noclobber` 防止覆盖同名记录。
 
 ```bash
 mkdir -p docs/results
@@ -70,37 +81,30 @@ mkdir -p docs/results
 )
 ```
 
-exit 0 不表示依赖全部存在。缺少工具、模块导入失败、Docker 不可达等会在报告中单独标出；Linux 的实际 `SCHED_DEADLINE` 权限仍需在后续实验中验证。
+</details>
 
-## 文档与证据
+## 源码版本与历史记录
 
-| 文件 | 内容 |
+| 用途 | 固定上游提交 | 依据 |
+| --- | --- | --- |
+| 第一周源码分析 | [`cb8deb9a176e5bb292d70d46557dd61dc0e98069`](https://github.com/wcventure/PERIOD/commit/cb8deb9a176e5bb292d70d46557dd61dc0e98069) | 2022-10-09，`fix Install.md`。[文件 blob ID 与版本链接](docs/official-source.json) |
+| 第二周首次运行环境记录中的源码 HEAD | [`b6f72a7b06d01ffa7114b640312873ec2578a5ea`](https://github.com/wcventure/PERIOD/commit/b6f72a7b06d01ffa7114b640312873ec2578a5ea) | [首次运行环境记录](docs/results/environment.txt) |
+
+两个上游提交中的 `tool/`、`test/`、`evaluation/` 和 `Dockerfile` 内容相同，净差异仅涉及四份文档。11 月 15 日的镜像检查和构建记录用于确认该轮运行条件。容器内工作树、预编译对象与最终可执行文件的来源仍需结合该轮的源码状态和构建产物摘要核验。[上游版本核对](docs/official-code-analysis.md#version-comparison)
+
+第一周保存了两次 Mac 检查的输出与退出码，第二次增加 CPU 核数备用检测并记录脚本 SHA-256。作者示例当时仅作验收参考，本组实际结果见第二周两轮日志。[脚本语法、链接及忽略规则验证](docs/results/validation-2026-11-07.txt)
+
+[仓库忽略规则](.gitignore)覆盖外部源码副本、下载包、镜像/磁盘文件、编译产物、Python 缓存和常见凭据。小型实验记录集中在 `docs/results/`。
+
+## 更新历史
+
+| 日期 | 小组进展 |
 | --- | --- |
-| [algorithm-notes.md](docs/algorithm-notes.md) | period 有界探索、DKPS、prefix、反馈执行和适用边界 |
-| [official-code-analysis.md](docs/official-code-analysis.md) | 源码结构、doubleFree 时序、bitcode→分析→插桩→ASan 链接、实验版本核对 |
-| [reproduction-plan.md](docs/reproduction-plan.md) | 环境依赖、Linux 复现流程、验收指标及后续实验计划 |
-| [official-source.json](docs/official-source.json) | 官方 commit、文件 blob ID 和固定版本链接 |
-| [week2-reproducibility.md](docs/week2-reproducibility.md) | 第二周缺失证据、先归档后补跑的完整 WSL2 命令、退出码解释和结项条件 |
-| [week1-results.md](docs/week1-results.md) | 真实检查结论、未执行项、剩余问题与提交范围 |
-| [环境原始日志](docs/results/environment-2026-11-07.txt) | 两次真实检测；第二次加入 CPU 核数备用检测，附脚本 SHA-256 |
-| [doubleFree 前提检查日志](docs/results/doublefree-feasibility-2026-11-07.txt) | `docker --version` 实际失败输出与 NOT_RUN 决定 |
-| [验证日志](docs/results/validation-2026-11-07.txt) | 脚本语法、文件链接/来源记录、忽略规则和空白检查 |
+| 2026-11-08 | [初始化仓库](https://github.com/kiritojie/cs340-period-replication/commit/67f4574ac9c82a05439d2d1f1e525d09a84f5da6)，记录源码来源、忽略规则、算法和源码分析、复现计划及第一周环境检查。 |
+| 2026-11-09 | [整理小组首页](https://github.com/kiritojie/cs340-period-replication/commit/2f5fa9307414ed30ba32323f47f5ab89a9397dd2)，补充实验范围、测量指标、验收标准和证据链接。 |
+| 2026-11-14 | [记录首次工具验证和初步审计](docs/week2-doublefree.md#2026-11-14-初步证据审计)，整理环境、探索与回放日志，并记录证据缺口。 |
+| 2026-11-15 | [提交重跑证据](https://github.com/kiritojie/cs340-period-replication/commit/c0a4ce7329c24cb6ac87cd90212b3580e59262f7)，补充原始调度、命令、退出码、镜像信息和单任务调度验证。 |
+| 2026-11-18 | [整理项目首页和证据导航](https://github.com/kiritojie/cs340-period-replication/commit/7b355b8b65a8159e86484725be05cc9f4928af3e)。 |
+| 2026-11-19 | [新增日志统计工作流](docs/log-statistics.md)，并对重跑探索日志完成[独立统计核对](docs/results/doublefree-log-check-2026-11-19.md)。 |
 
-## 下一步与验收
-
-1. **运行环境已搭好。** 在 Windows 的 WSL2 + Podman 环境中运行了 Ubuntu 容器，版本见[环境记录](docs/results/environment.txt)。
-2. **工具运行与回放已有成功日志，第二周待补证后结项。** 优先补齐原始调度、退出码、环境身份及调度实测记录，详见[第二周补采说明](docs/week2-reproducibility.md)。
-3. **产出第一组论文对照数据。** 在已验证环境中执行 `CVE-2016-7911`，按上述指标生成第一条 `Paper vs. Ours` 对照记录。小型原始日志、用于回放的调度文件和回放输出摘存到 `docs/results/`，并记录对应的命令与参数。
-
-具体命令及环境要求见[复现计划](docs/reproduction-plan.md)。
-
-`.gitignore` 排除了外部源码副本、下载包、镜像/磁盘文件、编译产物、Python 缓存和常见凭据；`docs/results/` 中精选的小型文本证据可以提交。
-
-## 小组更新历史
-
-下表汇总小组项目进展。每次提交的作者和实际提交时间以 GitHub 提交历史为准。
-
-| 日期 | 更新内容 |
-| --- | --- |
-| 2026-11-08 | [首次提交 `67f4574`](https://github.com/kiritojie/cs340-period-replication/commit/67f4574ac9c82a05439d2d1f1e525d09a84f5da6)：初始化仓库与忽略规则，记录官方版本和文件来源，加入算法笔记、源码分析、复现计划、第一周记录及环境检测脚本，保留环境检查、前提检查和验证日志。 |
-| 2026-11-09 | 更新小组 README：明确项目为小组合作，把第一周状态与证据链接集中到首页；注明 `doubleFree` 和论文基准的实际状态；明确 Table 1 的首个正式复现用例、测量指标与重复实验计划；补充 Linux、构建、回放和证据保存的验收标准；移除过时的仓库初始化说明。此次是文档更新，未新增实验数据。 |
+组员贡献见各自的提交和报告分工。提交作者与时间以 Git 历史为准。
