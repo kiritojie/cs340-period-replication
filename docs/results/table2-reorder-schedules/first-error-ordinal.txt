@@ -1,0 +1,5 @@
+first schedule ordinal that triggers the assertion (round R1)
+reorder_3    6
+reorder_4    9
+reorder_5    12
+reorder_10   27

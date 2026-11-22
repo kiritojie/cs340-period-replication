@@ -1,0 +1,7 @@
+source batch: sct-reorder-r10-20261122T154640Z
+rounds per program: 10
+
+reorder_3    median=27 range=27-27   err median=6 range=6-6   n=10 rc=['0'] paper=27 match=YES
+reorder_4    median=100 range=100-100   err median=12 range=12-12   n=10 rc=['0'] paper=100 match=YES
+reorder_5    median=225 range=225-225   err median=20 range=20-20   n=10 rc=['0'] paper=225 match=YES
+reorder_10   median=2350 range=2350-2350   err median=90 range=89-93   n=10 rc=['0'] paper=2350 match=YES

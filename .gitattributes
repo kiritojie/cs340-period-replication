@@ -13,3 +13,4 @@ scripts/cve_build_all.sh text eol=lf
 scripts/cve_repeat_loop.sh text eol=lf
 scripts/cve_stats.py text eol=lf
 docs/results/worker-syscall-evidence/** -text
+docs/results/table2-reorder-schedules/** -text

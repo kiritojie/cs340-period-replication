@@ -1,0 +1,1 @@
+external_wall_s=73.980

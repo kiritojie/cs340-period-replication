@@ -1,0 +1,2 @@
+python3 -u /workdir/PERIOD/tool/DBDS/run_PDS.py -y -d 3 ./reorder_3_bad
+binary_sha256=ed2d13809b87a00eaaba76ac0f1faf4871a489a0960993e5963dc89b4bb13db9

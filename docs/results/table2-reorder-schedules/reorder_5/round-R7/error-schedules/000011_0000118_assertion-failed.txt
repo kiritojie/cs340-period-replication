@@ -1,0 +1,3 @@
+[[3, 0], [3, 0], [0, 2], [3, 0], [1, 0]]
+Bug found!
+reorder_5_bad: reorder_bad.c:80: void *checkThread(void *): Assertion `0' failed.
