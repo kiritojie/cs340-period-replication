@@ -1,0 +1,17 @@
+total 544
+drwxrwxr-x 1 root root   4096 Nov 22 09:09 .
+drwxrwxr-x 1 root root   4096 Jan 16  2022 ..
+-rw-rw-r-- 1 root root    157 Jan 16  2022 .gitignore
+-rw-r--r-- 1 root root     51 Nov 22 09:09 ConConfig.reorder_3_bad
+-rw-rw-r-- 1 root root    974 Jan 16  2022 README.md
+-rwxrwxr-x 1 root root   1027 Jan 16  2022 build.sh
+-rw-r--r-- 1 root root   2716 Nov 22 09:09 callgraph_final.dot
+-rw-r--r-- 1 root root   2716 Nov 22 09:09 callgraph_initial.dot
+-rwxrwxr-x 1 root root    347 Jan 16  2022 cleanDIR.sh
+-rw-r--r-- 1 root root    197 Nov 22 09:09 mempair.reorder_3_bad
+-rw-r--r-- 1 root root   3388 Nov 22 09:09 mempair.reorder_3_bad.npz
+-rw-r--r-- 1 root root   1943 Nov 22 09:09 mssa.reorder_3_bad
+-rwxr-xr-x 1 root root 419896 Nov 22 09:09 reorder_3_bad
+-rw-r--r-- 1 root root  10576 Nov 22 09:09 reorder_3_bad.bc
+-rw-rw-r-- 1 root root  64005 Jan 16  2022 reorder_3_bad.c
+-rw-r--r-- 1 root root   3870 Nov 22 09:09 so.reorder_3_bad

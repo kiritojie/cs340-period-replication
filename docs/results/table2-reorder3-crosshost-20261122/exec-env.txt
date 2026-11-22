@@ -1,0 +1,10 @@
+===== execution environment (per-run identical, captured once) =====
+kernel            : 6.18.58.1-microsoft-standard-WSL2
+container ID      : c9d85e9d13ba
+cpu affinity mask : 0-7
+nproc             : 8
+cpu.max           : max 100000
+mem.max           : max
+cap_effective     : 000001ffffffffff
+seccomp           : Seccomp:	2 Seccomp_filters:	1 
+capabilities note : container launched with --privileged

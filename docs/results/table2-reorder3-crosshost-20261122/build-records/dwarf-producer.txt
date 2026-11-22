@@ -1,0 +1,5 @@
+    <c>   DW_AT_producer    : (indirect string, offset: 0x0): clang version 10.0.0 
+    <10>   DW_AT_language    : 33	(C++14)
+--
+    <150e9>   DW_AT_producer    : (indirect string, offset: 0x0): clang version 10.0.0 
+    <150ed>   DW_AT_language    : 12	(ANSI C99)

@@ -1,0 +1,7 @@
+17:#include <assert.h>
+2300:extern int pthread_create (pthread_t *__restrict __newthread,
+2797:void *checkThread(void *param);
+2820:        if (0 != (err = pthread_create(&setPool[i], ((void *)0), &setThread, ((void *)0)))) {
+2827:        if (0 != (err = pthread_create(&checkPool[i], ((void *)0), &checkThread,
+2858:void *checkThread(void *param) {
+2861:        assert(0);

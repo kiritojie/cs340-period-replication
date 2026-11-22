@@ -1,0 +1,97 @@
+########## PREFLIGHT INVENTORY ##########
+UTC now        : 2026-11-22T09:09:03Z
+kernel         : 6.18.58.1-microsoft-standard-WSL2
+container OS   : PRETTY_NAME="Ubuntu 18.04.5 LTS"
+
+===== PERIOD source identity =====
+git HEAD       : b6f72a7b06d01ffa7114b640312873ec2578a5ea
+git describe   : b6f72a7
+commit subject : b6f72a7 2022-01-17 fix run_PDS.py
+worktree dirty : 0 entries
+
+===== toolchain =====
+clang        clang version 10.0.0 
+               path: /workdir/PERIOD/clang+llvm/bin/clang
+clang++      clang version 10.0.0 
+               path: /workdir/PERIOD/clang+llvm/bin/clang++
+opt          LLVM (http://llvm.org/):
+               path: /workdir/PERIOD/clang+llvm/bin/opt
+llvm-config  10.0.0
+               path: /workdir/PERIOD/clang+llvm/bin/llvm-config
+python3      Python 3.6.9
+               path: /usr/bin/python3
+make         GNU Make 4.1
+               path: /usr/bin/make
+cmake        cmake version 3.10.2
+               path: /usr/bin/cmake
+gcc          gcc (Ubuntu 7.5.0-3ubuntu1~18.04) 7.5.0
+               path: /usr/bin/gcc
+g++          g++ (Ubuntu 7.5.0-3ubuntu1~18.04) 7.5.0
+               path: /usr/bin/g++
+python3 -V     : Python 3.6.9
+
+===== deadline scheduling capability (in-container) =====
+chrt -d rc=0
+cpu_capacity (unique): 1024 
+nproc (container)    : 8
+nproc (affinity mask): 0-7
+cpu.max (cgroup)     : max 100000
+
+===== benchmark target: evaluation/CS/reorder_3 =====
+--- files present BEFORE any build ---
+d       4096  .
+f        157  .gitignore
+f        974  README.md
+f       1027  build.sh
+f        347  cleanDIR.sh
+f      64005  reorder_3_bad.c
+
+--- pre-existing build products (must be absent for a clean independent build) ---
+absent : reorder_3_bad
+absent : reorder_3_bad.bc
+absent : reorder_3_bad.con
+absent : ConConfig.out
+
+--- build.sh (as shipped in image) ---
+#!/bin/bash
+
+# For Mac
+if [ $(command uname) == "Darwin" ]; then
+	if ! [ -x "$(command -v greadlink)"  ]; then
+		brew install coreutils
+	fi
+	BIN_PATH=$(greadlink -f "$0")
+	ROOT_DIR=$(dirname $(dirname $(dirname $(dirname $BIN_PATH))))
+# For Linux
+else
+	BIN_PATH=$(readlink -f "$0")
+	ROOT_DIR=$(dirname $(dirname $(dirname $(dirname $BIN_PATH))))
+fi
+
+export ROOT_DIR=${ROOT_DIR}
+export PATH=${ROOT_DIR}/clang+llvm/bin:$PATH
+export LD_LIBRARY_PATH=${ROOT_DIR}/clang+llvm/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}
+
+echo "Everything's fine!"
+
+set -eux
+
+# build tests
+
+# compile the program and get bit code
+cd $ROOT_DIR/evaluation/CS/reorder_3
+./cleanDIR.sh
+clang -g -emit-llvm -c ./reorder_3_bad.c -o reorder_3_bad.bc
+
+# perform static analysis
+$ROOT_DIR/tool/staticAnalysis/staticAnalysis.sh reorder_3_bad
+
+# complie the instrumented program
+export Con_PATH=$ROOT_DIR/evaluation/CS/reorder_3/ConConfig.reorder_3_bad
+$ROOT_DIR/tool/staticAnalysis/DBDS-INSTRU/dbds-clang-fast++ -g ./reorder_3_bad.bc -o reorder_3_bad -lpthread -ldl
+
+--- key point source: reorder_bad.c assertion site ---
+grep: reorder_bad.c: No such file or directory
+
+########## END PREFLIGHT ##########
+exit=0

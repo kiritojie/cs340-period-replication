@@ -1,0 +1,7 @@
+# Keep the cross-host evidence byte-identical on every checkout: the
+# SHA256SUMS manifest is computed over exact LF bytes, so these files must
+# never undergo end-of-line conversion regardless of a clone's core.autocrlf.
+docs/results/table2-reorder3-crosshost-20261122/** -text
+scripts/crosshost_preflight.sh text eol=lf
+scripts/crosshost_build_reorder3.sh text eol=lf
+scripts/crosshost_run_reorder3.sh text eol=lf

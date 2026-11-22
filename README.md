@@ -13,6 +13,7 @@ Cheng Wen 等，*Controlled Concurrency Testing via Periodical Scheduling*，ICS
 | 第一周 · 论文与源码 | 固定上游版本，梳理调度算法、构建、插桩与回放路径，完成两次 ARM64 Mac 环境检查。 | [算法笔记](docs/algorithm-notes.md) · [源码分析](docs/official-code-analysis.md) · [第一周记录](docs/week1-results.md) |
 | 第二周 · 工具验收 | 在 Windows WSL2 + Podman 上跑通 `doubleFree` 的构建、探索和 ASan 回放，随后完成证据审计与重跑补采。 | [第二周记录](docs/week2-doublefree.md) |
 | 第三周 · Table 2 基准复现 | `CS.reorder_3_bad` 完成三轮深度 3 探索，共用同一构建产物。已核对逐轮日志、错误调度和校验清单。 | [第三周详细报告](docs/week3-independent-reproduction.md) · [证据清单](docs/results/table2-reorder3/SHA256SUMS) |
+| 第三周 · 跨机器独立复现 | 第二台机器（x86_64 同构 4 核，Docker Desktop）从干净目录重建插桩产物并重跑三轮，三项计数逐轮一致；六份错误调度记录与第三周归档逐字节全等。补齐逐轮二进制哈希、stdout/stderr 分离与逐轮启动配置。 | [跨机器复现报告](docs/week3-cross-host-reorder3.md) · [证据清单](docs/results/table2-reorder3-crosshost-20261122/SHA256SUMS) |
 
 <a id="table-2-paper-vs-ours"></a>
 
@@ -20,8 +21,9 @@ Cheng Wen 等，*Controlled Concurrency Testing via Periodical Scheduling*，ICS
 
 - **第二周 `doubleFree` 工具验收。** 首次运行和重跑各探索 6 次调度，均在第 3 次首次触发重复释放。每轮有 4 次调度触发同一缺陷，超时 0 次。回放时 AddressSanitizer 再次检测到 `double-free`。[运行和回放记录](docs/week2-doublefree.md) · [独立统计核对](docs/results/doublefree-log-check-2026-11-19.md)
 - **第三周 `CS.reorder_3_bad` 正式基准。** 每轮共探索 27 次调度，第 6 次首次触发断言失败，其中 6 次触发断言失败，超时 0 次。前三项计数逐轮与论文 Table 2 的 PERIOD 结果一致。[逐轮数据与论文对照](docs/week3-independent-reproduction.md#5-experimental-results)
+- **第三周跨机器独立复现。** 第二台机器（x86_64 同构 4 核，Docker Desktop）从干净目录重建插桩产物（关键点 `reorder_bad.c:71/72/78`，二进制内嵌 Clang 10.0.0），三轮深度 3 探索的首次命中、总调度数与错误调度数逐轮一致；六份错误调度记录与第三周归档逐字节全等。[跨机器复现报告](docs/week3-cross-host-reorder3.md)
 
-第三周结果覆盖 Table 2 的这一项基准。实际 PERIOD 工作线程的调度系统调用取证、逐轮容器与二进制身份核验，以及另一位组员的独立构建和运行记录仍待补齐。[第三周待完成工作](docs/week3-independent-reproduction.md#7-scope-and-outstanding-work) · [第二周验收状态](docs/week2-doublefree.md#独立复现验收状态)
+第三周结果覆盖 Table 2 的这一项基准；同一基准已在第二台机器上独立重建并重跑三轮，六份错误调度记录与归档逐字节全等，逐轮启动配置与二进制哈希同步补齐。实际 PERIOD 工作线程的调度系统调用取证仍待补齐。[第三周待完成工作](docs/week3-independent-reproduction.md#7-scope-and-outstanding-work) · [第二周验收状态](docs/week2-doublefree.md#独立复现验收状态)
 
 ## 复现入口
 
@@ -85,5 +87,6 @@ mkdir -p docs/results
 | 2026-11-18 | [整理项目首页和证据导航](https://github.com/kiritojie/cs340-period-replication/commit/7b355b8b65a8159e86484725be05cc9f4928af3e)。 |
 | 2026-11-19 | [新增日志统计工作流](docs/log-statistics.md)，并对重跑探索日志完成[独立统计核对](docs/results/doublefree-log-check-2026-11-19.md)。 |
 | 2026-11-22 | 归档 `CS.reorder_3_bad` 三轮深度 3 探索的日志和错误调度，并记录镜像、工具链及单任务探针证据。[第三周报告](docs/week3-independent-reproduction.md) |
+| 2026-11-22 | 第二台机器独立重建并重跑 `CS.reorder_3_bad` 三轮：计数逐轮一致，六份错误调度记录与既有归档逐字节全等；补齐逐轮启动配置、二进制哈希、stdout/stderr 分离记录与复现脚本。[跨机器复现报告](docs/week3-cross-host-reorder3.md) |
 
 组员贡献见各自的提交和报告分工。提交作者与时间以 Git 历史为准。

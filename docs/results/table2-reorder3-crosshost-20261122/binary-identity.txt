@@ -1,0 +1,8 @@
+===== binary under test (captured before each run batch) =====
+ed2d13809b87a00eaaba76ac0f1faf4871a489a0960993e5963dc89b4bb13db9  /workdir/PERIOD/evaluation/CS/reorder_3/reorder_3_bad
+
+===== instrumentation key points (ConConfig.reorder_3_bad) =====
+3 lines:
+reorder_bad.c:71
+reorder_bad.c:72
+reorder_bad.c:78
