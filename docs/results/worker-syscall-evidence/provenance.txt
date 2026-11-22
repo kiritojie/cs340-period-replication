@@ -1,0 +1,7 @@
+kernel=6.18.58.1-microsoft-standard-WSL2
+container=c9d85e9d13ba  affinity=0-7  nproc=8
+CapEff=000001ffffffffff
+strace=4.21-1ubuntu1 (decodes raw syscall 314 as named sched_setattr)
+df_sha256=24092c61fb91c93933ecdaa9c46f63b3e5a8e85a495d506dbf2b2a8628237251
+reorder3_sha256=ed2d13809b87a00eaaba76ac0f1faf4871a489a0960993e5963dc89b4bb13db9
+taken_utc=2026-11-22T15:27:14Z

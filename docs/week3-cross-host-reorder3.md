@@ -119,10 +119,14 @@ eliminate the Week 3 host's per-run affinity gap for other measurements.
 
 - Three invocations per host; the paper used ten. Counts matched with zero
   variance on both hosts, but the sample size remains below the paper's.
-- Syscall-level evidence for the actual PERIOD worker threads (per-TID
-  `sched_attr` requests, return values, read-back policy, subsequent yields)
-  is still not captured on either host; strace-level tracing is the next step.
-- Table 1 (RQ2) and the remaining Table 2 benchmarks were not run here.
+- ~~Syscall-level evidence for the actual PERIOD worker threads~~ — captured on
+  22 Nov: each worker issues exactly one `sched_setattr(SCHED_DEADLINE)` that
+  returns 0, and the read-back that this section previously expected **does not
+  exist** in the runtime. See
+  [worker-thread syscall evidence](worker-thread-syscall-evidence.md).
+- Table 1 (RQ2) has since been reproduced in full (10 programs, 10 rounds) —
+  see [Table 1 reproduction](table1-cve-reproduction.md). The remaining Table 2
+  benchmarks were not run here.
 - The instrumented binary and image remain outside Git (repository ignore
   rules); the digests above are the cross-host linking evidence.
 

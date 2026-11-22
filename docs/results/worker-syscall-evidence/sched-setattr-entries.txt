@@ -1,0 +1,9 @@
+--- A-df-natural ---
+(none)
+--- B-df-dbds ---
+767185 15:27:12.783589 sched_setattr(0, {size=48, sched_policy=SCHED_DEADLINE, sched_flags=0, sched_nice=0, sched_priority=0, sched_runtime=4945020, sched_deadline=82417000, sched_period=82417000}, 0) = 0
+767186 15:27:12.847605 sched_setattr(0, {size=48, sched_policy=SCHED_DEADLINE, sched_flags=0, sched_nice=0, sched_priority=0, sched_runtime=4945020, sched_deadline=82417000, sched_period=82417000}, 0) = 0
+--- C-reorder3-dbds ---
+767203 15:27:14.412991 sched_setattr(0, {size=48, sched_policy=SCHED_DEADLINE, sched_flags=0, sched_nice=0, sched_priority=0, sched_runtime=4945020, sched_deadline=82417000, sched_period=82417000}, 0) = 0
+767204 15:27:14.436531 sched_setattr(0, {size=48, sched_policy=SCHED_DEADLINE, sched_flags=0, sched_nice=0, sched_priority=0, sched_runtime=4945020, sched_deadline=82417000, sched_period=82417000}, 0) = 0
+767205 15:27:14.463555 sched_setattr(0, {size=48, sched_policy=SCHED_DEADLINE, sched_flags=0, sched_nice=0, sched_priority=0, sched_runtime=4945020, sched_deadline=82417000, sched_period=82417000}, 0) = 0

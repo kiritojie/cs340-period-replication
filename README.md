@@ -15,6 +15,7 @@ Cheng Wen 等，*Controlled Concurrency Testing via Periodical Scheduling*，ICS
 | 第三周 · Table 2 基准复现 | `CS.reorder_3_bad` 完成三轮深度 3 探索，共用同一构建产物。已核对逐轮日志、错误调度和校验清单。 | [第三周详细报告](docs/week3-independent-reproduction.md) · [证据清单](docs/results/table2-reorder3/SHA256SUMS) |
 | 第三周 · 跨机器独立复现 | 第二台机器（x86_64 同构 4 核，Docker Desktop）从干净目录重建插桩产物并重跑三轮，三项计数逐轮一致；六份错误调度记录与第三周归档逐字节全等。补齐逐轮二进制哈希、stdout/stderr 分离与逐轮启动配置。 | [跨机器复现报告](docs/week3-cross-host-reorder3.md) · [证据清单](docs/results/table2-reorder3-crosshost-20261122/SHA256SUMS) |
 | 第三周 · Table 1 CVE 基准复现 | 官方 `ConVul-CVE-Benchmarks` 全部 **10 个程序**从零构建并按论文口径（bug-depth 5、每次调用预算 10000 调度）跑满 **10 轮 / 100 次运行**，10/10 定位逐轮成立；含深度 3 负对照与轮次完整性判据。 | [Table 1 复现报告](docs/table1-cve-reproduction.md) · [证据清单](docs/results/table1-cve/SHA256SUMS) |
+| 第三周 · 工作线程调度取证 | 用 `strace -f` 补齐两份报告共同遗留的缺口：每个 PERIOD 工作线程恰好发起**一次** `sched_setattr(SCHED_DEADLINE)` 且返回 0（0/2/3 次随工作线程数变化）；同时**推翻两处源码层面预测**——runtime 不做 `sched_getattr` 回读，且 `sched_attr` 参数来自 dry-run 校准而非源码默认值。 | [取证报告](docs/worker-thread-syscall-evidence.md) · [证据清单](docs/results/worker-syscall-evidence/SHA256SUMS) |
 
 <a id="table-2-paper-vs-ours"></a>
 
@@ -24,8 +25,9 @@ Cheng Wen 等，*Controlled Concurrency Testing via Periodical Scheduling*，ICS
 - **第三周 `CS.reorder_3_bad` 正式基准。** 每轮共探索 27 次调度，第 6 次首次触发断言失败，其中 6 次触发断言失败，超时 0 次。前三项计数逐轮与论文 Table 2 的 PERIOD 结果一致。[逐轮数据与论文对照](docs/week3-independent-reproduction.md#5-experimental-results)
 - **第三周跨机器独立复现。** 第二台机器（x86_64 同构 4 核，Docker Desktop）从干净目录重建插桩产物（关键点 `reorder_bad.c:71/72/78`，二进制内嵌 Clang 10.0.0），三轮深度 3 探索的首次命中、总调度数与错误调度数逐轮一致；六份错误调度记录与第三周归档逐字节全等。[跨机器复现报告](docs/week3-cross-host-reorder3.md)
 - **第三周 Table 1 CVE 基准。** 官方 10 个 CVE 程序全部从零构建，按论文 CVE 组口径（`-d 5`、每次调用预算 10000 调度）跑满 10 轮共 100 次运行：**10/10 定位在 10/10 轮均成立**、超时 0 次；`CVE-2017-6346` 在 10/10 轮同时报出 NPD＋UAF＋double-free；`CVE-2016-1972` 的 double-free 在 8/10 轮命中。逐程序 bug 类型之和的中位数为 15（范围 13–15），与论文 15 在量级上一致，但两者计数口径不同，报告中已注明为代理指标而非同一规则。[Table 1 复现报告](docs/table1-cve-reproduction.md) · [十轮摘要表](docs/results/table1-cve/rounds-summary.tsv)
+- **第三周 · 工作线程调度系统调用取证。** 用 `strace -f` 直接观测 PERIOD 工作线程：每个工作线程恰好发起**一次** `sched_setattr(SCHED_DEADLINE)` 且返回 0，调用次数随工作线程数精确变化（0 / 2 / 3）。同时**推翻两处源码层面预测**：runtime 不做 `sched_getattr` 回读，且 `sched_attr` 的 runtime/deadline/period 取自 dry-run 校准（实测 4,945,020 / 82,417,000 ns）而非源码默认常量，故不可引用固定数值。`sched_yield` 次数由共享内存 `kpYield` 驱动，手工运行下为陈旧值，未作为结论。[取证报告](docs/worker-thread-syscall-evidence.md) · [跟踪记录](docs/results/worker-syscall-evidence/traces/)
 
-第三周结果覆盖 Table 2 的这一项基准；同一基准已在第二台机器上独立重建并重跑三轮，六份错误调度记录与归档逐字节全等，逐轮启动配置与二进制哈希同步补齐。实际 PERIOD 工作线程的调度系统调用取证仍待补齐。[第三周待完成工作](docs/week3-independent-reproduction.md#7-scope-and-outstanding-work) · [第二周验收状态](docs/week2-doublefree.md#独立复现验收状态)
+第三周结果覆盖 Table 2 的这一项基准；同一基准已在第二台机器上独立重建并重跑三轮，六份错误调度记录与归档逐字节全等，逐轮启动配置与二进制哈希同步补齐。实际 PERIOD 工作线程的调度系统调用取证已完成（每线程一次 `sched_setattr(SCHED_DEADLINE)`，返回 0）。[取证报告](docs/worker-thread-syscall-evidence.md) · [第三周待完成工作](docs/week3-independent-reproduction.md#7-scope-and-outstanding-work) · [第二周验收状态](docs/week2-doublefree.md#独立复现验收状态)
 
 ## 复现入口
 
@@ -91,5 +93,6 @@ mkdir -p docs/results
 | 2026-11-22 | 归档 `CS.reorder_3_bad` 三轮深度 3 探索的日志和错误调度，并记录镜像、工具链及单任务探针证据。[第三周报告](docs/week3-independent-reproduction.md) |
 | 2026-11-22 | 第二台机器独立重建并重跑 `CS.reorder_3_bad` 三轮：计数逐轮一致，六份错误调度记录与既有归档逐字节全等；补齐逐轮启动配置、二进制哈希、stdout/stderr 分离记录与复现脚本。[跨机器复现报告](docs/week3-cross-host-reorder3.md) |
 | 2026-11-22 | 完成 Table 1 CVE 基准复现：官方 10 个程序从零构建，按论文 CVE 口径（`-d 5`、预算 10000）跑满 10 轮 100 次运行，10/10 定位逐轮成立、超时 0；附深度 3 负对照（说明 CVE 组必须用 `-d 5`）与轮次完整性判据（驱动退出码 0 但 dry-run 中止的 21 次已剔除）。[Table 1 复现报告](docs/table1-cve-reproduction.md) |
+| 2026-11-22 | 用 `strace -f` 补齐两份报告共同遗留的工作线程取证：确认每个 PERIOD 工作线程恰好一次 `sched_setattr(SCHED_DEADLINE)` 且返回 0（次数随工作线程数 0/2/3 变化）；推翻两处源码预测——runtime 不做 `sched_getattr` 回读、`sched_attr` 参数取自 dry-run 校准而非源码常量。[工作线程取证报告](docs/worker-thread-syscall-evidence.md) |
 
 组员贡献见各自的提交和报告分工。提交作者与时间以 Git 历史为准。

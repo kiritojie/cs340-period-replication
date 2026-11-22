@@ -1,0 +1,145 @@
+# B-df-dbds tid=767185  （从线程出现到 sched_setattr 后 12 行）
+767184 15:27:12.766283 sched_yield( <unfinished ...>
+767185 15:27:12.766909 sigaltstack(NULL,  <unfinished ...>
+767184 15:27:12.767543 <... sched_yield resumed> ) = 0
+767185 15:27:12.768197 <... sigaltstack resumed> {ss_sp=NULL, ss_flags=SS_DISABLE, ss_size=0}) = 0
+767185 15:27:12.769120 mmap(NULL, 32768, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x75cc15d46000
+767185 15:27:12.770679 sigaltstack({ss_sp=0x75cc15d46000, ss_flags=0, ss_size=32768}, NULL) = 0
+767185 15:27:12.773058 gettid()         = 767185
+767185 15:27:12.774523 gettid()         = 767185
+767185 15:27:12.775724 gettid()         = 767185
+767185 15:27:12.777076 gettid()         = 767185
+767185 15:27:12.778524 gettid()         = 767185
+767185 15:27:12.779891 gettid()         = 767185
+767185 15:27:12.781196 gettid()         = 767185
+767185 15:27:12.782429 gettid()         = 767185
+767185 15:27:12.783589 sched_setattr(0, {size=48, sched_policy=SCHED_DEADLINE, sched_flags=0, sched_nice=0, sched_priority=0, sched_runtime=4945020, sched_deadline=82417000, sched_period=82417000}, 0) = 0
+767185 15:27:12.784808 gettid( <unfinished ...>
+767184 15:27:12.785320 gettid( <unfinished ...>
+767185 15:27:12.785844 <... gettid resumed> ) = 767185
+767184 15:27:12.786348 <... gettid resumed> ) = 767184
+767185 15:27:12.787171 gettid( <unfinished ...>
+767184 15:27:12.788086 mmap(NULL, 8392704, PROT_NONE, MAP_PRIVATE|MAP_ANONYMOUS|MAP_STACK, -1, 0 <unfinished ...>
+767185 15:27:12.789341 <... gettid resumed> ) = 767185
+767184 15:27:12.789973 <... mmap resumed> ) = 0x75cc10bfe000
+767185 15:27:12.790585 sigaltstack({ss_sp=NULL, ss_flags=SS_DISABLE, ss_size=32768},  <unfinished ...>
+767184 15:27:12.791151 mprotect(0x75cc10bff000, 8388608, PROT_READ|PROT_WRITE <unfinished ...>
+767185 15:27:12.791718 <... sigaltstack resumed> {ss_sp=0x75cc15d46000, ss_flags=0, ss_size=32768}) = 0
+767184 15:27:12.792330 <... mprotect resumed> ) = 0
+
+# B-df-dbds tid=767186  （从线程出现到 sched_setattr 后 12 行）
+767186 15:27:12.831738 sigaltstack(NULL,  <unfinished ...>
+767184 15:27:12.832269 <... sched_yield resumed> ) = 0
+767186 15:27:12.832815 <... sigaltstack resumed> {ss_sp=NULL, ss_flags=SS_DISABLE, ss_size=0}) = 0
+767184 15:27:12.833379 futex(0x75cc113fe9d0, FUTEX_WAIT, 767186, NULL <unfinished ...>
+767186 15:27:12.833890 mmap(NULL, 32768, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x75cc15d46000
+767186 15:27:12.835035 sigaltstack({ss_sp=0x75cc15d46000, ss_flags=0, ss_size=32768}, NULL) = 0
+767186 15:27:12.836156 gettid()         = 767186
+767186 15:27:12.837844 gettid()         = 767186
+767186 15:27:12.840180 gettid()         = 767186
+767186 15:27:12.841694 gettid()         = 767186
+767186 15:27:12.842872 gettid()         = 767186
+767186 15:27:12.844051 gettid()         = 767186
+767186 15:27:12.845314 gettid()         = 767186
+767186 15:27:12.846461 gettid()         = 767186
+767186 15:27:12.847605 sched_setattr(0, {size=48, sched_policy=SCHED_DEADLINE, sched_flags=0, sched_nice=0, sched_priority=0, sched_runtime=4945020, sched_deadline=82417000, sched_period=82417000}, 0) = 0
+767186 15:27:12.848797 gettid()         = 767186
+767186 15:27:12.849975 gettid()         = 767186
+767186 15:27:12.851099 sigaltstack({ss_sp=NULL, ss_flags=SS_DISABLE, ss_size=32768}, {ss_sp=0x75cc15d46000, ss_flags=0, ss_size=32768}) = 0
+767186 15:27:12.852249 munmap(0x75cc15d46000, 32768) = 0
+767186 15:27:12.853612 mmap(0xeba02178000, 1044480, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS|MAP_NORESERVE, -1, 0) = 0xeba02178000
+767186 15:27:12.855572 madvise(0xeba02178000, 1044480, MADV_NOHUGEPAGE) = 0
+767186 15:27:12.857165 madvise(0xeba02178000, 1044480, MADV_DONTDUMP) = 0
+767186 15:27:12.858600 munmap(0x75cc15d4e000, 57344) = 0
+767186 15:27:12.859851 madvise(0x75cc10bfe000, 8368128, MADV_DONTNEED) = 0
+767186 15:27:12.861214 exit(0)          = ?
+767186 15:27:12.862442 +++ exited with 0 +++
+767184 15:27:12.862998 <... futex resumed> ) = 0
+
+# C-reorder3-dbds tid=767203  （从线程出现到 sched_setattr 后 12 行）
+767202 15:27:14.392311 <... clone resumed> child_stack=0x7597d03f0fb0, flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, parent_tidptr=0x7597d03f19d0, tls=0x7597d03f1700, child_tidptr=0x7597d03f19d0) = 767203
+767203 15:27:14.392954 <... set_robust_list resumed> ) = 0
+767203 15:27:14.393550 gettid()         = 767203
+767203 15:27:14.394758 gettid()         = 767203
+767203 15:27:14.396067 gettid()         = 767203
+767203 15:27:14.397459 mmap(NULL, 134217728, PROT_NONE, MAP_PRIVATE|MAP_ANONYMOUS|MAP_NORESERVE, -1, 0) = 0x7597c7a00000
+767203 15:27:14.398801 munmap(0x7597c7a00000, 6291456) = 0
+767203 15:27:14.400206 munmap(0x7597cc000000, 60817408) = 0
+767203 15:27:14.401799 mprotect(0x7597c8000000, 135168, PROT_READ|PROT_WRITE) = 0
+767203 15:27:14.403465 gettid()         = 767203
+767203 15:27:14.405996 gettid()         = 767203
+767203 15:27:14.408535 gettid()         = 767203
+767203 15:27:14.410164 gettid()         = 767203
+767203 15:27:14.411581 gettid()         = 767203
+767203 15:27:14.412991 sched_setattr(0, {size=48, sched_policy=SCHED_DEADLINE, sched_flags=0, sched_nice=0, sched_priority=0, sched_runtime=4945020, sched_deadline=82417000, sched_period=82417000}, 0) = 0
+767203 15:27:14.414288 gettid( <unfinished ...>
+767202 15:27:14.414877 mmap(NULL, 8392704, PROT_NONE, MAP_PRIVATE|MAP_ANONYMOUS|MAP_STACK, -1, 0 <unfinished ...>
+767203 15:27:14.415483 <... gettid resumed> ) = 767203
+767202 15:27:14.416019 <... mmap resumed> ) = 0x7597cf3f0000
+767203 15:27:14.416581 gettid( <unfinished ...>
+767202 15:27:14.417136 mprotect(0x7597cf3f1000, 8388608, PROT_READ|PROT_WRITE <unfinished ...>
+767203 15:27:14.417694 <... gettid resumed> ) = 767203
+767202 15:27:14.418236 <... mprotect resumed> ) = 0
+767203 15:27:14.418758 madvise(0x7597cfbf1000, 8368128, MADV_DONTNEED <unfinished ...>
+767202 15:27:14.419328 clone( <unfinished ...>
+767203 15:27:14.419870 <... madvise resumed> ) = 0
+767203 15:27:14.420813 exit(0 <unfinished ...>
+
+# C-reorder3-dbds tid=767204  （从线程出现到 sched_setattr 后 12 行）
+767204 15:27:14.421437 set_robust_list(0x7597cfbf09e0, 24 <unfinished ...>
+767203 15:27:14.423070 <... exit resumed>) = ?
+767204 15:27:14.424361 <... set_robust_list resumed> ) = 0
+767203 15:27:14.425086 +++ exited with 0 +++
+767204 15:27:14.425636 gettid( <unfinished ...>
+767202 15:27:14.426177 <... clone resumed> child_stack=0x7597cfbeffb0, flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, parent_tidptr=0x7597cfbf09d0, tls=0x7597cfbf0700, child_tidptr=0x7597cfbf09d0) = 767204
+767204 15:27:14.426796 <... gettid resumed> ) = 767204
+767204 15:27:14.427473 gettid()         = 767204
+767204 15:27:14.429062 gettid()         = 767204
+767204 15:27:14.430304 gettid()         = 767204
+767204 15:27:14.431573 gettid()         = 767204
+767204 15:27:14.432820 gettid()         = 767204
+767204 15:27:14.434059 gettid()         = 767204
+767204 15:27:14.435287 gettid()         = 767204
+767204 15:27:14.436531 sched_setattr(0, {size=48, sched_policy=SCHED_DEADLINE, sched_flags=0, sched_nice=0, sched_priority=0, sched_runtime=4945020, sched_deadline=82417000, sched_period=82417000}, 0) = 0
+767204 15:27:14.438041 gettid( <unfinished ...>
+767202 15:27:14.438781 mmap(NULL, 8392704, PROT_NONE, MAP_PRIVATE|MAP_ANONYMOUS|MAP_STACK, -1, 0 <unfinished ...>
+767204 15:27:14.439649 <... gettid resumed> ) = 767204
+767202 15:27:14.441202 <... mmap resumed> ) = 0x7597cebef000
+767204 15:27:14.441950 gettid( <unfinished ...>
+767202 15:27:14.442610 mprotect(0x7597cebf0000, 8388608, PROT_READ|PROT_WRITE <unfinished ...>
+767204 15:27:14.443214 <... gettid resumed> ) = 767204
+767202 15:27:14.443804 <... mprotect resumed> ) = 0
+767204 15:27:14.444397 madvise(0x7597cf3f0000, 8368128, MADV_DONTNEED <unfinished ...>
+767202 15:27:14.445022 clone( <unfinished ...>
+767204 15:27:14.445859 <... madvise resumed> ) = 0
+767204 15:27:14.446530 exit(0 <unfinished ...>
+
+# C-reorder3-dbds tid=767205  （从线程出现到 sched_setattr 后 12 行）
+767204 15:27:14.448251 <... exit resumed>) = ?
+767205 15:27:14.448886 <... set_robust_list resumed> ) = 0
+767204 15:27:14.449437 +++ exited with 0 +++
+767205 15:27:14.449998 gettid( <unfinished ...>
+767202 15:27:14.450539 <... clone resumed> child_stack=0x7597cf3eefb0, flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, parent_tidptr=0x7597cf3ef9d0, tls=0x7597cf3ef700, child_tidptr=0x7597cf3ef9d0) = 767205
+767205 15:27:14.451119 <... gettid resumed> ) = 767205
+767202 15:27:14.451715 futex(0x7597cf3ef9d0, FUTEX_WAIT, 767205, NULL <unfinished ...>
+767205 15:27:14.452436 gettid()         = 767205
+767205 15:27:14.453883 gettid()         = 767205
+767205 15:27:14.455390 gettid()         = 767205
+767205 15:27:14.457682 gettid()         = 767205
+767205 15:27:14.459392 gettid()         = 767205
+767205 15:27:14.460796 gettid()         = 767205
+767205 15:27:14.462103 gettid()         = 767205
+767205 15:27:14.463555 sched_setattr(0, {size=48, sched_policy=SCHED_DEADLINE, sched_flags=0, sched_nice=0, sched_priority=0, sched_runtime=4945020, sched_deadline=82417000, sched_period=82417000}, 0) = 0
+767205 15:27:14.465089 gettid()         = 767205
+767205 15:27:14.466356 madvise(0x7597cebef000, 8368128, MADV_DONTNEED) = 0
+767205 15:27:14.467731 exit(0)          = ?
+767205 15:27:14.469170 +++ exited with 0 +++
+767202 15:27:14.469765 <... futex resumed> ) = 0
+767202 15:27:14.470433 exit_group(0)    = ?
+767202 15:27:14.472131 +++ exited with 0 +++
+767201 15:27:14.472985 <... poll resumed> ) = ? ERESTART_RESTARTBLOCK (Interrupted by signal)
+767201 15:27:14.474226 write(6<pipe:[3034857]>, "\21", 1) = 1
+767201 15:27:14.475843 rt_sigreturn({mask=[]}) = -1 EINTR (Interrupted system call)
+767201 15:27:14.477139 read(5<pipe:[3034857]>, "\21", 1) = 1
+767201 15:27:14.478369 read(5<pipe:[3034857]>, 0x7fff17b7e3c7, 1) = -1 EAGAIN (Resource temporarily unavailable)
+
