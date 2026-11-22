@@ -1,0 +1,11 @@
+program	exit	schedules_total	error_interleavings	timeouts	bug_types	double_free_present
+CVE-2009-3547	0	6	3	0	SEGV	NO
+CVE-2011-2183	0	381	130	0	SEGV	NO
+CVE-2013-1792	0	71	2	0	SEGV	NO
+CVE-2015-7550	0	14	6	0	SEGV	NO
+CVE-2016-1972	0	55	5	0	SEGV	NO
+CVE-2016-1973	0	28	7	0	SEGV+heap-use-after-free	NO
+CVE-2016-7911	0	19	8	0	SEGV	NO
+CVE-2016-9806	0	42	4	0	double-free	yes
+CVE-2017-15265	0	96	5	0	heap-use-after-free	NO
+CVE-2017-6346	0	182	80	0	SEGV+double-free+heap-use-after-free	yes

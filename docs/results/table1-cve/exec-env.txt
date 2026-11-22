@@ -1,0 +1,5 @@
+kernel    : 6.18.58.1-microsoft-standard-WSL2
+container : c9d85e9d13ba
+affinity  : 0-7
+nproc     : 8
+deadline  : chrt -d rc=0

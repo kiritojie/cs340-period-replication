@@ -5,3 +5,10 @@ docs/results/table2-reorder3-crosshost-20261122/** -text
 scripts/crosshost_preflight.sh text eol=lf
 scripts/crosshost_build_reorder3.sh text eol=lf
 scripts/crosshost_run_reorder3.sh text eol=lf
+docs/results/table1-cve/** -text
+docs/results/table1-cve/** -text
+scripts/cve_run.sh text eol=lf
+scripts/cve_run_rep.sh text eol=lf
+scripts/cve_build_all.sh text eol=lf
+scripts/cve_repeat_loop.sh text eol=lf
+scripts/cve_stats.py text eol=lf

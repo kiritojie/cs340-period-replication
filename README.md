@@ -14,6 +14,7 @@ Cheng Wen 等，*Controlled Concurrency Testing via Periodical Scheduling*，ICS
 | 第二周 · 工具验收 | 在 Windows WSL2 + Podman 上跑通 `doubleFree` 的构建、探索和 ASan 回放，随后完成证据审计与重跑补采。 | [第二周记录](docs/week2-doublefree.md) |
 | 第三周 · Table 2 基准复现 | `CS.reorder_3_bad` 完成三轮深度 3 探索，共用同一构建产物。已核对逐轮日志、错误调度和校验清单。 | [第三周详细报告](docs/week3-independent-reproduction.md) · [证据清单](docs/results/table2-reorder3/SHA256SUMS) |
 | 第三周 · 跨机器独立复现 | 第二台机器（x86_64 同构 4 核，Docker Desktop）从干净目录重建插桩产物并重跑三轮，三项计数逐轮一致；六份错误调度记录与第三周归档逐字节全等。补齐逐轮二进制哈希、stdout/stderr 分离与逐轮启动配置。 | [跨机器复现报告](docs/week3-cross-host-reorder3.md) · [证据清单](docs/results/table2-reorder3-crosshost-20261122/SHA256SUMS) |
+| 第三周 · Table 1 CVE 基准复现 | 官方 `ConVul-CVE-Benchmarks` 全部 **10 个程序**从零构建并按论文口径（bug-depth 5、每次调用预算 10000 调度）跑满 **10 轮 / 100 次运行**，10/10 定位逐轮成立；含深度 3 负对照与轮次完整性判据。 | [Table 1 复现报告](docs/table1-cve-reproduction.md) · [证据清单](docs/results/table1-cve/SHA256SUMS) |
 
 <a id="table-2-paper-vs-ours"></a>
 
@@ -22,6 +23,7 @@ Cheng Wen 等，*Controlled Concurrency Testing via Periodical Scheduling*，ICS
 - **第二周 `doubleFree` 工具验收。** 首次运行和重跑各探索 6 次调度，均在第 3 次首次触发重复释放。每轮有 4 次调度触发同一缺陷，超时 0 次。回放时 AddressSanitizer 再次检测到 `double-free`。[运行和回放记录](docs/week2-doublefree.md) · [独立统计核对](docs/results/doublefree-log-check-2026-11-19.md)
 - **第三周 `CS.reorder_3_bad` 正式基准。** 每轮共探索 27 次调度，第 6 次首次触发断言失败，其中 6 次触发断言失败，超时 0 次。前三项计数逐轮与论文 Table 2 的 PERIOD 结果一致。[逐轮数据与论文对照](docs/week3-independent-reproduction.md#5-experimental-results)
 - **第三周跨机器独立复现。** 第二台机器（x86_64 同构 4 核，Docker Desktop）从干净目录重建插桩产物（关键点 `reorder_bad.c:71/72/78`，二进制内嵌 Clang 10.0.0），三轮深度 3 探索的首次命中、总调度数与错误调度数逐轮一致；六份错误调度记录与第三周归档逐字节全等。[跨机器复现报告](docs/week3-cross-host-reorder3.md)
+- **第三周 Table 1 CVE 基准。** 官方 10 个 CVE 程序全部从零构建，按论文 CVE 组口径（`-d 5`、每次调用预算 10000 调度）跑满 10 轮共 100 次运行：**10/10 定位在 10/10 轮均成立**、超时 0 次；`CVE-2017-6346` 在 10/10 轮同时报出 NPD＋UAF＋double-free；`CVE-2016-1972` 的 double-free 在 8/10 轮命中。逐程序 bug 类型之和的中位数为 15（范围 13–15），与论文 15 在量级上一致，但两者计数口径不同，报告中已注明为代理指标而非同一规则。[Table 1 复现报告](docs/table1-cve-reproduction.md) · [十轮摘要表](docs/results/table1-cve/rounds-summary.tsv)
 
 第三周结果覆盖 Table 2 的这一项基准；同一基准已在第二台机器上独立重建并重跑三轮，六份错误调度记录与归档逐字节全等，逐轮启动配置与二进制哈希同步补齐。实际 PERIOD 工作线程的调度系统调用取证仍待补齐。[第三周待完成工作](docs/week3-independent-reproduction.md#7-scope-and-outstanding-work) · [第二周验收状态](docs/week2-doublefree.md#独立复现验收状态)
 
@@ -33,7 +35,7 @@ Cheng Wen 等，*Controlled Concurrency Testing via Periodical Scheduling*，ICS
 
 ## 正式复现范围
 
-`CS.reorder_3_bad` 是目前完成数值复现的 Table 2（RQ1）基准。`doubleFree` 用于工具功能验收。Table 1（RQ2）的原计划候选 `CVE-2016-7911` 仍待小组确认。[论文 Table 2](https://wcventure.github.io/pdf/ICSE2022_PERIOD.pdf#page=9) · [论文 Table 1](https://wcventure.github.io/pdf/ICSE2022_PERIOD.pdf#page=8) · [复现计划](docs/reproduction-plan.md)
+`CS.reorder_3_bad` 是目前完成数值复现的 Table 2（RQ1）基准；Table 2 其余 35 个程序未在本次范围内。Table 1（RQ2）已完成官方 10 个 CVE 程序的十轮复现（bug-depth 5、每次调用预算 10000 调度），`CVE-2016-7911` 原计划候选已连同其余 9 个程序一并跑通，此前的"待小组确认"项已关闭。`doubleFree` 用于工具功能验收。基线技术（IPB / IDB / DFS / PCT / Random / Maple）依赖 Intel Pin 与 ≤3.x 内核，未在本环境重跑，论文数字为引用。[论文 Table 2](https://wcventure.github.io/pdf/ICSE2022_PERIOD.pdf#page=9) · [论文 Table 1](https://wcventure.github.io/pdf/ICSE2022_PERIOD.pdf#page=8) · [Table 1 复现报告](docs/table1-cve-reproduction.md) · [复现计划](docs/reproduction-plan.md)
 
 ## 环境检查
 
@@ -88,5 +90,6 @@ mkdir -p docs/results
 | 2026-11-19 | [新增日志统计工作流](docs/log-statistics.md)，并对重跑探索日志完成[独立统计核对](docs/results/doublefree-log-check-2026-11-19.md)。 |
 | 2026-11-22 | 归档 `CS.reorder_3_bad` 三轮深度 3 探索的日志和错误调度，并记录镜像、工具链及单任务探针证据。[第三周报告](docs/week3-independent-reproduction.md) |
 | 2026-11-22 | 第二台机器独立重建并重跑 `CS.reorder_3_bad` 三轮：计数逐轮一致，六份错误调度记录与既有归档逐字节全等；补齐逐轮启动配置、二进制哈希、stdout/stderr 分离记录与复现脚本。[跨机器复现报告](docs/week3-cross-host-reorder3.md) |
+| 2026-11-22 | 完成 Table 1 CVE 基准复现：官方 10 个程序从零构建，按论文 CVE 口径（`-d 5`、预算 10000）跑满 10 轮 100 次运行，10/10 定位逐轮成立、超时 0；附深度 3 负对照（说明 CVE 组必须用 `-d 5`）与轮次完整性判据（驱动退出码 0 但 dry-run 中止的 21 次已剔除）。[Table 1 复现报告](docs/table1-cve-reproduction.md) |
 
 组员贡献见各自的提交和报告分工。提交作者与时间以 Git 历史为准。

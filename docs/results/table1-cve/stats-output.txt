@@ -1,0 +1,76 @@
+纳入统计的干净轮次: 10
+    cve-rep-d5-20261122T103239Z
+    cve-rep-d5-20261122T103737Z
+    cve-rep-d5-20261122T103838Z
+    cve-rep-d5-20261122T104745Z
+    cve-rep-d5-20261122T110229Z
+    cve-rep-d5-20261122T110405Z
+    cve-rep-d5-20261122T111152Z
+    cve-rep-d5-20261122T111432Z
+    cve-runs-d5-20261122T101416Z
+    cve-runs-d5-20261122T101636Z
+
+PROGRAM         schedules med(min-max)   errInter med(min-max)  timeouts  types/轮   类型全集
+----------------------------------------------------------------------------------------
+CVE-2009-3547   6 (6–6)                  3 (3–3)                0 (0–0)   1         SEGV
+CVE-2011-2183   906 (832–906)            130 (128–130)          0 (0–0)   1         SEGV
+CVE-2013-1792   179 (179–179)            6 (6–8)                0 (0–0)   1         SEGV
+CVE-2015-7550   14 (14–14)               6 (5–6)                0 (0–0)   1         SEGV
+CVE-2016-1972   346 (229–350)            28 (7–28)              0 (0–0)   1/2/3     SEGV+double-free+heap-use-after-free
+CVE-2016-1973   27.5 (24–41)             6 (5–9)                0 (0–0)   2         SEGV+heap-use-after-free
+CVE-2016-7911   19 (19–19)               8 (6–8)                0 (0–0)   1         SEGV
+CVE-2016-9806   42 (42–42)               4 (4–4)                0 (0–0)   1         double-free
+CVE-2017-15265  96 (96–96)               1 (1–3)                0 (0–0)   1         heap-use-after-free
+CVE-2017-6346   182 (182–182)            80 (79–81)             0 (0–0)   3         SEGV+double-free+heap-use-after-free
+
+=== 每轮合计（判据：定位 10/10，bug 类型之和 = 论文 15）===
+   cve-rep-d5-20261122T103239Z        定位=10/10  bug类型之和=15
+   cve-rep-d5-20261122T103737Z        定位=10/10  bug类型之和=15
+   cve-rep-d5-20261122T103838Z        定位=10/10  bug类型之和=15
+   cve-rep-d5-20261122T104745Z        定位=10/10  bug类型之和=15
+   cve-rep-d5-20261122T110229Z        定位=10/10  bug类型之和=15
+   cve-rep-d5-20261122T110405Z        定位=10/10  bug类型之和=15
+   cve-rep-d5-20261122T111152Z        定位=10/10  bug类型之和=13
+   cve-rep-d5-20261122T111432Z        定位=10/10  bug类型之和=15
+   cve-runs-d5-20261122T101416Z       定位=10/10  bug类型之和=15
+   cve-runs-d5-20261122T101636Z       定位=10/10  bug类型之和=14
+   → bug 类型之和：中位数 15，范围 13–15（论文 15）
+
+=== 判据专项 ===
+-- CVE-2016-1972 是否报出 double-free（论文：只有 Period 能发现，bug-depth 5）--
+   cve-rep-d5-20261122T103239Z        命中   类型=['SEGV', 'double-free', 'heap-use-after-free']
+   cve-rep-d5-20261122T103737Z        命中   类型=['SEGV', 'double-free', 'heap-use-after-free']
+   cve-rep-d5-20261122T103838Z        命中   类型=['SEGV', 'double-free', 'heap-use-after-free']
+   cve-rep-d5-20261122T104745Z        命中   类型=['SEGV', 'double-free', 'heap-use-after-free']
+   cve-rep-d5-20261122T110229Z        命中   类型=['SEGV', 'double-free', 'heap-use-after-free']
+   cve-rep-d5-20261122T110405Z        命中   类型=['SEGV', 'double-free', 'heap-use-after-free']
+   cve-rep-d5-20261122T111152Z        未命中   类型=['SEGV']
+   cve-rep-d5-20261122T111432Z        命中   类型=['SEGV', 'double-free', 'heap-use-after-free']
+   cve-runs-d5-20261122T101416Z       命中   类型=['SEGV', 'double-free', 'heap-use-after-free']
+   cve-runs-d5-20261122T101636Z       未命中   类型=['SEGV', 'heap-use-after-free']
+   → 8/10 轮命中
+-- CVE-2017-6346 是否同时报 NPD(SEGV) + UAF + DF --
+   cve-rep-d5-20261122T103239Z        三类齐全   ['SEGV', 'double-free', 'heap-use-after-free']
+   cve-rep-d5-20261122T103737Z        三类齐全   ['SEGV', 'double-free', 'heap-use-after-free']
+   cve-rep-d5-20261122T103838Z        三类齐全   ['SEGV', 'double-free', 'heap-use-after-free']
+   cve-rep-d5-20261122T104745Z        三类齐全   ['SEGV', 'double-free', 'heap-use-after-free']
+   cve-rep-d5-20261122T110229Z        三类齐全   ['SEGV', 'double-free', 'heap-use-after-free']
+   cve-rep-d5-20261122T110405Z        三类齐全   ['SEGV', 'double-free', 'heap-use-after-free']
+   cve-rep-d5-20261122T111152Z        三类齐全   ['SEGV', 'double-free', 'heap-use-after-free']
+   cve-rep-d5-20261122T111432Z        三类齐全   ['SEGV', 'double-free', 'heap-use-after-free']
+   cve-runs-d5-20261122T101416Z       三类齐全   ['SEGV', 'double-free', 'heap-use-after-free']
+   cve-runs-d5-20261122T101636Z       三类齐全   ['SEGV', 'double-free', 'heap-use-after-free']
+   → 10/10 轮三类齐全
+-- CVE-2016-7911 总调度数（官方 README 文字称 6，其自身输出实为 19）--
+   总调度数：19 (19–19)   错误交错：8 (6–8)
+-- 超时次数合计（每轮应为 0）--
+   cve-rep-d5-20261122T103239Z        合计 0
+   cve-rep-d5-20261122T103737Z        合计 0
+   cve-rep-d5-20261122T103838Z        合计 0
+   cve-rep-d5-20261122T104745Z        合计 0
+   cve-rep-d5-20261122T110229Z        合计 0
+   cve-rep-d5-20261122T110405Z        合计 0
+   cve-rep-d5-20261122T111152Z        合计 0
+   cve-rep-d5-20261122T111432Z        合计 0
+   cve-runs-d5-20261122T101416Z       合计 0
+   cve-runs-d5-20261122T101636Z       合计 0

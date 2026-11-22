@@ -1,0 +1,33 @@
+# Silent-abort and termination census (basis for the round-completeness gate).
+# silent_abort: driver exited 0 but aborted during the dry run, no footer counts.
+# watchdog: per-program 300 s timeout fired (rc=124).
+# terminated: external kill (rc=137/143) during early manual cleanup of a hang.
+
+batch	total_programs	silent_abort_rc0_no_footer	watchdog_rc124	terminated_rc137_143	verdict
+cve-rep-d5-20261122T103239Z	10	0	0	0	included
+cve-rep-d5-20261122T103414Z	10	3	0	0	excluded
+cve-rep-d5-20261122T103518Z	10	1	0	0	excluded
+cve-rep-d5-20261122T103634Z	10	1	0	0	excluded
+cve-rep-d5-20261122T103737Z	10	0	0	0	included
+cve-rep-d5-20261122T103838Z	10	0	0	0	included
+cve-rep-d5-20261122T104637Z	10	2	0	0	excluded
+cve-rep-d5-20261122T104745Z	10	0	0	0	included
+cve-rep-d5-20261122T104859Z	10	1	0	0	excluded
+cve-rep-d5-20261122T105008Z	10	2	0	0	excluded
+cve-rep-d5-20261122T105119Z	10	1	0	0	excluded
+cve-rep-d5-20261122T105333Z	10	1	1	0	excluded
+cve-rep-d5-20261122T110009Z	10	2	0	0	excluded
+cve-rep-d5-20261122T110101Z	10	1	0	0	excluded
+cve-rep-d5-20261122T110229Z	10	0	0	0	included
+cve-rep-d5-20261122T110405Z	10	0	0	0	included
+cve-rep-d5-20261122T110533Z	10	0	1	0	excluded
+cve-rep-d5-20261122T111152Z	10	0	0	0	included
+cve-rep-d5-20261122T111318Z	10	2	0	0	excluded
+cve-rep-d5-20261122T111432Z	10	0	0	0	included
+cve-rep-d5-20261122T111608Z	10	1	0	0	excluded
+cve-runs-d5-20261122T101416Z	10	0	0	0	included
+cve-runs-d5-20261122T101636Z	10	0	0	0	included
+cve-runs-d5-20261122T101805Z	10	2	0	1	excluded
+cve-runs-d5-20261122T103058Z	10	1	0	1	excluded
+
+summary: batches=25 included=10 excluded=15 | program-runs: silent_abort=21 watchdog=2 terminated=2 other=0

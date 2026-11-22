@@ -1,0 +1,4 @@
+depth             : 5
+schedule_budget   : 10000 (driver -f, paper per-invocation budget)
+outer_watchdog_s  : 300 per program
+source HEAD       : b6f72a7b06d01ffa7114b640312873ec2578a5ea
