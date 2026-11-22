@@ -1,0 +1,30 @@
+Everything's fine!
++ cd /workdir/PERIOD/evaluation/CS/reorder_3
++ ./cleanDIR.sh
++ clang -g -emit-llvm -c ./reorder_3_bad.c -o reorder_3_bad.bc
++ /workdir/PERIOD/tool/staticAnalysis/staticAnalysis.sh reorder_3_bad
+[*] Making static analysis directory
+[*] DIR: /workdir/PERIOD/evaluation/CS/reorder_3
+[*] ROOT_DIR: /workdir/PERIOD
+[*] Generating mssa.reorder_3_bad
+[*] Change format for instrumentation
+[*] Analyze Sensitive Memory Operations
+[*] Update Memory Group with Sensitive Memory Operations
+[*] Dumps mempairs and save it into .npz file
+-rw-r--r-- 1 root root   51 Nov 22 06:45 ConConfig.reorder_3_bad
+-rw-r--r-- 1 root root  197 Nov 22 06:45 mempair.reorder_3_bad
+-rw-r--r-- 1 root root 3.4K Nov 22 06:45 mempair.reorder_3_bad.npz
+-rw-r--r-- 1 root root 1.9K Nov 22 06:45 mssa.reorder_3_bad
+-rw-r--r-- 1 root root  11K Nov 22 06:45 reorder_3_bad.bc
+-rw-rw-r-- 1 root root  63K Jan 16  2022 reorder_3_bad.c
+-rw-r--r-- 1 root root 3.8K Nov 22 06:45 so.reorder_3_bad
+/workdir/PERIOD/evaluation/CS/reorder_3
++ export Con_PATH=/workdir/PERIOD/evaluation/CS/reorder_3/ConConfig.reorder_3_bad
++ Con_PATH=/workdir/PERIOD/evaluation/CS/reorder_3/ConConfig.reorder_3_bad
++ /workdir/PERIOD/tool/staticAnalysis/DBDS-INSTRU/dbds-clang-fast++ -g ./reorder_3_bad.bc -o reorder_3_bad -lpthread -ldl
+[DEBUG] The ConConfig file was successfully opened.
+[DEBUG] The file is /workdir/PERIOD/evaluation/CS/reorder_3/ConConfig.reorder_3_bad
+[DEBUG]
+[DEBUG] Instrumentation for reorder_bad.c:71
+[DEBUG] Instrumentation for reorder_bad.c:72
+[DEBUG] Instrumentation for reorder_bad.c:78

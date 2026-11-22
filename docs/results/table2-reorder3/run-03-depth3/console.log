@@ -1,0 +1,77 @@
+opts: [('-y', ''), ('-d', '3')]
+args: ['./reorder_3_bad']
+bugDepth: 3
+
+
+[4;36mPerform Dry Run![0m
+
+[4;36mPerform DBDS Run with default system scheduling![0m
+
+--------------------------------------
+Runtime: 5370
+ThreadNum:  3
+MaxKpNum:  2
+TupleScheduling: 0
+kpNumArray: 2 2 1 
+prefix: []
+coverage_hashID: 4
+--------------------------------------
+Enter 'debug' to view the debug information
+Consider all variables
+
+[4;36mStart Testing![0m
+Targeting bugs that bug depth = 1 . Iterate for 2 periods
+[4;36mtest 0001:[0m [[0, 0], [1, 1, 2]]
+[4;36mtest 0002:[0m [[1, 1], [0, 0, 2]]
+[4;36mtest 0003:[0m [[2], [0, 0, 1, 1]]
+Targeting bugs that bug depth = 2 . Iterate for 3 periods
+[4;36mtest 0004:[0m [[0], [1, 1], [0, 2]]
+[4;36mtest 0005:[0m [[1], [0, 0], [1, 2]]
+[4;36mtest 0006:[0m [[0], [2], [0, 1, 1]]
+[31m	[Error Found]: NO.1 assertion failed[0m
+[31m	The interleavings saved in out_reorder_3_bad_5/Errors/000001_0000006_assertion-failed [0m
+[4;36mtest 0007:[0m [[1], [2], [0, 0, 1]]
+[31m	[Error Found]: NO.2 assertion failed[0m
+[31m	The interleavings saved in out_reorder_3_bad_5/Errors/000002_0000007_assertion-failed [0m
+[4;36mtest 0008:[0m [[0, 0], [1, 1], [2]]
+[4;36mtest 0009:[0m [[0, 0], [2], [1, 1]]
+[4;36mtest 0010:[0m [[1, 1], [0, 0], [2]]
+[4;36mtest 0011:[0m [[1, 1], [2], [0, 0]]
+[4;36mtest 0012:[0m [[2], [0, 0], [1, 1]]
+[4;36mtest 0013:[0m [[2], [1, 1], [0, 0]]
+Targeting bugs that bug depth = 3 . Iterate for 4 periods
+[4;36mtest 0014:[0m [[0], [1], [0], [1, 2]]
+[4;36mtest 0015:[0m [[1], [0], [1], [0, 2]]
+[4;36mtest 0016:[0m [[0], [1, 1], [0], [2]]
+[4;36mtest 0017:[0m [[0], [1, 1], [2], [0]]
+[4;36mtest 0018:[0m [[0, 0], [1], [2], [1]]
+[4;36mtest 0019:[0m [[0], [2], [0], [1, 1]]
+[31m	[Error Found]: NO.3 assertion failed[0m
+[31m	The interleavings saved in out_reorder_3_bad_5/Errors/000003_0000019_assertion-failed [0m
+[4;36mtest 0020:[0m [[0], [2], [1, 1], [0]]
+[31m	[Error Found]: NO.4 assertion failed[0m
+[31m	The interleavings saved in out_reorder_3_bad_5/Errors/000004_0000020_assertion-failed [0m
+[4;36mtest 0021:[0m [[1], [0, 0], [1], [2]]
+[4;36mtest 0022:[0m [[1, 1], [0], [2], [0]]
+[4;36mtest 0023:[0m [[1], [0, 0], [2], [1]]
+[4;36mtest 0024:[0m [[1], [2], [0, 0], [1]]
+[31m	[Error Found]: NO.5 assertion failed[0m
+[31m	The interleavings saved in out_reorder_3_bad_5/Errors/000005_0000024_assertion-failed [0m
+[4;36mtest 0025:[0m [[1], [2], [1], [0, 0]]
+[31m	[Error Found]: NO.6 assertion failed[0m
+[31m	The interleavings saved in out_reorder_3_bad_5/Errors/000006_0000025_assertion-failed [0m
+[4;36mtest 0026:[0m [[2], [0], [1, 1], [0]]
+[4;36mtest 0027:[0m [[2], [1], [0, 0], [1]]
+[4;36mEnd Testing!
+[0m
+[1;35m
+Total Error Interleavings: 6
+Total Timeouts Interleavings: 0
+2 status found:
+	 [0, -6]
+0 results found:
+--------------------------------------------------
+	Last New Find		Total
+Round	0			27
+Time	00:00:00.00000		00:00:00.99822
+[0m

@@ -1,0 +1,1 @@
+python3 -u /workdir/PERIOD/tool/DBDS/run_PDS.py -y -d 3 ./reorder_3_bad

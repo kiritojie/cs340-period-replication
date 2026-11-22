@@ -74,3 +74,6 @@ venv/
 
 # Keep small, curated week-one evidence under docs/results in Git.
 # Do not add a blanket *.txt / *.log rule: real experiment evidence is valuable.
+
+# Keep the three original, sub-KiB Table 2 error-schedule archives.
+!/docs/results/table2-reorder3/run-0[1-3]-depth3/raw-output.tar.gz

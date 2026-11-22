@@ -1,0 +1,2 @@
+# Preserve the exact bytes covered by SHA-256.
+* -text
