@@ -17,6 +17,7 @@ Cheng Wen 等，*Controlled Concurrency Testing via Periodical Scheduling*，ICS
 | 第三周 · Table 1 CVE 基准复现 | 官方 `ConVul-CVE-Benchmarks` 全部 **10 个程序**从零构建并按论文口径（bug-depth 5、每次调用预算 10000 调度）跑满 **10 轮 / 100 次运行**，10/10 定位逐轮成立；含深度 3 负对照与轮次完整性判据。 | [Table 1 复现报告](docs/table1-cve-reproduction.md) · [证据清单](docs/results/table1-cve/SHA256SUMS) |
 | 第三周 · 工作线程调度取证 | 用 `strace -f` 补齐两份报告共同遗留的缺口：每个 PERIOD 工作线程恰好发起**一次** `sched_setattr(SCHED_DEADLINE)` 且返回 0（0/2/3 次随工作线程数变化）；同时**推翻两处源码层面预测**——runtime 不做 `sched_getattr` 回读，且 `sched_attr` 参数来自 dry-run 校准而非源码默认值。 | [取证报告](docs/worker-thread-syscall-evidence.md) · [证据清单](docs/results/worker-syscall-evidence/SHA256SUMS) |
 | 第四周 · Table 2 分段复现（第一段） | 按 `CS.reorder` 线程缩放行做首个可控分段：3/4/5/10 线程四档各跑满论文口径 **10 轮**（40 次运行，全部退出码 0、超时 0），**四个调度数 27 / 100 / 225 / 2350 在 40 次运行中逐次精确命中，零方差**；单轮约 55 秒、全段 12.6 分钟。`reorder_3` 二进制与跨机器复现记录逐字节相同。 | [第一段报告](docs/table2-segment1-reorder.md) · [证据清单](docs/results/table2-reorder-schedules/SHA256SUMS) |
+| 第四周 · Extension 单变量扩展实验 | 同一宿主机与镜像下仅改变 `taskset` CPU 亲和性（1/2/4/8 核，共 31 轮，覆盖 `reorder_5` 与 `reorder_10`），实测揭示：**任何真子集亲和性掩码均触发内核 `sched_setattr(SCHED_DEADLINE) = -1 EPERM`，导致首个工作线程立即 `SIGSEGV (0x18)` 崩溃、吞吐跌落至 0.93 调度/秒（慢 13.9–21.6×），而驱动静默返回 `rc=0` 且报 0 错误（100% 静默假阴性）**。 | [Extension 汇总报告](docs/results/extension-cpu-affinity-merged/stats-summary.md) · [原始数据](docs/results/extension-cpu-affinity-merged/rounds-summary.tsv) · [证据清单](docs/results/extension-cpu-affinity-merged/SHA256SUMS) |
 
 <a id="table-2-paper-vs-ours"></a>
 
@@ -31,6 +32,7 @@ Cheng Wen 等，*Controlled Concurrency Testing via Periodical Scheduling*，ICS
 | Table 2 `CS.reorder` 缩放行 | 4 档 × 10 轮 = 40 次（`-d 3`） | 调度数 27 / 100 / 225 / 2350 | **27 / 100 / 225 / 2350**（40/40 精确命中） | 零方差复现；10 线程错误数 89–93，耗时波动 2.65× |
 | Table 1 `ConVul-CVE`（10 程序） | 10 轮 = 100 次（`-d 5`，预算 10000） | 定位 10/10；发现 15 bugs | 10/10 逐轮定位；ASan 类别和中位数 **15**（13–15） | 含 `-d 3` 负对照与静默中止门禁；15 为代理口径 |
 | OS 机制取证 `strace -f` | 3 场景（Dry-run / `df` / `reorder_3`） | 工作线程启用 `SCHED_DEADLINE` | `sched_setattr` 0 / 2 / 3 次全返回 0 | 推翻两处源码静态预测（0 次 `sched_getattr`；动态校准参数） |
+| Extension CPU 亲和性实验 | 1/2/4/8 核 × `reorder_5/10`（31 轮） | 论文仅要求“多核”（未量化亲和性约束） | 1/2/4 核 `reorder_5` 耗时 **240–243 s、0 错误**；8 核 **17.44 s、20 错误** | `strace` 证实子集掩码 `EPERM → SIGSEGV` 引发 100% 静默假阴性 |
 
 - **第二周 `doubleFree` 工具验收。** 首次运行和重跑各探索 6 次调度，均在第 3 次首次触发重复释放。每轮有 4 次调度触发同一缺陷，超时 0 次。回放时 AddressSanitizer 再次检测到 `double-free`。[运行和回放记录](docs/week2-doublefree.md) · [独立统计核对](docs/results/doublefree-log-check-2026-11-19.md)
 - **第三周 `CS.reorder_3_bad` 正式基准。** 每轮共探索 27 次调度，第 6 次首次触发断言失败，其中 6 次触发断言失败，超时 0 次。前三项计数逐轮与论文 Table 2 的 PERIOD 结果一致。[逐轮数据与论文对照](docs/week3-independent-reproduction.md#5-experimental-results)
@@ -38,6 +40,7 @@ Cheng Wen 等，*Controlled Concurrency Testing via Periodical Scheduling*，ICS
 - **第三周 Table 1 CVE 基准。** 官方 10 个 CVE 程序全部从零构建，按论文 CVE 组口径（`-d 5`、每次调用预算 10000 调度）跑满 10 轮共 100 次运行：**10/10 定位在 10/10 轮均成立**、超时 0 次；`CVE-2017-6346` 在 10/10 轮同时报出 NPD＋UAF＋double-free；`CVE-2016-1972` 的 double-free 在 8/10 轮命中。逐程序 bug 类型之和的中位数为 15（范围 13–15），与论文 15 在量级上一致，但两者计数口径不同，报告中已注明为代理指标而非同一规则。[Table 1 复现报告](docs/table1-cve-reproduction.md) · [十轮摘要表](docs/results/table1-cve/rounds-summary.tsv)
 - **第三周 · 工作线程调度系统调用取证。** 用 `strace -f` 直接观测 PERIOD 工作线程：每个工作线程恰好发起**一次** `sched_setattr(SCHED_DEADLINE)` 且返回 0，调用次数随工作线程数精确变化（0 / 2 / 3）。同时**推翻两处源码层面预测**：runtime 不做 `sched_getattr` 回读，且 `sched_attr` 的 runtime/deadline/period 取自 dry-run 校准（实测 4,945,020 / 82,417,000 ns）而非源码默认常量，故不可引用固定数值。`sched_yield` 次数由共享内存 `kpYield` 驱动，手工运行下为陈旧值，未作为结论。[取证报告](docs/worker-thread-syscall-evidence.md) · [跟踪记录](docs/results/worker-syscall-evidence/traces/)
 - **第四周 · Table 2 第一段（`CS.reorder` 线程缩放行）。** 3/4/5/10 线程四档各跑满论文口径 10 轮，共 40 次运行、全部退出码 0、超时 0。论文该行的 PERIOD 调度数 **27 / 100 / 225 / 2350 在 40 次运行中每一次都精确命中，零方差**——比第三周的三轮样本更强，达到论文自身样本量。错误交错数在 3/4/5 线程逐轮完全一致（6 / 12 / 20），仅在 10 线程出现波动（89×2、90×7、93×1），说明该工件的非确定性并非随线程数均匀分布。首次命中序号为 6 / 9 / 12 / 27，其中仅 `reorder_3` 的 6 有外部锚点，其余三个仅作新观测记录、不可当作论文印证。单轮约 55 秒、全段 12.6 分钟。[第一段报告](docs/table2-segment1-reorder.md) · [四十轮摘要表](docs/results/table2-reorder-schedules/rounds-summary.tsv)
+- **第四周 · Extension 单变量扩展实验（CPU 亲和性约束）。** 保持同一宿主机、容器与二进制不变，仅通过 `taskset` 改变可用逻辑核（1/2/4/8 核，共 31 轮）：`reorder_5_bad` 在 1/2/4 核下 5/5 轮均以 `rc=0` 跑满 225 调度，但**错误交错恒为 0**、单轮耗时锁死在 ~241 s（0.93 调度/秒）；切回完整 root domain（`0-7`，8 核）后耗时降至 17.44 ± 1.98 s（快 13.9×）且精确复现 20.00 ± 0.00 次错误。`strace` 证实根因：子集亲和性下 226/226 次 `sched_setattr(SCHED_DEADLINE)` 全部返回 `-1 EPERM`，随即首个工作线程在 `si_addr=0x18` 触发 `SIGSEGV`（`si_utime≈100`），而 `run_PDS.py` 静默忽略该崩溃并输出 0 错误。[Extension 汇总报告](docs/results/extension-cpu-affinity-merged/stats-summary.md) · [4 核 Trace](docs/results/extension-cpu-affinity-merged/traces/sched-setattr-mask-0-3.txt) · [8 核 Trace](docs/results/extension-cpu-affinity-merged/traces/sched-setattr-mask-0-7.txt)
 
 第三周结果覆盖 Table 2 的这一项基准；同一基准已在第二台机器上独立重建并重跑三轮，六份错误调度记录与归档逐字节全等，逐轮启动配置与二进制哈希同步补齐。实际 PERIOD 工作线程的调度系统调用取证已完成（每线程一次 `sched_setattr(SCHED_DEADLINE)`，返回 0）。Table 2 已按线程缩放行完成首个分段，四个调度数以论文样本量（各 10 轮）零方差复现；**Table 2 其余程序尚待论文 Table 2 的 36 程序清单**——工件内含 42 个程序目录，比论文评测的多 6 个，无法仅凭工件判定被排除的是哪 6 个（`reorder_20/50/100` 即属工件附带但不在 Table 2 范围内）。[第一段报告](docs/table2-segment1-reorder.md) · [取证报告](docs/worker-thread-syscall-evidence.md) · [第三周待完成工作](docs/week3-independent-reproduction.md#7-scope-and-outstanding-work) · [第二周验收状态](docs/week2-doublefree.md#独立复现验收状态)
 
@@ -108,13 +111,14 @@ mkdir -p docs/results
 | 2026-11-22 | 用 `strace -f` 补齐两份报告共同遗留的工作线程取证：确认每个 PERIOD 工作线程恰好一次 `sched_setattr(SCHED_DEADLINE)` 且返回 0（次数随工作线程数 0/2/3 变化）；推翻两处源码预测——runtime 不做 `sched_getattr` 回读、`sched_attr` 参数取自 dry-run 校准而非源码常量。[工作线程取证报告](docs/worker-thread-syscall-evidence.md) |
 | 2026-11-23 | 完成 Table 2 首个可控分段（`CS.reorder` 线程缩放行）：3/4/5/10 线程四档各 10 轮共 40 次运行，论文该行四个调度数 27 / 100 / 225 / 2350 **逐次精确命中、零方差**，达到论文自身样本量；错误交错数仅 10 线程档波动（89/90/93）。单轮 55 秒、全段 12.6 分钟，证明按行分段可控。[Table 2 第一段报告](docs/table2-segment1-reorder.md) |
 | 2026-11-24 | 同步修订 `README.md` 正式复现范围（对齐 Table 2 已覆盖 4 个程序与 Fig. 7 排除说明），新增 Paper vs. Ours 核心结果速览表与组员分工贡献表。 |
+| 2026-11-24 | 合并 `feat/extension-cpu-affinity` 分支至 `main`：完成 CPU 亲和性单变量 Extension 实验（1/2/4/8 核共 31 轮）及 `strace` 根因取证（子集掩码 `EPERM → SIGSEGV` 引发 100% 静默假阴性）。[Extension 汇总报告](docs/results/extension-cpu-affinity-merged/stats-summary.md) |
 
 ## 组员分工与贡献
 
 | 学号 | 成员 | 主要贡献与代表记录 |
 | --- | --- | --- |
 | `1240011062` | 叶浩铭 | 仓库初始化、第一周算法与源码分析、第二周文档与采集脚本完善、第三周 `CS.reorder_3_bad` 本地三轮正式复现（[第三周报告](docs/week3-independent-reproduction.md)） |
-| `1240010243` | 查舒翔 | 跨宿主机独立重建复现、Table 1 全部 10 个 CVE 十轮复现与负对照、`strace -f` 工作线程 `SCHED_DEADLINE` 系统调用取证、Table 2 `CS.reorder` 四档线程缩放十轮复现（[跨机器报告](docs/week3-cross-host-reorder3.md) · [Table 1 报告](docs/table1-cve-reproduction.md) · [取证报告](docs/worker-thread-syscall-evidence.md) · [Table 2 第一段](docs/table2-segment1-reorder.md)） |
+| `1240010243` | 查舒翔 | 跨宿主机独立重建复现、Table 1 全部 10 个 CVE 十轮复现与负对照、`strace -f` 工作线程 `SCHED_DEADLINE` 系统调用取证、Table 2 `CS.reorder` 四档线程缩放十轮复现、Extension CPU 亲和性单变量扩展实验与 `EPERM → SIGSEGV` 根因取证（[跨机器报告](docs/week3-cross-host-reorder3.md) · [Table 1 报告](docs/table1-cve-reproduction.md) · [取证报告](docs/worker-thread-syscall-evidence.md) · [Table 2 第一段](docs/table2-segment1-reorder.md) · [Extension 汇总](docs/results/extension-cpu-affinity-merged/stats-summary.md)） |
 | `1240011385` | 李志杰 | 项目首页与证据导航整理、`doubleFree` 日志提取与独立统计核对工作流（[日志统计文档](docs/log-statistics.md) · [独立统计核对](docs/results/doublefree-log-check-2026-11-19.md)） |
 | `1240010368` | 罗韬 | 第二周 `doubleFree` 环境搭建、首次运行与 ASan 回放、重跑证据包归档（[第二周记录](docs/week2-doublefree.md)） |
 
