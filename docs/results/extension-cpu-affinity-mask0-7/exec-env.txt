@@ -1,0 +1,16 @@
+utc_started        : 2026-11-24T13:10:53Z
+kernel             : 6.18.58.1-microsoft-standard-WSL2
+container          : 3d4dead96a8c
+default_affinity   : 0-7
+nproc_available    : 8
+cpu_capacity_uniq  : 1024 
+deadline_probe_rc  : 0
+sudo_taskset_check : 0
+period_root        : /workdir/PERIOD
+period_git_head    : b6f72a7b06d01ffa7114b640312873ec2578a5ea
+benchmark_dir      : /workdir/PERIOD/evaluation/CS/reorder_10
+program            : reorder_10_bad
+depth              : 3
+rounds_per_mask    : 5
+core_masks         : 0-7
+timeout_sec        : 900
