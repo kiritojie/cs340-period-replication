@@ -1,0 +1,23 @@
+[*] Making static analysis directory
+[*] DIR: /workdir/PERIOD/evaluation/CS/reorder_5
+[*] ROOT_DIR: /workdir/PERIOD
+[*] Generating mssa.reorder_5_bad
+[*] Change format for instrumentation
+[*] Analyze Sensitive Memory Operations
+[*] Update Memory Group with Sensitive Memory Operations
+[*] Dumps mempairs and save it into .npz file
+-rw-r--r-- 1 root root   51 Nov 24 14:24 ConConfig.reorder_5_bad
+-rw-r--r-- 1 root root  197 Nov 24 14:24 mempair.reorder_5_bad
+-rw-r--r-- 1 root root 3.4K Nov 24 14:24 mempair.reorder_5_bad.npz
+-rw-r--r-- 1 root root 1.9K Nov 24 14:24 mssa.reorder_5_bad
+-rw-r--r-- 1 root root  11K Nov 24 14:24 reorder_5_bad.bc
+-rw-rw-r-- 1 root root  63K Jan 16  2022 reorder_5_bad.c
+-rw-r--r-- 1 root root 3.8K Nov 24 14:24 so.reorder_5_bad
+/workdir/PERIOD/evaluation/CS/reorder_5
+[DEBUG] The ConConfig file was successfully opened.
+[DEBUG] The file is /workdir/PERIOD/evaluation/CS/reorder_5/ConConfig.reorder_5_bad
+[DEBUG]
+[DEBUG] Instrumentation for reorder_bad.c:71
+[DEBUG] Instrumentation for reorder_bad.c:72
+[DEBUG] Instrumentation for reorder_bad.c:78
+build_rc=0

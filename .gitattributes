@@ -14,3 +14,7 @@ scripts/cve_repeat_loop.sh text eol=lf
 scripts/cve_stats.py text eol=lf
 docs/results/worker-syscall-evidence/** -text
 docs/results/table2-reorder-schedules/** -text
+# Every shell/python script must stay LF on Windows checkouts too, otherwise
+# bash fails with "$'\r': command not found". Keep these last (last rule wins).
+scripts/*.sh text eol=lf
+scripts/*.py text eol=lf

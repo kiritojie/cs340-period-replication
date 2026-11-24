@@ -1,0 +1,6 @@
+round	cpu_mask	cpu_count	rc	gate_pass	schedules	error_interleavings	timeouts	first_error	dry_run_runtime	internal_time_s	external_wall_s
+R1	0-7	8	0	1	2350	89	0	27	1641	NA	116.204
+R2	0-7	8	0	1	2350	86	0	27	1214	NA	119.262
+R3	0-7	8	0	1	2350	88	0	27	1208	NA	100.162
+R4	0-7	8	0	1	2350	90	0	27	1511	NA	100.691
+R5	0-7	8	0	1	2350	85	5	27	1324	NA	142.072

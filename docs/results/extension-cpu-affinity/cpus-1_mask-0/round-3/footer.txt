@@ -1,0 +1,3 @@
+Runtime: 76002
+ThreadNum:  10
+kpNumArray: 0 0 0 0 0 0 0 0 0 0 
