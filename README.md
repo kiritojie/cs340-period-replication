@@ -4,7 +4,7 @@ CS340 操作系统课程小组项目，复现 PERIOD 论文中的部分实验。
 
 Cheng Wen 等，*Controlled Concurrency Testing via Periodical Scheduling*，ICSE 2022。[论文 PDF](https://wcventure.github.io/pdf/ICSE2022_PERIOD.pdf) · [DOI](https://doi.org/10.1145/3510003.3510178) · [官方源码](https://github.com/wcventure/PERIOD)
 
-[实验结果](#实验结果) · [复现入口](#复现入口) · [正式复现范围](#正式复现范围) · [更新历史](#更新历史)
+[实验结果](#实验结果) · [复现入口](#复现入口) · [正式复现范围](#正式复现范围) · [更新历史](#更新历史) · [组员分工](#组员分工与贡献)
 
 ## 项目进度
 
@@ -21,6 +21,16 @@ Cheng Wen 等，*Controlled Concurrency Testing via Periodical Scheduling*，ICS
 <a id="table-2-paper-vs-ours"></a>
 
 ## 实验结果
+
+### 核心指标速览（Paper vs. Ours）
+
+| 实验模块 | 样本规模 | 论文基准（PERIOD） | 本组实测 | 状态与说明 |
+| --- | --- | --- | --- | --- |
+| 工具验收 `doubleFree` | 首次 + 重跑 | 调度 6 / 首次第 3 / 错误 4 | 调度 6 / 首次第 3 / 错误 4，0 超时 | ASan 回放确认 `double-free` |
+| 跨宿主机 `CS.reorder_3_bad` | 双机各 3 轮（`-d 3`） | 首次 6 / 总调度 27 / 错误 6 | 双机逐轮一致：6 / 27 / 6，0 超时 | 32 核 Podman vs 8 核 Docker；6 份错误调度逐字节全等 |
+| Table 2 `CS.reorder` 缩放行 | 4 档 × 10 轮 = 40 次（`-d 3`） | 调度数 27 / 100 / 225 / 2350 | **27 / 100 / 225 / 2350**（40/40 精确命中） | 零方差复现；10 线程错误数 89–93，耗时波动 2.65× |
+| Table 1 `ConVul-CVE`（10 程序） | 10 轮 = 100 次（`-d 5`，预算 10000） | 定位 10/10；发现 15 bugs | 10/10 逐轮定位；ASan 类别和中位数 **15**（13–15） | 含 `-d 3` 负对照与静默中止门禁；15 为代理口径 |
+| OS 机制取证 `strace -f` | 3 场景（Dry-run / `df` / `reorder_3`） | 工作线程启用 `SCHED_DEADLINE` | `sched_setattr` 0 / 2 / 3 次全返回 0 | 推翻两处源码静态预测（0 次 `sched_getattr`；动态校准参数） |
 
 - **第二周 `doubleFree` 工具验收。** 首次运行和重跑各探索 6 次调度，均在第 3 次首次触发重复释放。每轮有 4 次调度触发同一缺陷，超时 0 次。回放时 AddressSanitizer 再次检测到 `double-free`。[运行和回放记录](docs/week2-doublefree.md) · [独立统计核对](docs/results/doublefree-log-check-2026-11-19.md)
 - **第三周 `CS.reorder_3_bad` 正式基准。** 每轮共探索 27 次调度，第 6 次首次触发断言失败，其中 6 次触发断言失败，超时 0 次。前三项计数逐轮与论文 Table 2 的 PERIOD 结果一致。[逐轮数据与论文对照](docs/week3-independent-reproduction.md#5-experimental-results)
@@ -39,7 +49,7 @@ Cheng Wen 等，*Controlled Concurrency Testing via Periodical Scheduling*，ICS
 
 ## 正式复现范围
 
-`CS.reorder_3_bad` 是目前完成数值复现的 Table 2（RQ1）基准；Table 2 其余 35 个程序未在本次范围内。Table 1（RQ2）已完成官方 10 个 CVE 程序的十轮复现（bug-depth 5、每次调用预算 10000 调度），`CVE-2016-7911` 原计划候选已连同其余 9 个程序一并跑通，此前的"待小组确认"项已关闭。`doubleFree` 用于工具功能验收。基线技术（IPB / IDB / DFS / PCT / Random / Maple）依赖 Intel Pin 与 ≤3.x 内核，未在本环境重跑，论文数字为引用。[论文 Table 2](https://wcventure.github.io/pdf/ICSE2022_PERIOD.pdf#page=9) · [论文 Table 1](https://wcventure.github.io/pdf/ICSE2022_PERIOD.pdf#page=8) · [Table 1 复现报告](docs/table1-cve-reproduction.md) · [复现计划](docs/reproduction-plan.md)
+Table 2（RQ1）已完成 `CS.reorder` 线程缩放行 **4 个程序（`reorder_3/4/5/10`）** 的十轮数值复现（共 40 次运行，零方差命中论文调度数），其中 `CS.reorder_3_bad` 另完成了双机独立重建验证；Table 2 其余 32 个程序（工件共 42 目录，待对照论文确认被排除的 6 个）暂未覆盖。Table 1（RQ2）已完成官方全部 10 个 CVE 程序的十轮复现（`-d 5`、每次调用预算 10000 调度），`CVE-2016-7911` 原计划候选已连同其余 9 个程序一并跑通。`doubleFree` 用于工具功能验收。基线技术（IPB / IDB / DFS / PCT / Random / Maple）依赖 Intel Pin 与 ≤3.x 内核，性能对比图（Fig. 7）因笔记本环境墙钟耗时波动达 2.65× 不具跨机可比性，两项均未在本环境重跑，论文数字仅作引用。[论文 Table 2](https://wcventure.github.io/pdf/ICSE2022_PERIOD.pdf#page=9) · [论文 Table 1](https://wcventure.github.io/pdf/ICSE2022_PERIOD.pdf#page=8) · [Table 2 第一段报告](docs/table2-segment1-reorder.md) · [Table 1 复现报告](docs/table1-cve-reproduction.md) · [复现计划](docs/reproduction-plan.md)
 
 ## 环境检查
 
@@ -97,5 +107,15 @@ mkdir -p docs/results
 | 2026-11-22 | 完成 Table 1 CVE 基准复现：官方 10 个程序从零构建，按论文 CVE 口径（`-d 5`、预算 10000）跑满 10 轮 100 次运行，10/10 定位逐轮成立、超时 0；附深度 3 负对照（说明 CVE 组必须用 `-d 5`）与轮次完整性判据（驱动退出码 0 但 dry-run 中止的 21 次已剔除）。[Table 1 复现报告](docs/table1-cve-reproduction.md) |
 | 2026-11-22 | 用 `strace -f` 补齐两份报告共同遗留的工作线程取证：确认每个 PERIOD 工作线程恰好一次 `sched_setattr(SCHED_DEADLINE)` 且返回 0（次数随工作线程数 0/2/3 变化）；推翻两处源码预测——runtime 不做 `sched_getattr` 回读、`sched_attr` 参数取自 dry-run 校准而非源码常量。[工作线程取证报告](docs/worker-thread-syscall-evidence.md) |
 | 2026-11-23 | 完成 Table 2 首个可控分段（`CS.reorder` 线程缩放行）：3/4/5/10 线程四档各 10 轮共 40 次运行，论文该行四个调度数 27 / 100 / 225 / 2350 **逐次精确命中、零方差**，达到论文自身样本量；错误交错数仅 10 线程档波动（89/90/93）。单轮 55 秒、全段 12.6 分钟，证明按行分段可控。[Table 2 第一段报告](docs/table2-segment1-reorder.md) |
+| 2026-11-24 | 同步修订 `README.md` 正式复现范围（对齐 Table 2 已覆盖 4 个程序与 Fig. 7 排除说明），新增 Paper vs. Ours 核心结果速览表与组员分工贡献表。 |
 
-组员贡献见各自的提交和报告分工。提交作者与时间以 Git 历史为准。
+## 组员分工与贡献
+
+| 学号 | 成员 | 主要贡献与代表记录 |
+| --- | --- | --- |
+| `1240011062` | 叶浩铭 | 仓库初始化、第一周算法与源码分析、第二周文档与采集脚本完善、第三周 `CS.reorder_3_bad` 本地三轮正式复现（[第三周报告](docs/week3-independent-reproduction.md)） |
+| `1240010243` | 查舒翔 | 跨宿主机独立重建复现、Table 1 全部 10 个 CVE 十轮复现与负对照、`strace -f` 工作线程 `SCHED_DEADLINE` 系统调用取证、Table 2 `CS.reorder` 四档线程缩放十轮复现（[跨机器报告](docs/week3-cross-host-reorder3.md) · [Table 1 报告](docs/table1-cve-reproduction.md) · [取证报告](docs/worker-thread-syscall-evidence.md) · [Table 2 第一段](docs/table2-segment1-reorder.md)） |
+| `1240011385` | 李志杰 | 项目首页与证据导航整理、`doubleFree` 日志提取与独立统计核对工作流（[日志统计文档](docs/log-statistics.md) · [独立统计核对](docs/results/doublefree-log-check-2026-11-19.md)） |
+| `1240010368` | 罗韬 | 第二周 `doubleFree` 环境搭建、首次运行与 ASan 回放、重跑证据包归档（[第二周记录](docs/week2-doublefree.md)） |
+
+提交作者与时间以 Git 历史为准。
