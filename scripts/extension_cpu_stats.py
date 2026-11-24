@@ -45,15 +45,21 @@ def main():
     groups = defaultdict(list)
     with open(sys.argv[1], "r", encoding="utf-8") as fh:
         reader = csv.DictReader(fh, delimiter="\t")
+        has_program = "program" in (reader.fieldnames or [])
         for row in reader:
-            key = (int(row["cpu_count"]), row["cpu_mask"])
+            prog = row["program"] if has_program else ""
+            key = (prog, int(row["cpu_count"]), row["cpu_mask"])
             groups[key].append(row)
 
-    print("| Logical CPUs (mask) | Valid / Total | Schedules (Mean +/- SD) | Error Interleavings (Mean +/- SD) | Error Median (Range) | Timeouts | Wall Time s (Mean +/- SD) |")
-    print("| --- | :---: | :---: | :---: | :---: | :---: | :---: |")
+    if has_program:
+        print("| Program | Logical CPUs (mask) | Valid / Total | Schedules (Mean +/- SD) | Error Interleavings (Mean +/- SD) | Error Median (Range) | Timeouts | Wall Time s (Mean +/- SD) |")
+        print("| --- | --- | :---: | :---: | :---: | :---: | :---: | :---: |")
+    else:
+        print("| Logical CPUs (mask) | Valid / Total | Schedules (Mean +/- SD) | Error Interleavings (Mean +/- SD) | Error Median (Range) | Timeouts | Wall Time s (Mean +/- SD) |")
+        print("| --- | :---: | :---: | :---: | :---: | :---: | :---: |")
 
-    for (ncpu, mask) in sorted(groups.keys()):
-        rows = groups[(ncpu, mask)]
+    for (prog, ncpu, mask) in sorted(groups.keys()):
+        rows = groups[(prog, ncpu, mask)]
         valid = [r for r in rows if r.get("gate_pass") == "1"]
         scheds = [v for v in (parse_float(r["schedules"]) for r in valid) if v is not None]
         errs = [v for v in (parse_float(r["error_interleavings"]) for r in valid) if v is not None]
@@ -61,8 +67,10 @@ def main():
         walls = [v for v in (parse_float(r["external_wall_s"]) for r in valid) if v is not None]
 
         to_sum = int(sum(tos)) if tos else 0
+        prefix = "| `{}` ".format(prog) if has_program else ""
         print(
-            "| {} (`{}`) | {} / {} | {} | {} | {} | {} | {} |".format(
+            "{}| {} (`{}`) | {} / {} | {} | {} | {} | {} | {} |".format(
+                prefix,
                 ncpu,
                 mask,
                 len(valid),

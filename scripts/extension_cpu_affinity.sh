@@ -150,9 +150,15 @@ for mask in $CORE_MASKS; do
       echo "$clean_out" | grep -E "Total Error Interleavings|Total Timeouts Interleavings|ThreadNum|^kpNumArray|^Round|^Time|Runtime:" || true
     } > "$run_dir/footer.txt"
 
-    # Completeness gate: exit code 0 AND summary footer present
+    # Completeness & validity gate:
+    #   1) exit code 0 and summary footer present
+    #   2) no SCHED_DEADLINE EPERM / sched_setattr error in stderr
+    #   3) dry-run kpNumArray is not all zeros (guards against silent false negative)
     gate_pass=0
-    if [ "$rc" -eq 0 ] && grep -q "Total Error Interleavings" "$run_dir/footer.txt"; then
+    if [ "$rc" -eq 0 ] \
+       && grep -q "Total Error Interleavings" "$run_dir/footer.txt" \
+       && ! grep -q "sched_setattr error" "$run_dir/stderr.log" \
+       && ! grep -qE '^kpNumArray:[[:space:]]+(0[[:space:]]*)+$' "$run_dir/footer.txt"; then
       gate_pass=1
     fi
 
@@ -161,7 +167,8 @@ for mask in $CORE_MASKS; do
     tos="$(echo "$clean_out" | grep -m1 -oE 'Total Timeouts Interleavings: [0-9]+' | grep -oE '[0-9]+$' || true)"
     first_err="$(echo "$clean_out" | grep -m1 -oE 'Errors/000001_[0-9]+' | sed -E 's/.*000001_0*([0-9]+)/\1/' || true)"
     dry_rt="$(echo "$clean_out" | grep -m1 -oE 'Runtime: [0-9]+' | grep -oE '[0-9]+$' || true)"
-    int_time="$(echo "$clean_out" | awk '/^Time[[:space:]]/{print $NF}' | tail -1 || true)"
+    # Use [ \t] instead of [[:space:]] for Ubuntu 18.04 default mawk compatibility
+    int_time="$(echo "$clean_out" | awk '/^Time[ \t]/{print $NF}' | tr -d '\r' | tail -1 || true)"
 
     # Convert HH:MM:SS.fffff internal time to seconds if present
     int_s=""
