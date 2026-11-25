@@ -14,7 +14,7 @@
 | 二进制 | `reorder_5_bad` sha256 `346c4e50…d67501`；`reorder_10_bad` sha256 `329744a0…c6a14e1` |
 | 环境自检 | `nproc=8`、`default_affinity=0-7`、`deadline_probe_rc=0`、`sudo_taskset_check=0` |
 
-原始逐轮数据见 [rounds-summary.tsv](rounds-summary.tsv)（32 轮；历史采集时因容器默认 `mawk` 不支持 `[[:space:]]`，`internal_time_s` 列记录为 `NA`，采集脚本现已修复）。
+原始逐轮数据见 [rounds-summary.tsv](rounds-summary.tsv)（32 轮，由 [scripts/extension_cpu_merge.py](../../../scripts/extension_cpu_merge.py) 从 5 个原始批次目录自动汇总，已按收紧后的门禁重算 `gate_pass` 并从 `footer.txt` 回填 `internal_time_s`）。
 
 ## 结果一：`reorder_5_bad`（5 线程，225 个调度）
 
@@ -87,17 +87,19 @@ sched_setattr(0, {size=48, sched_policy=SCHED_DEADLINE, ..., sched_runtime=49564
 
 针对结果四定位的两处根因，编写了仅改动 2 个文件（`+12 / -3`）的最小 fail-fast 补丁 [patches/period-sched-deadline-failfast.patch](../../../patches/period-sched-deadline-failfast.patch)：
 
-- **运行时（`sched.h:116`）**：将 `exit(-1)` 改为 `_exit(125)`，避免从工作线程触发全局 C++ 析构与 `traceEnd()` 的 1 秒 `usleep` 及 Use-After-Destruction `SIGSEGV (0x18)`，以专用退出码 `125` 立即结束子进程。
+- **运行时（`sched.h:116`）**：将 `exit(-1)` 改为 `_exit(125)`，避免从工作线程触发全局 C++ 析构与 `traceEnd()` 的 1 秒 `usleep` 及 Use-After-Destruction `SIGSEGV (0x18)`，以专用内部哨兵码 `125` 立即结束子进程。
 - **驱动端（`run_PDS.py:493, 757`）**：在预运行与主调度循环捕获子进程退出码 `125` 或 `stderr` 中的 `sched_setattr error`，打印明确 `[FATAL] SCHED_DEADLINE admission failed` 诊断并以非零退出码 `rc=2` 立即终止，消除静默假阴性。
+- **补丁边界说明**：该最小补丁专门修复 `SCHED_DEADLINE` 准入失败（`EPERM`）链路，未改动 `run_PDS.py` 原有第 108/360/507 行对普通目标程序 `-11`（`SIGSEGV`）的过滤逻辑；退出码 `125` 仅作为 `sched.h` 与 `run_PDS.py` 之间的内部约定，对外由驱动统一转为 `rc=2`（与 `timeout` 的退出码 `125` 区分）。
 
-在 `wcventure/period:stable` 容器内以 `git apply` 干净合入补丁、重新编译 `DBDSFunction.o` 与 `reorder_5_bad`（补丁后二进制 sha256 `7ed93e66…f8a922a`），进行补丁前后对照验证（原始日志与汇总表见 [patch-verification/verification-summary.tsv](patch-verification/verification-summary.tsv)）：
+在 `wcventure/period:stable` 容器内以 `git apply` 干净合入补丁、重新编译 `DBDSFunction.o` 与 `reorder_5_bad`（未打补丁二进制 sha256 `346c4e50…d67501`，补丁后二进制 sha256 `7ed93e66…f8a922a`），先后完成首次验证（[patch-verification/verification-summary.tsv](patch-verification/verification-summary.tsv)）与低负载时段的 **5+5 轮交替 A/B 零回归验证**（[patch-verification/ab-verification-summary.tsv](patch-verification/ab-verification-summary.tsv)、[ab-binary-identity.txt](patch-verification/ab-binary-identity.txt)）：
 
 | 场景（`reorder_5_bad`，`-y -d 3`） | 轮次 | 退出码 `rc` | 探索调度数 | 行为与结果 | 单轮耗时 |
 | --- | :---: | :---: | :---: | --- | :---: |
 | **未打补丁 · 真子集 4 核（`0-3`）** | 5 轮 | **`0`（伪通过）** | 225 | 每次调度触发 1 s 阻塞 + `SIGSEGV (0x18)`，静默输出 0 错误 | **240.29 ± 0.80 s** |
 | **打补丁后 · 真子集 4 核（`0-3`）** | 3 轮 | **`2`（Fail-Fast）** | 0（预运行拦截） | 立即输出 `[FATAL] SCHED_DEADLINE admission failed (rc=125)`，无 `SIGSEGV`、无静默漏报 | **0.33–0.75 s**（快 ~440×） |
-| **打补丁后 · 完整 8 核（`0-7`）** | 3 轮 | **`0`** | 225 × 3 | 正常探索全部 225 调度，检出错误交错 8 / 13 / 8（`Runtime` 校准 1034–1439 ns） | 33.7–49.8 s |
-| **同期未打补丁 · 完整 8 核（`0-7`，同负载对照）** | 1 轮 | **`0`** | 225 | 检出错误交错 7（`Runtime` 校准 1189 ns），确认上述 8 核错误数差异系当次宿主机负载/低 `Runtime` 校准所致，非补丁回归 | 22.8 s |
+| **A/B 交替 · 未打补丁 · 完整 8 核（`0-7`）** | 5 轮 | **`0`** | 225 × 5 | 错误交错 **19.20 ± 1.79**（16/20/20/20/20，首次命中 12，0 超时；R1 因 `Runtime=2287 ns` 偏低为 16） | **17.43 ± 1.50 s** |
+| **A/B 交替 · 打补丁后 · 完整 8 核（`0-7`）** | 5 轮 | **`0`** | 225 × 5 | 错误交错 **20.00 ± 0.00**（5/5 轮精确命中 20、首次命中 12、0 超时，`Runtime` 5560–8540 ns） | **16.41 ± 1.57 s** |
+| **首次高负载时段 · 打补丁/未打补丁 · 8 核（`0-7`）** | 3 + 1 轮 | **`0`** | 225 × 4 | 补丁后 8/13/8（`Runtime` 1034–1439 ns）vs. 未打补丁 7（`Runtime` 1189 ns），与 A/B 组 R1 一并证实错误数下降仅由低 `Runtime` 校准/宿主机负载引起，非补丁回归 | 22.8–49.8 s |
 
 ## 结论
 

@@ -101,7 +101,7 @@ cat "$OUT_DIR/binary-identity.txt"
 
 # 3. Prepare TSV header
 SUMMARY_TSV="$OUT_DIR/rounds-summary.tsv"
-printf 'round\tcpu_mask\tcpu_count\trc\tgate_pass\tschedules\terror_interleavings\ttimeouts\tfirst_error\tdry_run_runtime\tinternal_time_s\texternal_wall_s\n' > "$SUMMARY_TSV"
+printf 'program\tround\tcpu_mask\tcpu_count\trc\tgate_pass\tschedules\terror_interleavings\ttimeouts\tfirst_error\tdry_run_runtime\tinternal_time_s\texternal_wall_s\n' > "$SUMMARY_TSV"
 
 # 4. Run single-factor sweep across CPU affinity masks
 export Con_PATH="$BENCH_DIR/ConConfig.$PROG"
@@ -176,8 +176,8 @@ for mask in $CORE_MASKS; do
       int_s="$(awk -v h="${BASH_REMATCH[1]}" -v m="${BASH_REMATCH[2]}" -v s="${BASH_REMATCH[3]}" 'BEGIN{printf "%.3f", h*3600 + m*60 + s}')"
     fi
 
-    printf 'R%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
-      "$r" "$mask" "$ncpu" "$rc" "$gate_pass" \
+    printf '%s\tR%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+      "$PROG" "$r" "$mask" "$ncpu" "$rc" "$gate_pass" \
       "${scheds:-NA}" "${errs:-NA}" "${tos:-NA}" "${first_err:-NA}" \
       "${dry_rt:-NA}" "${int_s:-NA}" "$wall_s" >> "$SUMMARY_TSV"
 

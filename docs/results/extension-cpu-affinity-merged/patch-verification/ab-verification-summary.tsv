@@ -1,0 +1,11 @@
+case	round	cpu_mask	rc	schedules	error_interleavings	timeouts	first_error	dry_run_runtime	wall_s
+ab_orig_full_0-7	R1	0-7	0	0225	16	0	12	2287	19.113
+ab_patched_full_0-7	R1	0-7	0	0225	20	0	12	6740	18.961
+ab_orig_full_0-7	R2	0-7	0	0225	20	0	12	8560	18.599
+ab_patched_full_0-7	R2	0-7	0	0225	20	0	12	8540	16.286
+ab_orig_full_0-7	R3	0-7	0	0225	20	0	12	6560	15.644
+ab_patched_full_0-7	R3	0-7	0	0225	20	0	12	6340	15.063
+ab_orig_full_0-7	R4	0-7	0	0225	20	0	12	8310	16.158
+ab_patched_full_0-7	R4	0-7	0	0225	20	0	12	5560	15.163
+ab_orig_full_0-7	R5	0-7	0	0225	20	0	12	6380	17.635
+ab_patched_full_0-7	R5	0-7	0	0225	20	0	12	6750	16.569
