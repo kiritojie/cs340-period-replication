@@ -1,0 +1,4 @@
+taskset -c 0-3 python3 -u /workdir/PERIOD/tool/DBDS/run_PDS.py -y -d 3 ./reorder_5_bad
+binary_sha256=346c4e503fb419e1a64c6f7a36975a5c6e047cc393aaf0b8fdac25b67ad67501
+cpu_mask=0-3
+cpu_count=4
