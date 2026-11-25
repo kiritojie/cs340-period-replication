@@ -1,0 +1,591 @@
+{
+  "error": null,
+  "execution": {
+    "benchmarks": [
+      {
+        "benchmark": "reorder_3_bad",
+        "missing_artifacts": [],
+        "planned_formal_rounds": 6,
+        "preparation_status": "ADAPTATION_VERIFIED_FROM_FROZEN_PILOT",
+        "reason": "verified immutable six-round evidence; no launch",
+        "status": "REUSED_FROZEN_SIX"
+      },
+      {
+        "benchmark": "reorder_4_bad",
+        "missing_artifacts": [],
+        "planned_formal_rounds": 6,
+        "preparation_status": "BLOCKED",
+        "reason": "retained accepted cohort; no new execution",
+        "status": "REUSED_COMPLETED"
+      },
+      {
+        "benchmark": "reorder_5_bad",
+        "missing_artifacts": [],
+        "planned_formal_rounds": 6,
+        "preparation_status": "BLOCKED",
+        "reason": "retained accepted cohort; no new execution",
+        "status": "REUSED_COMPLETED"
+      },
+      {
+        "benchmark": "reorder_10_bad",
+        "build_evidence": "/mnt/e/cs340-period-replication/docs/results/table2-rq1-recovered-session-20261124T180224Z-210n7nbf/batch-build-20261124T191043Z-1owby3c7",
+        "missing_artifacts": [],
+        "planned_formal_rounds": 6,
+        "preparation_status": "BLOCKED",
+        "reason": null,
+        "status": "FORMAL_COMPLETE"
+      }
+    ],
+    "global_failure": null,
+    "phases": [
+      {
+        "benchmark": "reorder_10_bad",
+        "evidence": "/mnt/e/cs340-period-replication/docs/results/table2-rq1-recovered-session-20261124T180224Z-210n7nbf/batch-build-20261124T191043Z-1owby3c7",
+        "failure_scope": "none",
+        "finished_at": "2026-11-24T19:23:50.263358+00:00",
+        "native_exit_code": 0,
+        "native_result": {
+          "benchmark": "reorder_10_bad",
+          "failure_scope": "none",
+          "finished_at": "2026-11-24T19:23:26.513881+00:00",
+          "phase": "build",
+          "phase_excluded": false,
+          "schema": "cs340-period-rq1-phase-v1",
+          "started_at": "2026-11-24T19:23:24.048027+00:00",
+          "status": "BUILD_PASSED"
+        },
+        "orchestrator": "external batch bridge; unchanged frozen native phase",
+        "phase": "build",
+        "phase_excluded": false,
+        "reason": "",
+        "schema": "cs340-period-rq1-host-phase-v1",
+        "started_at": "2026-11-24T19:10:43.534921+00:00",
+        "state": {
+          "benchmarks": {
+            "reorder_10_bad": {
+              "abi_proof": "/tmp/cs340-rq1-17a41a9cb8fd4518aa3ca616bc37246e/evidence/batch-build-20261124T191043Z-1owby3c7/abi-proof.json",
+              "build_attempted": true,
+              "build_record": "/tmp/cs340-rq1-17a41a9cb8fd4518aa3ca616bc37246e/evidence/batch-build-20261124T191043Z-1owby3c7/build-record.json",
+              "manifest": "/tmp/cs340-rq1-17a41a9cb8fd4518aa3ca616bc37246e/evidence/batch-build-20261124T191043Z-1owby3c7/benchmark-manifest.json",
+              "status": "IDENTITY_ABI_VERIFIED_RUNTIME_PROFILE_PENDING"
+            },
+            "reorder_3_bad": {
+              "abi_proof": "/tmp/cs340-rq1-17a41a9cb8fd4518aa3ca616bc37246e/evidence/prepare/reorder_3_bad/abi-proof.json",
+              "adaptation": {
+                "cache": {
+                  "artifacts": {
+                    "binary": "ed2d13809b87a00eaaba76ac0f1faf4871a489a0960993e5963dc89b4bb13db9",
+                    "config": "0ed49729a85b862b9a918c62f3826f3c56b89ec825ae3fe35a28f21f253d7d4d",
+                    "runtime_object": "ade32aae2113a59e4ff3382d73b17b953fe3a2bd439a2d27310d9f4f645f2004",
+                    "runtime_source": "6e5001f8a79851f24f3074b4a6d84cf2550b52b947946f8a330f8877e44e4f61"
+                  },
+                  "core_hashes": {
+                    "period_shared_memory.py": "8b8cf0f6928cc433c0dc96bb8c75bad87f508465d678f6534dc3422197a52cb2",
+                    "run_abi_parallel_reference.py": "965715fa2007de0e1969a487ccccc2c55da338d70c6d07c3cef910e74ace7fb6",
+                    "run_scheduler_comparison.py": "e0e5b567adec3dc43ec57b1cf80f9f3149eb4cfe3a1f2bb148d357feac7fc60d",
+                    "table2_scheduler_affinity.py": "2503d106056b84f7362cc73d8fb79101c74dfbf8a4b9af30c0b4b73b770b7f5a",
+                    "table2_scheduler_permissions.py": "a71635cfe466a80d4f4297a71e23d06b272a9601eb248374e814a8a04edbbd4c",
+                    "trace_period_driver.py": "fd261add80e21964bf6dabb1ee7bce1173ff8f4d3be0b104a536b59ead276819"
+                  },
+                  "pilot": "docs/results/table2-permission-stage-20261124T151059Z-1zwxlb1z/pilot-20261124T151138Z-yu48cwra",
+                  "runtime_profile": {
+                    "benchmark": "reorder_3_bad",
+                    "binary_sha256": "ed2d13809b87a00eaaba76ac0f1faf4871a489a0960993e5963dc89b4bb13db9",
+                    "config_sha256": "0ed49729a85b862b9a918c62f3826f3c56b89ec825ae3fe35a28f21f253d7d4d",
+                    "kps": [
+                      2,
+                      2,
+                      1
+                    ],
+                    "matrix_width": 2,
+                    "schema": "cs340-period-rq1-runtime-profile-v1",
+                    "threads": 3
+                  },
+                  "schema": "cs340-period-rq1-pilot-cache-v1",
+                  "source_commit": "b6f72a7b06d01ffa7114b640312873ec2578a5ea",
+                  "status": "PASS"
+                },
+                "source": "verified_frozen_reorder_3_pilot",
+                "status": "PASS"
+              },
+              "formal_attempted": true,
+              "formal_complete": true,
+              "manifest": "/tmp/cs340-rq1-17a41a9cb8fd4518aa3ca616bc37246e/evidence/prepare/reorder_3_bad/benchmark-manifest.json",
+              "runtime_profile": {
+                "benchmark": "reorder_3_bad",
+                "binary_sha256": "ed2d13809b87a00eaaba76ac0f1faf4871a489a0960993e5963dc89b4bb13db9",
+                "config_sha256": "0ed49729a85b862b9a918c62f3826f3c56b89ec825ae3fe35a28f21f253d7d4d",
+                "kps": [
+                  2,
+                  2,
+                  1
+                ],
+                "matrix_width": 2,
+                "schema": "cs340-period-rq1-runtime-profile-v1",
+                "threads": 3
+              },
+              "status": "ADAPTATION_VERIFIED_FROM_FROZEN_PILOT"
+            },
+            "reorder_4_bad": {
+              "abi_proof": "/tmp/cs340-rq1-17a41a9cb8fd4518aa3ca616bc37246e/evidence/batch-build-20261124T164833Z-9s6vsrmd/abi-proof.json",
+              "adaptation": {
+                "runs": {
+                  "parallel": "/tmp/cs340-rq1-17a41a9cb8fd4518aa3ca616bc37246e/evidence/batch-adapt-20261124T164926Z-ga9y2h3v/adaptation-01-parallel",
+                  "reference": "/tmp/cs340-rq1-17a41a9cb8fd4518aa3ca616bc37246e/evidence/batch-adapt-20261124T164926Z-ga9y2h3v/adaptation-01-reference",
+                  "serial": "/tmp/cs340-rq1-17a41a9cb8fd4518aa3ca616bc37246e/evidence/batch-adapt-20261124T164926Z-ga9y2h3v/adaptation-01-serial"
+                },
+                "status": "PASS"
+              },
+              "adaptation_attempted": true,
+              "build_attempted": true,
+              "build_record": "/tmp/cs340-rq1-17a41a9cb8fd4518aa3ca616bc37246e/evidence/batch-build-20261124T164833Z-9s6vsrmd/build-record.json",
+              "formal_attempted": true,
+              "formal_complete": true,
+              "manifest": "/tmp/cs340-rq1-17a41a9cb8fd4518aa3ca616bc37246e/evidence/batch-build-20261124T164833Z-9s6vsrmd/benchmark-manifest.json",
+              "runtime_profile": {
+                "benchmark": "reorder_4_bad",
+                "binary_sha256": "cf4bffe188a91089ad3618cb7adc247af8a345c546e108e6db855e11a1887222",
+                "config_sha256": "0ed49729a85b862b9a918c62f3826f3c56b89ec825ae3fe35a28f21f253d7d4d",
+                "kps": [
+                  2,
+                  2,
+                  2,
+                  1
+                ],
+                "matrix_width": 2,
+                "schema": "cs340-period-rq1-runtime-profile-v1",
+                "threads": 4
+              },
+              "status": "IDENTITY_ABI_VERIFIED_RUNTIME_PROFILE_PENDING"
+            },
+            "reorder_5_bad": {
+              "abi_proof": "/tmp/cs340-rq1-17a41a9cb8fd4518aa3ca616bc37246e/evidence/batch-build-20261124T165430Z-vxarxss0/abi-proof.json",
+              "adaptation": {
+                "runs": {
+                  "parallel": "/tmp/cs340-rq1-17a41a9cb8fd4518aa3ca616bc37246e/evidence/batch-adapt-20261124T165627Z-bn7rgkx3/adaptation-01-parallel",
+                  "reference": "/tmp/cs340-rq1-17a41a9cb8fd4518aa3ca616bc37246e/evidence/batch-adapt-20261124T165627Z-bn7rgkx3/adaptation-01-reference",
+                  "serial": "/tmp/cs340-rq1-17a41a9cb8fd4518aa3ca616bc37246e/evidence/batch-adapt-20261124T165627Z-bn7rgkx3/adaptation-01-serial"
+                },
+                "status": "PASS"
+              },
+              "adaptation_attempted": true,
+              "build_attempted": true,
+              "build_record": "/tmp/cs340-rq1-17a41a9cb8fd4518aa3ca616bc37246e/evidence/batch-build-20261124T165430Z-vxarxss0/build-record.json",
+              "formal_attempted": true,
+              "formal_complete": true,
+              "manifest": "/tmp/cs340-rq1-17a41a9cb8fd4518aa3ca616bc37246e/evidence/batch-build-20261124T165430Z-vxarxss0/benchmark-manifest.json",
+              "runtime_profile": {
+                "benchmark": "reorder_5_bad",
+                "binary_sha256": "a1a1a12fdb8354a65c3c0d00df18bbd1b5069e34896ab3b3861df06a3fe8b0e5",
+                "config_sha256": "0ed49729a85b862b9a918c62f3826f3c56b89ec825ae3fe35a28f21f253d7d4d",
+                "kps": [
+                  2,
+                  2,
+                  2,
+                  2,
+                  1
+                ],
+                "matrix_width": 2,
+                "schema": "cs340-period-rq1-runtime-profile-v1",
+                "threads": 5
+              },
+              "status": "IDENTITY_ABI_VERIFIED_RUNTIME_PROFILE_PENDING"
+            }
+          },
+          "protocol_sha256": "5685e140d2ecb9c5a9290f39b9f8be39b8c1f607ad1208c04ec3bafe20c78312",
+          "reorder3_formal_complete": true,
+          "root": "/tmp/cs340-rq1-17a41a9cb8fd4518aa3ca616bc37246e",
+          "status": "PREPARED_WITH_BLOCKED_BENCHMARKS"
+        },
+        "status": "BUILD_PASSED"
+      },
+      {
+        "benchmark": "reorder_10_bad",
+        "evidence": "/mnt/e/cs340-period-replication/docs/results/table2-rq1-recovered-session-20261124T180224Z-210n7nbf/batch-adapt-20261124T192351Z-bfqlkndd",
+        "failure_scope": "none",
+        "finished_at": "2026-11-24T19:44:19.164622+00:00",
+        "native_exit_code": 0,
+        "native_result": {
+          "benchmark": "reorder_10_bad",
+          "finished_at": "2026-11-24T19:43:25.342678Z",
+          "phase": "adapt",
+          "phase_excluded": false,
+          "schema": "cs340-period-rq1-phase-v1",
+          "started_at": "2026-11-24T19:36:25.492693Z",
+          "status": "ADAPTATION_PASSED"
+        },
+        "orchestrator": "external batch bridge; unchanged frozen native phase",
+        "phase": "adapt",
+        "phase_excluded": false,
+        "reason": "",
+        "schema": "cs340-period-rq1-host-phase-v1",
+        "started_at": "2026-11-24T19:23:51.603821+00:00",
+        "state": {
+          "benchmarks": {
+            "reorder_10_bad": {
+              "abi_proof": "/tmp/cs340-rq1-17a41a9cb8fd4518aa3ca616bc37246e/evidence/batch-build-20261124T191043Z-1owby3c7/abi-proof.json",
+              "adaptation": {
+                "runs": {
+                  "parallel": "/tmp/cs340-rq1-17a41a9cb8fd4518aa3ca616bc37246e/evidence/batch-adapt-20261124T192351Z-bfqlkndd/adaptation-01-parallel",
+                  "reference": "/tmp/cs340-rq1-17a41a9cb8fd4518aa3ca616bc37246e/evidence/batch-adapt-20261124T192351Z-bfqlkndd/adaptation-01-reference",
+                  "serial": "/tmp/cs340-rq1-17a41a9cb8fd4518aa3ca616bc37246e/evidence/batch-adapt-20261124T192351Z-bfqlkndd/adaptation-01-serial"
+                },
+                "status": "PASS"
+              },
+              "adaptation_attempted": true,
+              "build_attempted": true,
+              "build_record": "/tmp/cs340-rq1-17a41a9cb8fd4518aa3ca616bc37246e/evidence/batch-build-20261124T191043Z-1owby3c7/build-record.json",
+              "manifest": "/tmp/cs340-rq1-17a41a9cb8fd4518aa3ca616bc37246e/evidence/batch-build-20261124T191043Z-1owby3c7/benchmark-manifest.json",
+              "runtime_profile": {
+                "benchmark": "reorder_10_bad",
+                "binary_sha256": "54f90b6791b9d6fd0d4d291e88d9b84ade781a6b390cce8a329ee219d281016b",
+                "config_sha256": "0ed49729a85b862b9a918c62f3826f3c56b89ec825ae3fe35a28f21f253d7d4d",
+                "kps": [
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  1
+                ],
+                "matrix_width": 2,
+                "schema": "cs340-period-rq1-runtime-profile-v1",
+                "threads": 10
+              },
+              "status": "IDENTITY_ABI_VERIFIED_RUNTIME_PROFILE_PENDING"
+            },
+            "reorder_3_bad": {
+              "abi_proof": "/tmp/cs340-rq1-17a41a9cb8fd4518aa3ca616bc37246e/evidence/prepare/reorder_3_bad/abi-proof.json",
+              "adaptation": {
+                "cache": {
+                  "artifacts": {
+                    "binary": "ed2d13809b87a00eaaba76ac0f1faf4871a489a0960993e5963dc89b4bb13db9",
+                    "config": "0ed49729a85b862b9a918c62f3826f3c56b89ec825ae3fe35a28f21f253d7d4d",
+                    "runtime_object": "ade32aae2113a59e4ff3382d73b17b953fe3a2bd439a2d27310d9f4f645f2004",
+                    "runtime_source": "6e5001f8a79851f24f3074b4a6d84cf2550b52b947946f8a330f8877e44e4f61"
+                  },
+                  "core_hashes": {
+                    "period_shared_memory.py": "8b8cf0f6928cc433c0dc96bb8c75bad87f508465d678f6534dc3422197a52cb2",
+                    "run_abi_parallel_reference.py": "965715fa2007de0e1969a487ccccc2c55da338d70c6d07c3cef910e74ace7fb6",
+                    "run_scheduler_comparison.py": "e0e5b567adec3dc43ec57b1cf80f9f3149eb4cfe3a1f2bb148d357feac7fc60d",
+                    "table2_scheduler_affinity.py": "2503d106056b84f7362cc73d8fb79101c74dfbf8a4b9af30c0b4b73b770b7f5a",
+                    "table2_scheduler_permissions.py": "a71635cfe466a80d4f4297a71e23d06b272a9601eb248374e814a8a04edbbd4c",
+                    "trace_period_driver.py": "fd261add80e21964bf6dabb1ee7bce1173ff8f4d3be0b104a536b59ead276819"
+                  },
+                  "pilot": "docs/results/table2-permission-stage-20261124T151059Z-1zwxlb1z/pilot-20261124T151138Z-yu48cwra",
+                  "runtime_profile": {
+                    "benchmark": "reorder_3_bad",
+                    "binary_sha256": "ed2d13809b87a00eaaba76ac0f1faf4871a489a0960993e5963dc89b4bb13db9",
+                    "config_sha256": "0ed49729a85b862b9a918c62f3826f3c56b89ec825ae3fe35a28f21f253d7d4d",
+                    "kps": [
+                      2,
+                      2,
+                      1
+                    ],
+                    "matrix_width": 2,
+                    "schema": "cs340-period-rq1-runtime-profile-v1",
+                    "threads": 3
+                  },
+                  "schema": "cs340-period-rq1-pilot-cache-v1",
+                  "source_commit": "b6f72a7b06d01ffa7114b640312873ec2578a5ea",
+                  "status": "PASS"
+                },
+                "source": "verified_frozen_reorder_3_pilot",
+                "status": "PASS"
+              },
+              "formal_attempted": true,
+              "formal_complete": true,
+              "manifest": "/tmp/cs340-rq1-17a41a9cb8fd4518aa3ca616bc37246e/evidence/prepare/reorder_3_bad/benchmark-manifest.json",
+              "runtime_profile": {
+                "benchmark": "reorder_3_bad",
+                "binary_sha256": "ed2d13809b87a00eaaba76ac0f1faf4871a489a0960993e5963dc89b4bb13db9",
+                "config_sha256": "0ed49729a85b862b9a918c62f3826f3c56b89ec825ae3fe35a28f21f253d7d4d",
+                "kps": [
+                  2,
+                  2,
+                  1
+                ],
+                "matrix_width": 2,
+                "schema": "cs340-period-rq1-runtime-profile-v1",
+                "threads": 3
+              },
+              "status": "ADAPTATION_VERIFIED_FROM_FROZEN_PILOT"
+            },
+            "reorder_4_bad": {
+              "abi_proof": "/tmp/cs340-rq1-17a41a9cb8fd4518aa3ca616bc37246e/evidence/batch-build-20261124T164833Z-9s6vsrmd/abi-proof.json",
+              "adaptation": {
+                "runs": {
+                  "parallel": "/tmp/cs340-rq1-17a41a9cb8fd4518aa3ca616bc37246e/evidence/batch-adapt-20261124T164926Z-ga9y2h3v/adaptation-01-parallel",
+                  "reference": "/tmp/cs340-rq1-17a41a9cb8fd4518aa3ca616bc37246e/evidence/batch-adapt-20261124T164926Z-ga9y2h3v/adaptation-01-reference",
+                  "serial": "/tmp/cs340-rq1-17a41a9cb8fd4518aa3ca616bc37246e/evidence/batch-adapt-20261124T164926Z-ga9y2h3v/adaptation-01-serial"
+                },
+                "status": "PASS"
+              },
+              "adaptation_attempted": true,
+              "build_attempted": true,
+              "build_record": "/tmp/cs340-rq1-17a41a9cb8fd4518aa3ca616bc37246e/evidence/batch-build-20261124T164833Z-9s6vsrmd/build-record.json",
+              "formal_attempted": true,
+              "formal_complete": true,
+              "manifest": "/tmp/cs340-rq1-17a41a9cb8fd4518aa3ca616bc37246e/evidence/batch-build-20261124T164833Z-9s6vsrmd/benchmark-manifest.json",
+              "runtime_profile": {
+                "benchmark": "reorder_4_bad",
+                "binary_sha256": "cf4bffe188a91089ad3618cb7adc247af8a345c546e108e6db855e11a1887222",
+                "config_sha256": "0ed49729a85b862b9a918c62f3826f3c56b89ec825ae3fe35a28f21f253d7d4d",
+                "kps": [
+                  2,
+                  2,
+                  2,
+                  1
+                ],
+                "matrix_width": 2,
+                "schema": "cs340-period-rq1-runtime-profile-v1",
+                "threads": 4
+              },
+              "status": "IDENTITY_ABI_VERIFIED_RUNTIME_PROFILE_PENDING"
+            },
+            "reorder_5_bad": {
+              "abi_proof": "/tmp/cs340-rq1-17a41a9cb8fd4518aa3ca616bc37246e/evidence/batch-build-20261124T165430Z-vxarxss0/abi-proof.json",
+              "adaptation": {
+                "runs": {
+                  "parallel": "/tmp/cs340-rq1-17a41a9cb8fd4518aa3ca616bc37246e/evidence/batch-adapt-20261124T165627Z-bn7rgkx3/adaptation-01-parallel",
+                  "reference": "/tmp/cs340-rq1-17a41a9cb8fd4518aa3ca616bc37246e/evidence/batch-adapt-20261124T165627Z-bn7rgkx3/adaptation-01-reference",
+                  "serial": "/tmp/cs340-rq1-17a41a9cb8fd4518aa3ca616bc37246e/evidence/batch-adapt-20261124T165627Z-bn7rgkx3/adaptation-01-serial"
+                },
+                "status": "PASS"
+              },
+              "adaptation_attempted": true,
+              "build_attempted": true,
+              "build_record": "/tmp/cs340-rq1-17a41a9cb8fd4518aa3ca616bc37246e/evidence/batch-build-20261124T165430Z-vxarxss0/build-record.json",
+              "formal_attempted": true,
+              "formal_complete": true,
+              "manifest": "/tmp/cs340-rq1-17a41a9cb8fd4518aa3ca616bc37246e/evidence/batch-build-20261124T165430Z-vxarxss0/benchmark-manifest.json",
+              "runtime_profile": {
+                "benchmark": "reorder_5_bad",
+                "binary_sha256": "a1a1a12fdb8354a65c3c0d00df18bbd1b5069e34896ab3b3861df06a3fe8b0e5",
+                "config_sha256": "0ed49729a85b862b9a918c62f3826f3c56b89ec825ae3fe35a28f21f253d7d4d",
+                "kps": [
+                  2,
+                  2,
+                  2,
+                  2,
+                  1
+                ],
+                "matrix_width": 2,
+                "schema": "cs340-period-rq1-runtime-profile-v1",
+                "threads": 5
+              },
+              "status": "IDENTITY_ABI_VERIFIED_RUNTIME_PROFILE_PENDING"
+            }
+          },
+          "protocol_sha256": "5685e140d2ecb9c5a9290f39b9f8be39b8c1f607ad1208c04ec3bafe20c78312",
+          "reorder3_formal_complete": true,
+          "root": "/tmp/cs340-rq1-17a41a9cb8fd4518aa3ca616bc37246e",
+          "status": "PREPARED_WITH_BLOCKED_BENCHMARKS"
+        },
+        "status": "ADAPTATION_PASSED"
+      },
+      {
+        "benchmark": "reorder_10_bad",
+        "evidence": "/mnt/e/cs340-period-replication/docs/results/table2-rq1-recovered-session-20261124T180224Z-210n7nbf/batch-formal-20261124T194424Z-hycbv3t6",
+        "failure_scope": "none",
+        "finished_at": "2026-11-24T20:31:31.343591+00:00",
+        "native_exit_code": 0,
+        "native_result": {
+          "benchmark": "reorder_10_bad",
+          "finished_at": "2026-11-24T20:30:11.912499Z",
+          "phase": "formal",
+          "phase_excluded": false,
+          "schema": "cs340-period-rq1-phase-v1",
+          "started_at": "2026-11-24T19:57:48.715098Z",
+          "status": "FORMAL_BENCHMARK_PASSED"
+        },
+        "orchestrator": "external batch bridge; unchanged frozen native phase",
+        "phase": "formal",
+        "phase_excluded": false,
+        "reason": "",
+        "schema": "cs340-period-rq1-host-phase-v1",
+        "started_at": "2026-11-24T19:44:24.348109+00:00",
+        "state": {
+          "benchmarks": {
+            "reorder_10_bad": {
+              "abi_proof": "/tmp/cs340-rq1-17a41a9cb8fd4518aa3ca616bc37246e/evidence/batch-build-20261124T191043Z-1owby3c7/abi-proof.json",
+              "adaptation": {
+                "runs": {
+                  "parallel": "/tmp/cs340-rq1-17a41a9cb8fd4518aa3ca616bc37246e/evidence/batch-adapt-20261124T192351Z-bfqlkndd/adaptation-01-parallel",
+                  "reference": "/tmp/cs340-rq1-17a41a9cb8fd4518aa3ca616bc37246e/evidence/batch-adapt-20261124T192351Z-bfqlkndd/adaptation-01-reference",
+                  "serial": "/tmp/cs340-rq1-17a41a9cb8fd4518aa3ca616bc37246e/evidence/batch-adapt-20261124T192351Z-bfqlkndd/adaptation-01-serial"
+                },
+                "status": "PASS"
+              },
+              "adaptation_attempted": true,
+              "build_attempted": true,
+              "build_record": "/tmp/cs340-rq1-17a41a9cb8fd4518aa3ca616bc37246e/evidence/batch-build-20261124T191043Z-1owby3c7/build-record.json",
+              "formal_attempted": true,
+              "formal_complete": true,
+              "manifest": "/tmp/cs340-rq1-17a41a9cb8fd4518aa3ca616bc37246e/evidence/batch-build-20261124T191043Z-1owby3c7/benchmark-manifest.json",
+              "runtime_profile": {
+                "benchmark": "reorder_10_bad",
+                "binary_sha256": "54f90b6791b9d6fd0d4d291e88d9b84ade781a6b390cce8a329ee219d281016b",
+                "config_sha256": "0ed49729a85b862b9a918c62f3826f3c56b89ec825ae3fe35a28f21f253d7d4d",
+                "kps": [
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  1
+                ],
+                "matrix_width": 2,
+                "schema": "cs340-period-rq1-runtime-profile-v1",
+                "threads": 10
+              },
+              "status": "IDENTITY_ABI_VERIFIED_RUNTIME_PROFILE_PENDING"
+            },
+            "reorder_3_bad": {
+              "abi_proof": "/tmp/cs340-rq1-17a41a9cb8fd4518aa3ca616bc37246e/evidence/prepare/reorder_3_bad/abi-proof.json",
+              "adaptation": {
+                "cache": {
+                  "artifacts": {
+                    "binary": "ed2d13809b87a00eaaba76ac0f1faf4871a489a0960993e5963dc89b4bb13db9",
+                    "config": "0ed49729a85b862b9a918c62f3826f3c56b89ec825ae3fe35a28f21f253d7d4d",
+                    "runtime_object": "ade32aae2113a59e4ff3382d73b17b953fe3a2bd439a2d27310d9f4f645f2004",
+                    "runtime_source": "6e5001f8a79851f24f3074b4a6d84cf2550b52b947946f8a330f8877e44e4f61"
+                  },
+                  "core_hashes": {
+                    "period_shared_memory.py": "8b8cf0f6928cc433c0dc96bb8c75bad87f508465d678f6534dc3422197a52cb2",
+                    "run_abi_parallel_reference.py": "965715fa2007de0e1969a487ccccc2c55da338d70c6d07c3cef910e74ace7fb6",
+                    "run_scheduler_comparison.py": "e0e5b567adec3dc43ec57b1cf80f9f3149eb4cfe3a1f2bb148d357feac7fc60d",
+                    "table2_scheduler_affinity.py": "2503d106056b84f7362cc73d8fb79101c74dfbf8a4b9af30c0b4b73b770b7f5a",
+                    "table2_scheduler_permissions.py": "a71635cfe466a80d4f4297a71e23d06b272a9601eb248374e814a8a04edbbd4c",
+                    "trace_period_driver.py": "fd261add80e21964bf6dabb1ee7bce1173ff8f4d3be0b104a536b59ead276819"
+                  },
+                  "pilot": "docs/results/table2-permission-stage-20261124T151059Z-1zwxlb1z/pilot-20261124T151138Z-yu48cwra",
+                  "runtime_profile": {
+                    "benchmark": "reorder_3_bad",
+                    "binary_sha256": "ed2d13809b87a00eaaba76ac0f1faf4871a489a0960993e5963dc89b4bb13db9",
+                    "config_sha256": "0ed49729a85b862b9a918c62f3826f3c56b89ec825ae3fe35a28f21f253d7d4d",
+                    "kps": [
+                      2,
+                      2,
+                      1
+                    ],
+                    "matrix_width": 2,
+                    "schema": "cs340-period-rq1-runtime-profile-v1",
+                    "threads": 3
+                  },
+                  "schema": "cs340-period-rq1-pilot-cache-v1",
+                  "source_commit": "b6f72a7b06d01ffa7114b640312873ec2578a5ea",
+                  "status": "PASS"
+                },
+                "source": "verified_frozen_reorder_3_pilot",
+                "status": "PASS"
+              },
+              "formal_attempted": true,
+              "formal_complete": true,
+              "manifest": "/tmp/cs340-rq1-17a41a9cb8fd4518aa3ca616bc37246e/evidence/prepare/reorder_3_bad/benchmark-manifest.json",
+              "runtime_profile": {
+                "benchmark": "reorder_3_bad",
+                "binary_sha256": "ed2d13809b87a00eaaba76ac0f1faf4871a489a0960993e5963dc89b4bb13db9",
+                "config_sha256": "0ed49729a85b862b9a918c62f3826f3c56b89ec825ae3fe35a28f21f253d7d4d",
+                "kps": [
+                  2,
+                  2,
+                  1
+                ],
+                "matrix_width": 2,
+                "schema": "cs340-period-rq1-runtime-profile-v1",
+                "threads": 3
+              },
+              "status": "ADAPTATION_VERIFIED_FROM_FROZEN_PILOT"
+            },
+            "reorder_4_bad": {
+              "abi_proof": "/tmp/cs340-rq1-17a41a9cb8fd4518aa3ca616bc37246e/evidence/batch-build-20261124T164833Z-9s6vsrmd/abi-proof.json",
+              "adaptation": {
+                "runs": {
+                  "parallel": "/tmp/cs340-rq1-17a41a9cb8fd4518aa3ca616bc37246e/evidence/batch-adapt-20261124T164926Z-ga9y2h3v/adaptation-01-parallel",
+                  "reference": "/tmp/cs340-rq1-17a41a9cb8fd4518aa3ca616bc37246e/evidence/batch-adapt-20261124T164926Z-ga9y2h3v/adaptation-01-reference",
+                  "serial": "/tmp/cs340-rq1-17a41a9cb8fd4518aa3ca616bc37246e/evidence/batch-adapt-20261124T164926Z-ga9y2h3v/adaptation-01-serial"
+                },
+                "status": "PASS"
+              },
+              "adaptation_attempted": true,
+              "build_attempted": true,
+              "build_record": "/tmp/cs340-rq1-17a41a9cb8fd4518aa3ca616bc37246e/evidence/batch-build-20261124T164833Z-9s6vsrmd/build-record.json",
+              "formal_attempted": true,
+              "formal_complete": true,
+              "manifest": "/tmp/cs340-rq1-17a41a9cb8fd4518aa3ca616bc37246e/evidence/batch-build-20261124T164833Z-9s6vsrmd/benchmark-manifest.json",
+              "runtime_profile": {
+                "benchmark": "reorder_4_bad",
+                "binary_sha256": "cf4bffe188a91089ad3618cb7adc247af8a345c546e108e6db855e11a1887222",
+                "config_sha256": "0ed49729a85b862b9a918c62f3826f3c56b89ec825ae3fe35a28f21f253d7d4d",
+                "kps": [
+                  2,
+                  2,
+                  2,
+                  1
+                ],
+                "matrix_width": 2,
+                "schema": "cs340-period-rq1-runtime-profile-v1",
+                "threads": 4
+              },
+              "status": "IDENTITY_ABI_VERIFIED_RUNTIME_PROFILE_PENDING"
+            },
+            "reorder_5_bad": {
+              "abi_proof": "/tmp/cs340-rq1-17a41a9cb8fd4518aa3ca616bc37246e/evidence/batch-build-20261124T165430Z-vxarxss0/abi-proof.json",
+              "adaptation": {
+                "runs": {
+                  "parallel": "/tmp/cs340-rq1-17a41a9cb8fd4518aa3ca616bc37246e/evidence/batch-adapt-20261124T165627Z-bn7rgkx3/adaptation-01-parallel",
+                  "reference": "/tmp/cs340-rq1-17a41a9cb8fd4518aa3ca616bc37246e/evidence/batch-adapt-20261124T165627Z-bn7rgkx3/adaptation-01-reference",
+                  "serial": "/tmp/cs340-rq1-17a41a9cb8fd4518aa3ca616bc37246e/evidence/batch-adapt-20261124T165627Z-bn7rgkx3/adaptation-01-serial"
+                },
+                "status": "PASS"
+              },
+              "adaptation_attempted": true,
+              "build_attempted": true,
+              "build_record": "/tmp/cs340-rq1-17a41a9cb8fd4518aa3ca616bc37246e/evidence/batch-build-20261124T165430Z-vxarxss0/build-record.json",
+              "formal_attempted": true,
+              "formal_complete": true,
+              "manifest": "/tmp/cs340-rq1-17a41a9cb8fd4518aa3ca616bc37246e/evidence/batch-build-20261124T165430Z-vxarxss0/benchmark-manifest.json",
+              "runtime_profile": {
+                "benchmark": "reorder_5_bad",
+                "binary_sha256": "a1a1a12fdb8354a65c3c0d00df18bbd1b5069e34896ab3b3861df06a3fe8b0e5",
+                "config_sha256": "0ed49729a85b862b9a918c62f3826f3c56b89ec825ae3fe35a28f21f253d7d4d",
+                "kps": [
+                  2,
+                  2,
+                  2,
+                  2,
+                  1
+                ],
+                "matrix_width": 2,
+                "schema": "cs340-period-rq1-runtime-profile-v1",
+                "threads": 5
+              },
+              "status": "IDENTITY_ABI_VERIFIED_RUNTIME_PROFILE_PENDING"
+            }
+          },
+          "protocol_sha256": "5685e140d2ecb9c5a9290f39b9f8be39b8c1f607ad1208c04ec3bafe20c78312",
+          "reorder3_formal_complete": true,
+          "root": "/tmp/cs340-rq1-17a41a9cb8fd4518aa3ca616bc37246e",
+          "status": "PREPARED_WITH_BLOCKED_BENCHMARKS"
+        },
+        "status": "FORMAL_BENCHMARK_PASSED"
+      }
+    ]
+  },
+  "minimum_complete": true,
+  "planned_formal_rounds": 24,
+  "raw_evidence_verified": true,
+  "schema": "cs340-period-rq1-batch-v1",
+  "session": "/mnt/e/cs340-period-replication/docs/results/table2-rq1-recovered-session-20261124T180224Z-210n7nbf",
+  "status": "MINIMUM_24_PASSED",
+  "valid_formal_rounds": 24
+}

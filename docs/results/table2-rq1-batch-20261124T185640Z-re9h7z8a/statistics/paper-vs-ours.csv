@@ -1,0 +1,9 @@
+benchmark,mode,planned_minimum,attempted,valid,detected,detection_rate,undetected,budget_exhausted,paper_first_error,paper_total_schedules,paper_error_interleavings,paper_budget_censored,first_error_detected_only_mean,first_error_detected_only_sample_sd,first_error_detected_only_n,total_schedules_mean,total_schedules_sample_sd,error_interleavings_mean,error_interleavings_sample_sd,status
+reorder_3_bad,parallel,3,3,3,3,1.0,0,0,6,27,6,False,6.0,0.0,3,27.0,0.0,6.0,0.0,MINIMUM_COMPLETE
+reorder_3_bad,serial,3,3,3,3,1.0,0,0,10,30,10,False,10.0,0.0,3,30.0,0.0,10.0,0.0,MINIMUM_COMPLETE
+reorder_4_bad,parallel,3,3,3,3,1.0,0,0,9,100,12,False,9.0,0.0,3,100.0,0.0,12.0,0.0,MINIMUM_COMPLETE
+reorder_4_bad,serial,3,3,3,3,1.0,0,0,37,384,90,False,47.0,0.0,3,384.0,0.0,90.0,0.0,MINIMUM_COMPLETE
+reorder_5_bad,parallel,3,3,3,3,1.0,0,0,12,225,20,False,12.0,0.0,3,225.0,0.0,20.0,0.0,MINIMUM_COMPLETE
+reorder_5_bad,serial,3,3,3,3,1.0,0,0,283,5040,816,False,283.0,0.0,3,5040.0,0.0,816.0,0.0,MINIMUM_COMPLETE
+reorder_10_bad,parallel,3,3,3,3,1.0,0,0,27,2350,89,False,27.0,0.0,3,2350.0,0.0,90.0,0.0,MINIMUM_COMPLETE
+reorder_10_bad,serial,3,3,3,0,0.0,3,3,,10000,0,True,,,0,10000.0,0.0,0.0,0.0,MINIMUM_COMPLETE

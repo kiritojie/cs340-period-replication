@@ -1,0 +1,20 @@
+{
+  "chart_count": 5,
+  "formal_valid_rounds": 24,
+  "protocol_sha256": "5685e140d2ecb9c5a9290f39b9f8be39b8c1f607ad1208c04ec3bafe20c78312",
+  "schema": "cs340-period-rq1-charts-v1",
+  "source_verification": {
+    "entries": 8,
+    "manifest_counts": [
+      {
+        "entries": 8,
+        "manifest": "SHA256SUMS"
+      }
+    ],
+    "manifests": 1,
+    "root": "/mnt/e/cs340-period-replication/docs/results/table2-rq1-batch-20261124T185640Z-re9h7z8a/statistics",
+    "status": "PASS"
+  },
+  "statistics_rule": "mean with sample SD; first-error among detected valid rounds only; ND remains categorical",
+  "statistics_summary_sha256": "5e17cfca3db2260b8e53edae2c47bba41001d62a238f3803a48ef444ef2a0895"
+}

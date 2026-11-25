@@ -1,0 +1,106 @@
+{
+  "audit_date": "2026-11-25",
+  "chart_fields_checked": 680,
+  "chart_rows_checked": 40,
+  "checksum_manifests": [
+    {
+      "entries": 8,
+      "path": "docs/results/table2-rq1-batch-20261124T185640Z-re9h7z8a/charts/SHA256SUMS",
+      "status": "PASS"
+    },
+    {
+      "entries": 8,
+      "path": "docs/results/table2-rq1-batch-20261124T185640Z-re9h7z8a/statistics/SHA256SUMS",
+      "status": "PASS"
+    }
+  ],
+  "comparison_tolerance": {
+    "absolute": 1e-12,
+    "relative": 1e-12
+  },
+  "data_dictionary": [
+    {
+      "csv_storage": "fraction in [0, 1]",
+      "csv_unit_field": "percent",
+      "metric": "detection_rate",
+      "rendering": "Renderer multiplies CSV fraction by 100; 1.0 displays 100%, 0.0 displays 0%. CSV readers must not interpret stored 1.0 as 1%.",
+      "sample_sd": "null; descriptive observed detected/valid proportion, no confidence interval or sample SD is supplied."
+    },
+    {
+      "eligibility": "Valid detected formal rounds only. reorder_10 serial has n=0, null mean/SD, ND categorical label; never insert budget or zero as a detection time.",
+      "metric": "first_error_detected_only"
+    },
+    {
+      "eligibility": "All valid formal rounds. Mean +/- sample SD; SD whisker lower endpoint is clipped at zero for rendering while numeric SD remains unchanged. These timings include local profiling/supervision and are not directly compared to paper.",
+      "metric": "external_seconds"
+    }
+  ],
+  "errors": [],
+  "independent_detection_rate_checks": 8,
+  "independent_statistic_checks": 120,
+  "interpretation_notes": [
+    "All schedule/error/first-ordinal SD values are zero for observed repeated detected groups; this is observed repeatability across n=3, not proof of general determinism.",
+    "Serial reorder_10 total=10000 is budget censored in paper and ours; zero errors and 0/3 detection remain valid numeric observations.",
+    "First-error and count chart paper references are available; paper SD, detection proportions and runtime are not invented.",
+    "Observed paper deviations are retained in figures: reorder_4 serial first error 47 vs paper 37, reorder_10 parallel error schedules 90 vs paper 89.",
+    "The five plot classes use linear scales and exact CSV values; SVG text rounds to six significant digits.",
+    "Serial reorder_10 external runtime round 2=1187.540205056 s is a real retained outlier; mean=524.9403206226667 s, sample SD=573.9002096893167 s. Final protocol uses a 3600-second round timeout; do not describe these rounds as subject to a 600-second cap."
+  ],
+  "schema": "cs340-period-rq1-final-charts-audit-v1",
+  "scope": "Read-only audit of preserved CSV/JSON/SVG. No experiment execution; no frozen chart files changed.",
+  "source_batch": "docs/results/table2-rq1-batch-20261124T185640Z-re9h7z8a",
+  "statistics_summary_sha256_matches_chart_provenance": true,
+  "status": "PASS",
+  "svg_reconstructions": [
+    {
+      "exact_reconstruction": true,
+      "metric": "first_error_detected_only",
+      "ours_bars": 7,
+      "paper_bars": 7,
+      "path": "docs/results/table2-rq1-batch-20261124T185640Z-re9h7z8a/charts/first_error_detected_only.svg",
+      "sha256": "ab09b4a4cb9cba3fb77c6b672a8fbb1d900f32c28c6e763cfe00d7868a1cd692",
+      "xml_well_formed": true
+    },
+    {
+      "exact_reconstruction": true,
+      "metric": "total_schedules",
+      "ours_bars": 8,
+      "paper_bars": 8,
+      "path": "docs/results/table2-rq1-batch-20261124T185640Z-re9h7z8a/charts/total_schedules.svg",
+      "sha256": "ad82944ef43c5426c85bfae43c3225787b07949dc48923ef48e01834f088c3ba",
+      "xml_well_formed": true
+    },
+    {
+      "exact_reconstruction": true,
+      "metric": "error_interleavings",
+      "ours_bars": 8,
+      "paper_bars": 8,
+      "path": "docs/results/table2-rq1-batch-20261124T185640Z-re9h7z8a/charts/error_interleavings.svg",
+      "sha256": "57fe8732adae084b248967bae49a479ef6891f402e3ce909663f6216302059bd",
+      "xml_well_formed": true
+    },
+    {
+      "exact_reconstruction": true,
+      "metric": "detection_rate",
+      "ours_bars": 8,
+      "paper_bars": 0,
+      "path": "docs/results/table2-rq1-batch-20261124T185640Z-re9h7z8a/charts/detection_rate.svg",
+      "sha256": "0c386808965ef8b9f638a10c6b685465712a3b99783dd45f4339cf4cf9420179",
+      "xml_well_formed": true
+    },
+    {
+      "exact_reconstruction": true,
+      "metric": "external_seconds",
+      "ours_bars": 8,
+      "paper_bars": 0,
+      "path": "docs/results/table2-rq1-batch-20261124T185640Z-re9h7z8a/charts/external_seconds.svg",
+      "sha256": "f897ce1f43440e17cd0306eb8f3881e1e9cc7e10ffde570938194149ced85485",
+      "xml_well_formed": true
+    }
+  ],
+  "visual_verification": {
+    "numerical_reconstruction": "PASS for all five SVGs",
+    "pixel_rendering": "Not completed: isolated headless Chrome exited 2147483651 and produced no screenshots. No pixel-level visual inspection is claimed.",
+    "xml_parse": "PASS for all five SVGs"
+  }
+}

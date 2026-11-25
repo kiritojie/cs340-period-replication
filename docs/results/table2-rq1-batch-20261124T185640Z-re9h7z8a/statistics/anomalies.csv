@@ -1,0 +1,1 @@
+run_dir,benchmark,mode,round,purpose,termination_state,included,first_error,bug_detected,right_censored,censor_at,censor_reason,total_schedules,completed_schedules,in_flight,retests,physical_launches,error_interleavings,timeouts,internal_seconds,external_seconds,exit_code,protocol_sha256,exclusion_reasons,context_sha256,analysis_sha256

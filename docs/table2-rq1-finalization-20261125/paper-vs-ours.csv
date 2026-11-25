@@ -1,0 +1,9 @@
+benchmark,mode,valid,detected,detection_rate,budget_exhausted,paper_first_error,ours_first_error_mean,ours_first_error_sample_sd,ours_first_error_n,first_error_delta,first_error_delta_percent,paper_total_schedules,ours_total_schedules_mean,ours_total_schedules_sample_sd,ours_total_schedules_n,total_schedules_delta,total_schedules_delta_percent,paper_error_interleavings,ours_error_interleavings_mean,ours_error_interleavings_sample_sd,ours_error_interleavings_n,error_interleavings_delta,error_interleavings_delta_percent,paper_budget_censored,external_seconds_mean,external_seconds_sample_sd,first_error_status
+reorder_3_bad,parallel,3,3,1.0,0,6,6.0,0.0,3,0.0,0.0,27,27.0,0.0,3,0.0,0.0,6,6.0,0.0,3,0.0,0.0,False,1.7725162043333333,0.05227243802545421,DETECTED
+reorder_3_bad,serial,3,3,1.0,0,10,10.0,0.0,3,0.0,0.0,30,30.0,0.0,3,0.0,0.0,10,10.0,0.0,3,0.0,0.0,False,2.507423010666667,0.12590048924187014,DETECTED
+reorder_4_bad,parallel,3,3,1.0,0,9,9.0,0.0,3,0.0,0.0,100,100.0,0.0,3,0.0,0.0,12,12.0,0.0,3,0.0,0.0,False,4.161028537666667,0.3638310085936027,DETECTED
+reorder_4_bad,serial,3,3,1.0,0,37,47.0,0.0,3,10.0,27.027027027027028,384,384.0,0.0,3,0.0,0.0,90,90.0,0.0,3,0.0,0.0,False,24.957501394666668,1.6361220459178147,DETECTED
+reorder_5_bad,parallel,3,3,1.0,0,12,12.0,0.0,3,0.0,0.0,225,225.0,0.0,3,0.0,0.0,20,20.0,0.0,3,0.0,0.0,False,9.172563514,0.8043490636308266,DETECTED
+reorder_5_bad,serial,3,3,1.0,0,283,283.0,0.0,3,0.0,0.0,5040,5040.0,0.0,3,0.0,0.0,816,816.0,0.0,3,0.0,0.0,False,345.507717253,12.504142425492706,DETECTED
+reorder_10_bad,parallel,3,3,1.0,0,27,27.0,0.0,3,0.0,0.0,2350,2350.0,0.0,3,0.0,0.0,89,90.0,0.0,3,1.0,1.1235955056179776,False,108.76118835433334,16.36820992635517,DETECTED
+reorder_10_bad,serial,3,0,0.0,3,,,,0,,,10000,10000.0,0.0,3,0.0,0.0,0,0.0,0.0,3,0.0,,True,524.9403206226667,573.9002096893167,ND_BUDGET_CENSORED

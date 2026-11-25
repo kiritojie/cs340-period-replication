@@ -1,0 +1,42 @@
+{
+  "schema": "cs340-period-rq1-frozen-pilot-v1",
+  "frozen_at": "2026-11-24T15:24:11.019960+00:00",
+  "source_commit": "b6f72a7b06d01ffa7114b640312873ec2578a5ea",
+  "session": "docs/results/table2-permission-stage-20261124T151059Z-1zwxlb1z",
+  "pilot": "docs/results/table2-permission-stage-20261124T151059Z-1zwxlb1z/pilot-20261124T151138Z-yu48cwra",
+  "immutable_evidence_manifests": {
+    "docs/results/table2-permission-stage-20261124T151059Z-1zwxlb1z/SHA256SUMS": "950e538d7d8f83b7ee263a1a0edc9ec0f9a57bfbed5efdb23ec589e1ab33f941",
+    "docs/results/table2-permission-stage-20261124T151059Z-1zwxlb1z/pilot-20261124T151138Z-yu48cwra/SHA256SUMS": "e448f2d468c22aad42196d1061b6b3e9e29b239fc8d92df509d419e4c649367b",
+    "docs/results/table2-permission-stage-20261124T151059Z-1zwxlb1z/pilot-20261124T151138Z-yu48cwra/native-evidence/table2-scheduler-pilot-20261124T151141Z.rkkK2o/SHA256SUMS": "7b785b86afeb5df8a4f37345493634ca202dea3c582a98d03b30575f4d9840e8"
+  },
+  "protected_modules": {
+    "run_scheduler_comparison.py": "e0e5b567adec3dc43ec57b1cf80f9f3149eb4cfe3a1f2bb148d357feac7fc60d",
+    "run_abi_parallel_reference.py": "965715fa2007de0e1969a487ccccc2c55da338d70c6d07c3cef910e74ace7fb6",
+    "period_shared_memory.py": "8b8cf0f6928cc433c0dc96bb8c75bad87f508465d678f6534dc3422197a52cb2",
+    "table2_scheduler_permissions.py": "a71635cfe466a80d4f4297a71e23d06b272a9601eb248374e814a8a04edbbd4c",
+    "trace_period_driver.py": "fd261add80e21964bf6dabb1ee7bce1173ff8f4d3be0b104a536b59ead276819",
+    "table2_scheduler_affinity.py": "2503d106056b84f7362cc73d8fb79101c74dfbf8a4b9af30c0b4b73b770b7f5a"
+  },
+  "pilot_counts": {
+    "A1": [
+      6,
+      27,
+      6,
+      0
+    ],
+    "B": [
+      6,
+      27,
+      6,
+      0
+    ],
+    "C": [
+      10,
+      30,
+      10,
+      0
+    ]
+  },
+  "historical_A0": "audit only; raw1990 ABI unverified against runtime3964; never pooled with corrected formal data",
+  "formal_runs_in_this_freeze": 0
+}

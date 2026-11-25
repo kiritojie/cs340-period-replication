@@ -1,0 +1,337 @@
+{
+  "schema": "rq1-curated-text-evidence-v1",
+  "archive": "docs/evidence/table2-rq1-evidence-20261125.zip",
+  "bytes": 12752967,
+  "sha256": "8e0540ed36a3a9b2e5b38158fed42280c724aeb30ef4d2b57b7aa262b7c54fec",
+  "included_original_files": 6769,
+  "included_original_bytes": 165948694,
+  "omitted_artifacts": [
+    {
+      "path": "docs/results/table2-permission-stage-20261124T151059Z-1zwxlb1z/pilot-20261124T151138Z-yu48cwra/native-evidence/table2-scheduler-pilot-20261124T151141Z.rkkK2o/A1-abi-corrected-parallel/work/reorder_3_bad",
+      "bytes": 419896,
+      "sha256": "ed2d13809b87a00eaaba76ac0f1faf4871a489a0960993e5963dc89b4bb13db9",
+      "reason": "compiled executable or object"
+    },
+    {
+      "path": "docs/results/table2-permission-stage-20261124T151059Z-1zwxlb1z/pilot-20261124T151138Z-yu48cwra/native-evidence/table2-scheduler-pilot-20261124T151141Z.rkkK2o/B-adapted-parallel/work/reorder_3_bad",
+      "bytes": 419896,
+      "sha256": "ed2d13809b87a00eaaba76ac0f1faf4871a489a0960993e5963dc89b4bb13db9",
+      "reason": "compiled executable or object"
+    },
+    {
+      "path": "docs/results/table2-permission-stage-20261124T151059Z-1zwxlb1z/pilot-20261124T151138Z-yu48cwra/native-evidence/table2-scheduler-pilot-20261124T151141Z.rkkK2o/C-adapted-serial/work/reorder_3_bad",
+      "bytes": 419896,
+      "sha256": "ed2d13809b87a00eaaba76ac0f1faf4871a489a0960993e5963dc89b4bb13db9",
+      "reason": "compiled executable or object"
+    },
+    {
+      "path": "docs/results/table2-rootful-resume-20261124T223147-rn8x19fu/original-products/binary",
+      "bytes": 419896,
+      "sha256": "ed2d13809b87a00eaaba76ac0f1faf4871a489a0960993e5963dc89b4bb13db9",
+      "reason": "compiled executable or object"
+    },
+    {
+      "path": "docs/results/table2-rootful-resume-20261124T223147-rn8x19fu/original-products/runtime_object",
+      "bytes": 681744,
+      "sha256": "ade32aae2113a59e4ff3382d73b17b953fe3a2bd439a2d27310d9f4f645f2004",
+      "reason": "compiled executable or object"
+    },
+    {
+      "path": "docs/results/table2-rootful-resume-20261124T223147-rn8x19fu/post-binary",
+      "bytes": 419896,
+      "sha256": "ed2d13809b87a00eaaba76ac0f1faf4871a489a0960993e5963dc89b4bb13db9",
+      "reason": "compiled executable or object"
+    },
+    {
+      "path": "docs/results/table2-rootful-resume-20261124T223147-rn8x19fu/post-runtime_object",
+      "bytes": 681744,
+      "sha256": "ade32aae2113a59e4ff3382d73b17b953fe3a2bd439a2d27310d9f4f645f2004",
+      "reason": "compiled executable or object"
+    },
+    {
+      "path": "docs/results/table2-rq1-recovered-session-20261124T180224Z-210n7nbf/batch-adapt-20261124T164926Z-ga9y2h3v/native-evidence/adaptation-01-parallel/work/reorder_4_bad",
+      "bytes": 419960,
+      "sha256": "cf4bffe188a91089ad3618cb7adc247af8a345c546e108e6db855e11a1887222",
+      "reason": "compiled executable or object"
+    },
+    {
+      "path": "docs/results/table2-rq1-recovered-session-20261124T180224Z-210n7nbf/batch-adapt-20261124T164926Z-ga9y2h3v/native-evidence/adaptation-01-reference/work/reorder_4_bad",
+      "bytes": 419960,
+      "sha256": "cf4bffe188a91089ad3618cb7adc247af8a345c546e108e6db855e11a1887222",
+      "reason": "compiled executable or object"
+    },
+    {
+      "path": "docs/results/table2-rq1-recovered-session-20261124T180224Z-210n7nbf/batch-adapt-20261124T164926Z-ga9y2h3v/native-evidence/adaptation-01-serial/work/reorder_4_bad",
+      "bytes": 419960,
+      "sha256": "cf4bffe188a91089ad3618cb7adc247af8a345c546e108e6db855e11a1887222",
+      "reason": "compiled executable or object"
+    },
+    {
+      "path": "docs/results/table2-rq1-recovered-session-20261124T180224Z-210n7nbf/batch-adapt-20261124T165627Z-bn7rgkx3/native-evidence/adaptation-01-parallel/work/reorder_5_bad",
+      "bytes": 419960,
+      "sha256": "a1a1a12fdb8354a65c3c0d00df18bbd1b5069e34896ab3b3861df06a3fe8b0e5",
+      "reason": "compiled executable or object"
+    },
+    {
+      "path": "docs/results/table2-rq1-recovered-session-20261124T180224Z-210n7nbf/batch-adapt-20261124T165627Z-bn7rgkx3/native-evidence/adaptation-01-reference/work/reorder_5_bad",
+      "bytes": 419960,
+      "sha256": "a1a1a12fdb8354a65c3c0d00df18bbd1b5069e34896ab3b3861df06a3fe8b0e5",
+      "reason": "compiled executable or object"
+    },
+    {
+      "path": "docs/results/table2-rq1-recovered-session-20261124T180224Z-210n7nbf/batch-adapt-20261124T165627Z-bn7rgkx3/native-evidence/adaptation-01-serial/work/reorder_5_bad",
+      "bytes": 419960,
+      "sha256": "a1a1a12fdb8354a65c3c0d00df18bbd1b5069e34896ab3b3861df06a3fe8b0e5",
+      "reason": "compiled executable or object"
+    },
+    {
+      "path": "docs/results/table2-rq1-recovered-session-20261124T180224Z-210n7nbf/batch-adapt-20261124T192351Z-bfqlkndd/native-evidence/adaptation-01-parallel/work/reorder_10_bad",
+      "bytes": 419968,
+      "sha256": "54f90b6791b9d6fd0d4d291e88d9b84ade781a6b390cce8a329ee219d281016b",
+      "reason": "compiled executable or object"
+    },
+    {
+      "path": "docs/results/table2-rq1-recovered-session-20261124T180224Z-210n7nbf/batch-adapt-20261124T192351Z-bfqlkndd/native-evidence/adaptation-01-reference/work/reorder_10_bad",
+      "bytes": 419968,
+      "sha256": "54f90b6791b9d6fd0d4d291e88d9b84ade781a6b390cce8a329ee219d281016b",
+      "reason": "compiled executable or object"
+    },
+    {
+      "path": "docs/results/table2-rq1-recovered-session-20261124T180224Z-210n7nbf/batch-adapt-20261124T192351Z-bfqlkndd/native-evidence/adaptation-01-serial/work/reorder_10_bad",
+      "bytes": 419968,
+      "sha256": "54f90b6791b9d6fd0d4d291e88d9b84ade781a6b390cce8a329ee219d281016b",
+      "reason": "compiled executable or object"
+    },
+    {
+      "path": "docs/results/table2-rq1-recovered-session-20261124T180224Z-210n7nbf/batch-build-20261124T164833Z-9s6vsrmd/native-evidence/build-work/mempair.reorder_4_bad.npz",
+      "bytes": 3388,
+      "sha256": "e6c6355cee1fc48d46d7fdbe8fbd95ae36dfdcaf3b66a6d6aefc5649dbd896cc",
+      "reason": "compiler/cache/array intermediate"
+    },
+    {
+      "path": "docs/results/table2-rq1-recovered-session-20261124T180224Z-210n7nbf/batch-build-20261124T164833Z-9s6vsrmd/native-evidence/build-work/reorder_4_bad",
+      "bytes": 419960,
+      "sha256": "cf4bffe188a91089ad3618cb7adc247af8a345c546e108e6db855e11a1887222",
+      "reason": "compiled executable or object"
+    },
+    {
+      "path": "docs/results/table2-rq1-recovered-session-20261124T180224Z-210n7nbf/batch-build-20261124T164833Z-9s6vsrmd/native-evidence/build-work/reorder_4_bad.bc",
+      "bytes": 10664,
+      "sha256": "7fccc588aaf8b0b085f6453b0158eaea8a73122479eef5d830c2d322c54c5b49",
+      "reason": "compiler/cache/array intermediate"
+    },
+    {
+      "path": "docs/results/table2-rq1-recovered-session-20261124T180224Z-210n7nbf/batch-build-20261124T165430Z-vxarxss0/native-evidence/build-work/mempair.reorder_5_bad.npz",
+      "bytes": 3388,
+      "sha256": "e6c6355cee1fc48d46d7fdbe8fbd95ae36dfdcaf3b66a6d6aefc5649dbd896cc",
+      "reason": "compiler/cache/array intermediate"
+    },
+    {
+      "path": "docs/results/table2-rq1-recovered-session-20261124T180224Z-210n7nbf/batch-build-20261124T165430Z-vxarxss0/native-evidence/build-work/reorder_5_bad",
+      "bytes": 419960,
+      "sha256": "a1a1a12fdb8354a65c3c0d00df18bbd1b5069e34896ab3b3861df06a3fe8b0e5",
+      "reason": "compiled executable or object"
+    },
+    {
+      "path": "docs/results/table2-rq1-recovered-session-20261124T180224Z-210n7nbf/batch-build-20261124T165430Z-vxarxss0/native-evidence/build-work/reorder_5_bad.bc",
+      "bytes": 10644,
+      "sha256": "2f6edc2183e2564d9d22382dff84220457e40342debb2c7b25ea0ea871d39657",
+      "reason": "compiler/cache/array intermediate"
+    },
+    {
+      "path": "docs/results/table2-rq1-recovered-session-20261124T180224Z-210n7nbf/batch-build-20261124T191043Z-1owby3c7/native-evidence/build-work/mempair.reorder_10_bad.npz",
+      "bytes": 3388,
+      "sha256": "e6c6355cee1fc48d46d7fdbe8fbd95ae36dfdcaf3b66a6d6aefc5649dbd896cc",
+      "reason": "compiler/cache/array intermediate"
+    },
+    {
+      "path": "docs/results/table2-rq1-recovered-session-20261124T180224Z-210n7nbf/batch-build-20261124T191043Z-1owby3c7/native-evidence/build-work/reorder_10_bad",
+      "bytes": 419968,
+      "sha256": "54f90b6791b9d6fd0d4d291e88d9b84ade781a6b390cce8a329ee219d281016b",
+      "reason": "compiled executable or object"
+    },
+    {
+      "path": "docs/results/table2-rq1-recovered-session-20261124T180224Z-210n7nbf/batch-build-20261124T191043Z-1owby3c7/native-evidence/build-work/reorder_10_bad.bc",
+      "bytes": 10644,
+      "sha256": "9c8bfbe6633d247f0e936788e4845af617125e73e55d3e18e66fbf491e5501f7",
+      "reason": "compiler/cache/array intermediate"
+    },
+    {
+      "path": "docs/results/table2-rq1-recovered-session-20261124T180224Z-210n7nbf/batch-formal-20261124T165114Z-rgf4h0aw/native-evidence/formal-01-parallel/work/reorder_4_bad",
+      "bytes": 419960,
+      "sha256": "cf4bffe188a91089ad3618cb7adc247af8a345c546e108e6db855e11a1887222",
+      "reason": "compiled executable or object"
+    },
+    {
+      "path": "docs/results/table2-rq1-recovered-session-20261124T180224Z-210n7nbf/batch-formal-20261124T165114Z-rgf4h0aw/native-evidence/formal-01-serial/work/reorder_4_bad",
+      "bytes": 419960,
+      "sha256": "cf4bffe188a91089ad3618cb7adc247af8a345c546e108e6db855e11a1887222",
+      "reason": "compiled executable or object"
+    },
+    {
+      "path": "docs/results/table2-rq1-recovered-session-20261124T180224Z-210n7nbf/batch-formal-20261124T165114Z-rgf4h0aw/native-evidence/formal-02-parallel/work/reorder_4_bad",
+      "bytes": 419960,
+      "sha256": "cf4bffe188a91089ad3618cb7adc247af8a345c546e108e6db855e11a1887222",
+      "reason": "compiled executable or object"
+    },
+    {
+      "path": "docs/results/table2-rq1-recovered-session-20261124T180224Z-210n7nbf/batch-formal-20261124T165114Z-rgf4h0aw/native-evidence/formal-02-serial/work/reorder_4_bad",
+      "bytes": 419960,
+      "sha256": "cf4bffe188a91089ad3618cb7adc247af8a345c546e108e6db855e11a1887222",
+      "reason": "compiled executable or object"
+    },
+    {
+      "path": "docs/results/table2-rq1-recovered-session-20261124T180224Z-210n7nbf/batch-formal-20261124T165114Z-rgf4h0aw/native-evidence/formal-03-parallel/work/reorder_4_bad",
+      "bytes": 419960,
+      "sha256": "cf4bffe188a91089ad3618cb7adc247af8a345c546e108e6db855e11a1887222",
+      "reason": "compiled executable or object"
+    },
+    {
+      "path": "docs/results/table2-rq1-recovered-session-20261124T180224Z-210n7nbf/batch-formal-20261124T165114Z-rgf4h0aw/native-evidence/formal-03-serial/work/reorder_4_bad",
+      "bytes": 419960,
+      "sha256": "cf4bffe188a91089ad3618cb7adc247af8a345c546e108e6db855e11a1887222",
+      "reason": "compiled executable or object"
+    },
+    {
+      "path": "docs/results/table2-rq1-recovered-session-20261124T180224Z-210n7nbf/batch-formal-20261124T194424Z-hycbv3t6/native-evidence/formal-01-parallel/work/reorder_10_bad",
+      "bytes": 419968,
+      "sha256": "54f90b6791b9d6fd0d4d291e88d9b84ade781a6b390cce8a329ee219d281016b",
+      "reason": "compiled executable or object"
+    },
+    {
+      "path": "docs/results/table2-rq1-recovered-session-20261124T180224Z-210n7nbf/batch-formal-20261124T194424Z-hycbv3t6/native-evidence/formal-01-serial/work/reorder_10_bad",
+      "bytes": 419968,
+      "sha256": "54f90b6791b9d6fd0d4d291e88d9b84ade781a6b390cce8a329ee219d281016b",
+      "reason": "compiled executable or object"
+    },
+    {
+      "path": "docs/results/table2-rq1-recovered-session-20261124T180224Z-210n7nbf/batch-formal-20261124T194424Z-hycbv3t6/native-evidence/formal-02-parallel/work/reorder_10_bad",
+      "bytes": 419968,
+      "sha256": "54f90b6791b9d6fd0d4d291e88d9b84ade781a6b390cce8a329ee219d281016b",
+      "reason": "compiled executable or object"
+    },
+    {
+      "path": "docs/results/table2-rq1-recovered-session-20261124T180224Z-210n7nbf/batch-formal-20261124T194424Z-hycbv3t6/native-evidence/formal-02-serial/work/reorder_10_bad",
+      "bytes": 419968,
+      "sha256": "54f90b6791b9d6fd0d4d291e88d9b84ade781a6b390cce8a329ee219d281016b",
+      "reason": "compiled executable or object"
+    },
+    {
+      "path": "docs/results/table2-rq1-recovered-session-20261124T180224Z-210n7nbf/batch-formal-20261124T194424Z-hycbv3t6/native-evidence/formal-03-parallel/work/reorder_10_bad",
+      "bytes": 419968,
+      "sha256": "54f90b6791b9d6fd0d4d291e88d9b84ade781a6b390cce8a329ee219d281016b",
+      "reason": "compiled executable or object"
+    },
+    {
+      "path": "docs/results/table2-rq1-recovered-session-20261124T180224Z-210n7nbf/batch-formal-20261124T194424Z-hycbv3t6/native-evidence/formal-03-serial/work/reorder_10_bad",
+      "bytes": 419968,
+      "sha256": "54f90b6791b9d6fd0d4d291e88d9b84ade781a6b390cce8a329ee219d281016b",
+      "reason": "compiled executable or object"
+    },
+    {
+      "path": "docs/results/table2-rq1-recovered-session-20261124T180224Z-210n7nbf/batch-reorder3-20261124T162519Z-2khil0on/native-evidence/formal-01-parallel/work/reorder_3_bad",
+      "bytes": 419896,
+      "sha256": "ed2d13809b87a00eaaba76ac0f1faf4871a489a0960993e5963dc89b4bb13db9",
+      "reason": "compiled executable or object"
+    },
+    {
+      "path": "docs/results/table2-rq1-recovered-session-20261124T180224Z-210n7nbf/batch-reorder3-20261124T162519Z-2khil0on/native-evidence/formal-01-serial/work/reorder_3_bad",
+      "bytes": 419896,
+      "sha256": "ed2d13809b87a00eaaba76ac0f1faf4871a489a0960993e5963dc89b4bb13db9",
+      "reason": "compiled executable or object"
+    },
+    {
+      "path": "docs/results/table2-rq1-recovered-session-20261124T180224Z-210n7nbf/batch-reorder3-20261124T162519Z-2khil0on/native-evidence/formal-02-parallel/work/reorder_3_bad",
+      "bytes": 419896,
+      "sha256": "ed2d13809b87a00eaaba76ac0f1faf4871a489a0960993e5963dc89b4bb13db9",
+      "reason": "compiled executable or object"
+    },
+    {
+      "path": "docs/results/table2-rq1-recovered-session-20261124T180224Z-210n7nbf/batch-reorder3-20261124T162519Z-2khil0on/native-evidence/formal-02-serial/work/reorder_3_bad",
+      "bytes": 419896,
+      "sha256": "ed2d13809b87a00eaaba76ac0f1faf4871a489a0960993e5963dc89b4bb13db9",
+      "reason": "compiled executable or object"
+    },
+    {
+      "path": "docs/results/table2-rq1-recovered-session-20261124T180224Z-210n7nbf/batch-reorder3-20261124T162519Z-2khil0on/native-evidence/formal-03-parallel/work/reorder_3_bad",
+      "bytes": 419896,
+      "sha256": "ed2d13809b87a00eaaba76ac0f1faf4871a489a0960993e5963dc89b4bb13db9",
+      "reason": "compiled executable or object"
+    },
+    {
+      "path": "docs/results/table2-rq1-recovered-session-20261124T180224Z-210n7nbf/batch-reorder3-20261124T162519Z-2khil0on/native-evidence/formal-03-serial/work/reorder_3_bad",
+      "bytes": 419896,
+      "sha256": "ed2d13809b87a00eaaba76ac0f1faf4871a489a0960993e5963dc89b4bb13db9",
+      "reason": "compiled executable or object"
+    },
+    {
+      "path": "docs/results/table2-rq1-recovered-session-20261124T180224Z-210n7nbf/batch.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "cache or ephemeral lock"
+    },
+    {
+      "path": "docs/results/table2-rq1-recovered-session-20261124T180224Z-210n7nbf/recovered-formal5-20261124T180224Z-za3mmb51/native-evidence/formal-01-parallel/work/reorder_5_bad",
+      "bytes": 419960,
+      "sha256": "a1a1a12fdb8354a65c3c0d00df18bbd1b5069e34896ab3b3861df06a3fe8b0e5",
+      "reason": "compiled executable or object"
+    },
+    {
+      "path": "docs/results/table2-rq1-recovered-session-20261124T180224Z-210n7nbf/recovered-formal5-20261124T180224Z-za3mmb51/native-evidence/formal-01-serial/work/reorder_5_bad",
+      "bytes": 419960,
+      "sha256": "a1a1a12fdb8354a65c3c0d00df18bbd1b5069e34896ab3b3861df06a3fe8b0e5",
+      "reason": "compiled executable or object"
+    },
+    {
+      "path": "docs/results/table2-rq1-recovered-session-20261124T180224Z-210n7nbf/recovered-formal5-20261124T180224Z-za3mmb51/native-evidence/formal-02-parallel/work/reorder_5_bad",
+      "bytes": 419960,
+      "sha256": "a1a1a12fdb8354a65c3c0d00df18bbd1b5069e34896ab3b3861df06a3fe8b0e5",
+      "reason": "compiled executable or object"
+    },
+    {
+      "path": "docs/results/table2-rq1-recovered-session-20261124T180224Z-210n7nbf/recovered-formal5-20261124T180224Z-za3mmb51/native-evidence/formal-02-serial/work/reorder_5_bad",
+      "bytes": 419960,
+      "sha256": "a1a1a12fdb8354a65c3c0d00df18bbd1b5069e34896ab3b3861df06a3fe8b0e5",
+      "reason": "compiled executable or object"
+    },
+    {
+      "path": "docs/results/table2-rq1-recovered-session-20261124T180224Z-210n7nbf/recovered-formal5-20261124T180224Z-za3mmb51/native-evidence/formal-03-parallel/work/reorder_5_bad",
+      "bytes": 419960,
+      "sha256": "a1a1a12fdb8354a65c3c0d00df18bbd1b5069e34896ab3b3861df06a3fe8b0e5",
+      "reason": "compiled executable or object"
+    },
+    {
+      "path": "docs/results/table2-rq1-recovered-session-20261124T180224Z-210n7nbf/recovered-formal5-20261124T180224Z-za3mmb51/native-evidence/formal-03-serial/work/reorder_5_bad",
+      "bytes": 419960,
+      "sha256": "a1a1a12fdb8354a65c3c0d00df18bbd1b5069e34896ab3b3861df06a3fe8b0e5",
+      "reason": "compiled executable or object"
+    },
+    {
+      "path": "docs/results/table2-rq1-session-20261124T162432Z-f2xe6bx0/batch.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "cache or ephemeral lock"
+    }
+  ],
+  "omitted_artifact_count": 51,
+  "omitted_bytes": 18623340,
+  "verification": "ZIP CRC and SHA256 of every included member PASS",
+  "original_full_manifests": "59 manifests / 16607 entries / 6293 distinct referenced files verified on full local originals; curated coverage explicitly smaller",
+  "included_roots": [
+    "docs/results/table2-rq1-recovered-session-20261124T180224Z-210n7nbf",
+    "docs/results/table2-rootful-resume-20261124T223147-rn8x19fu",
+    "docs/results/table2-permission-stage-20261124T151059Z-1zwxlb1z"
+  ],
+  "extra_failure_evidence": "Original halted session top-level control files and failed export commands/exit/stderr; predecessor failed batch; cleanup/permission failure records.",
+  "preservation": "No original file deleted, moved, normalized or overwritten; duplicate historical sessions retained locally",
+  "companion_history_archive": {
+    "path": "docs/evidence/table2-rq1-history-20261125.zip",
+    "bytes": 4962185,
+    "sha256": "5ffce594291b2cbcc3bce0ff1ae1117ca1bc2cf87c135cc6bf709b7d9618da0d",
+    "members": 220,
+    "historical_original_artifact_copies": 51,
+    "restorable_files": 197,
+    "before_readability_snapshots": 22
+  },
+  "omission_resolution": "All 51 originally omitted artifacts are preserved at repository/<original path> in the companion history ZIP. Restore both packages to satisfy the original formal/session and frozen-pilot hash contracts. No artifact was rebuilt."
+}

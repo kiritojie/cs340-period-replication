@@ -1,0 +1,71 @@
+{
+  "struct_name": "Sched_Info",
+  "compilation_unit": "DBDSFunction.cpp",
+  "byte_size": 24008,
+  "members": [
+    {
+      "element_bytes": 8,
+      "unsigned": true,
+      "dimensions": [],
+      "name": "time",
+      "offset": 0
+    },
+    {
+      "element_bytes": 4,
+      "unsigned": true,
+      "dimensions": [],
+      "name": "N",
+      "offset": 8
+    },
+    {
+      "element_bytes": 4,
+      "unsigned": true,
+      "dimensions": [],
+      "name": "M",
+      "offset": 12
+    },
+    {
+      "element_bytes": 4,
+      "unsigned": true,
+      "dimensions": [],
+      "name": "TestedBounds",
+      "offset": 16
+    },
+    {
+      "element_bytes": 2,
+      "unsigned": true,
+      "dimensions": [
+        100
+      ],
+      "name": "kpNumArray",
+      "offset": 20
+    },
+    {
+      "element_bytes": 2,
+      "unsigned": true,
+      "dimensions": [
+        3964
+      ],
+      "name": "kp",
+      "offset": 220
+    },
+    {
+      "element_bytes": 2,
+      "unsigned": true,
+      "dimensions": [
+        3964
+      ],
+      "name": "kpLoc",
+      "offset": 8148
+    },
+    {
+      "element_bytes": 2,
+      "unsigned": true,
+      "dimensions": [
+        3964
+      ],
+      "name": "kpOrder",
+      "offset": 16076
+    }
+  ]
+}

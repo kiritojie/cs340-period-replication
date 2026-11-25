@@ -1,0 +1,13 @@
+.gitattributes
+.gitignore
+README.md
+config
+scripts
+tests
+orchestration
+docs/frozen
+docs/table2-rq1-protocol.md
+docs/results/table2-rq1-batch-20261124T185640Z-re9h7z8a
+docs/table2-rq1-finalization-20261125
+docs/evidence/table2-rq1-evidence-20261125.zip
+docs/evidence/table2-rq1-history-20261125.zip

@@ -14,3 +14,64 @@ scripts/cve_repeat_loop.sh text eol=lf
 scripts/cve_stats.py text eol=lf
 docs/results/worker-syscall-evidence/** -text
 docs/results/table2-reorder-schedules/** -text
+
+# Preserve exact upstream blobs and the pilot's checksummed evidence.
+scripts/vendor/period_b6f72a7/** -text
+docs/results/table2-scheduler-pilot-20261124/** -text
+docs/patches/table2-scheduler-*.patch -text
+scripts/run_scheduler_comparison.py text eol=lf
+scripts/table2_scheduler_pilot.sh text eol=lf
+scripts/table2_scheduler_preflight.py text eol=lf
+scripts/table2_scheduler_evidence.py text eol=lf
+scripts/trace_period_driver.py text eol=lf
+tests/test_scheduler_comparison.py text eol=lf
+tests/test_table2_preflight.py text eol=lf
+tests/test_table2_trace_observer.py text eol=lf
+tests/test_table2_pilot_evidence.py text eol=lf
+scripts/resume_table2_podman.py text eol=lf
+scripts/table2_scheduler_affinity.py text eol=lf
+tests/test_resume_table2_podman.py text eol=lf
+tests/test_table2_affinity.py text eol=lf
+docs/results/table2-rootful-resume-preparation-20261124/** -text
+scripts/period_shared_memory.py text eol=lf
+scripts/run_abi_parallel_reference.py text eol=lf
+tests/test_period_shared_memory.py text eol=lf
+tests/test_abi_driver.py text eol=lf
+tests/test_abi_evidence.py text eol=lf
+tests/test_abi_resume.py text eol=lf
+tests/test_table2_abi_proof_v2.py text eol=lf
+tests/fixtures/period_runtime_3964_layout.json -text
+docs/results/table2-abi-compatibility-20261124/** -text
+scripts/table2_scheduler_permissions.py text eol=lf
+tests/test_table2_permissions.py text eol=lf
+tests/test_table2_permission_drivers.py text eol=lf
+tests/test_table2_permission_resume.py text eol=lf
+docs/results/table2-permission-compatibility-*/** -text
+scripts/table2_permission_stage.py text eol=lf
+tests/test_table2_cleanup.py text eol=lf
+tests/test_table2_permission_stage.py text eol=lf
+docs/results/table2-cleanup-fix-*/** -text
+docs/results/table2-permission-stage-*/** -text
+scripts/table2_rq1*.py text eol=lf
+tests/test_table2_formal_*.py text eol=lf
+tests/test_table2_rq1*.py text eol=lf
+config/table2-rq1-protocol.json text eol=lf
+docs/frozen/table2-rq1-*/** -text
+docs/results/table2-rq1-*/** -text
+
+# Final review records and the compact evidence archive retain their exact bytes.
+docs/table2-rq1-finalization-20261125/** -text
+docs/evidence/table2-rq1-evidence-20261125.zip -text
+docs/evidence/table2-rq1-history-20261125.zip -text
+# Preserve teammates' CPU Affinity evidence on Windows checkouts.
+docs/results/extension-cpu-affinity*/** -text
+# Union with remote main: top-level executable scripts remain LF.
+# These patterns do not match nested vendor snapshots, which remain -text.
+scripts/*.sh text eol=lf
+scripts/*.py text eol=lf
+orchestration/*.py text eol=lf
+orchestration/tests/*.py text eol=lf
+tests/*.py text eol=lf
+.gitattributes text eol=lf
+.gitignore text eol=lf
+README.md text eol=lf

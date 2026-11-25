@@ -1,0 +1,41 @@
+benchmark,mode,metric,ours_status,ours_mean,ours_sample_sd,ours_n,paper_status,paper_value,paper_budget_censored,planned_minimum,attempted,valid,detected,undetected_censored,budget_exhausted,unit
+reorder_3_bad,parallel,first_error_detected_only,VALID,6.0,0.0,3,VALUE,6,False,3,3,3,3,0,0,schedule ordinal
+reorder_3_bad,parallel,total_schedules,VALID,27.0,0.0,3,VALUE,27,False,3,3,3,3,0,0,schedules
+reorder_3_bad,parallel,error_interleavings,VALID,6.0,0.0,3,VALUE,6,False,3,3,3,3,0,0,schedules
+reorder_3_bad,parallel,detection_rate,VALID,1.0,,3,NOT_REPORTED,,False,3,3,3,3,0,0,percent
+reorder_3_bad,parallel,external_seconds,VALID,1.7725162043333333,0.05227243802545421,3,NOT_REPORTED,,False,3,3,3,3,0,0,seconds
+reorder_3_bad,serial,first_error_detected_only,VALID,10.0,0.0,3,VALUE,10,False,3,3,3,3,0,0,schedule ordinal
+reorder_3_bad,serial,total_schedules,VALID,30.0,0.0,3,VALUE,30,False,3,3,3,3,0,0,schedules
+reorder_3_bad,serial,error_interleavings,VALID,10.0,0.0,3,VALUE,10,False,3,3,3,3,0,0,schedules
+reorder_3_bad,serial,detection_rate,VALID,1.0,,3,NOT_REPORTED,,False,3,3,3,3,0,0,percent
+reorder_3_bad,serial,external_seconds,VALID,2.507423010666667,0.12590048924187014,3,NOT_REPORTED,,False,3,3,3,3,0,0,seconds
+reorder_4_bad,parallel,first_error_detected_only,VALID,9.0,0.0,3,VALUE,9,False,3,3,3,3,0,0,schedule ordinal
+reorder_4_bad,parallel,total_schedules,VALID,100.0,0.0,3,VALUE,100,False,3,3,3,3,0,0,schedules
+reorder_4_bad,parallel,error_interleavings,VALID,12.0,0.0,3,VALUE,12,False,3,3,3,3,0,0,schedules
+reorder_4_bad,parallel,detection_rate,VALID,1.0,,3,NOT_REPORTED,,False,3,3,3,3,0,0,percent
+reorder_4_bad,parallel,external_seconds,VALID,4.161028537666667,0.3638310085936027,3,NOT_REPORTED,,False,3,3,3,3,0,0,seconds
+reorder_4_bad,serial,first_error_detected_only,VALID,47.0,0.0,3,VALUE,37,False,3,3,3,3,0,0,schedule ordinal
+reorder_4_bad,serial,total_schedules,VALID,384.0,0.0,3,VALUE,384,False,3,3,3,3,0,0,schedules
+reorder_4_bad,serial,error_interleavings,VALID,90.0,0.0,3,VALUE,90,False,3,3,3,3,0,0,schedules
+reorder_4_bad,serial,detection_rate,VALID,1.0,,3,NOT_REPORTED,,False,3,3,3,3,0,0,percent
+reorder_4_bad,serial,external_seconds,VALID,24.957501394666668,1.6361220459178147,3,NOT_REPORTED,,False,3,3,3,3,0,0,seconds
+reorder_5_bad,parallel,first_error_detected_only,VALID,12.0,0.0,3,VALUE,12,False,3,3,3,3,0,0,schedule ordinal
+reorder_5_bad,parallel,total_schedules,VALID,225.0,0.0,3,VALUE,225,False,3,3,3,3,0,0,schedules
+reorder_5_bad,parallel,error_interleavings,VALID,20.0,0.0,3,VALUE,20,False,3,3,3,3,0,0,schedules
+reorder_5_bad,parallel,detection_rate,VALID,1.0,,3,NOT_REPORTED,,False,3,3,3,3,0,0,percent
+reorder_5_bad,parallel,external_seconds,VALID,9.172563514,0.8043490636308266,3,NOT_REPORTED,,False,3,3,3,3,0,0,seconds
+reorder_5_bad,serial,first_error_detected_only,VALID,283.0,0.0,3,VALUE,283,False,3,3,3,3,0,0,schedule ordinal
+reorder_5_bad,serial,total_schedules,VALID,5040.0,0.0,3,VALUE,5040,False,3,3,3,3,0,0,schedules
+reorder_5_bad,serial,error_interleavings,VALID,816.0,0.0,3,VALUE,816,False,3,3,3,3,0,0,schedules
+reorder_5_bad,serial,detection_rate,VALID,1.0,,3,NOT_REPORTED,,False,3,3,3,3,0,0,percent
+reorder_5_bad,serial,external_seconds,VALID,345.507717253,12.504142425492706,3,NOT_REPORTED,,False,3,3,3,3,0,0,seconds
+reorder_10_bad,parallel,first_error_detected_only,VALID,27.0,0.0,3,VALUE,27,False,3,3,3,3,0,0,schedule ordinal
+reorder_10_bad,parallel,total_schedules,VALID,2350.0,0.0,3,VALUE,2350,False,3,3,3,3,0,0,schedules
+reorder_10_bad,parallel,error_interleavings,VALID,90.0,0.0,3,VALUE,89,False,3,3,3,3,0,0,schedules
+reorder_10_bad,parallel,detection_rate,VALID,1.0,,3,NOT_REPORTED,,False,3,3,3,3,0,0,percent
+reorder_10_bad,parallel,external_seconds,VALID,108.76118835433334,16.36820992635517,3,NOT_REPORTED,,False,3,3,3,3,0,0,seconds
+reorder_10_bad,serial,first_error_detected_only,ND,,,0,ND,,True,3,3,3,0,3,3,schedule ordinal
+reorder_10_bad,serial,total_schedules,VALID,10000.0,0.0,3,VALUE,10000,True,3,3,3,0,3,3,schedules
+reorder_10_bad,serial,error_interleavings,VALID,0.0,0.0,3,VALUE,0,True,3,3,3,0,3,3,schedules
+reorder_10_bad,serial,detection_rate,VALID,0.0,,3,NOT_REPORTED,,True,3,3,3,0,3,3,percent
+reorder_10_bad,serial,external_seconds,VALID,524.9403206226667,573.9002096893167,3,NOT_REPORTED,,True,3,3,3,0,3,3,seconds

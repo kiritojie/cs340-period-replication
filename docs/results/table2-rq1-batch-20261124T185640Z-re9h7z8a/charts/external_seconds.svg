@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="800" viewBox="0 0 1240 800">
+<rect width="100%" height="100%" fill="#fff"/>
+<style>text{font-family:Arial,sans-serif;fill:#182335} .note{font-size:12px;fill:#536276} .axis{font-size:11px;fill:#536276}</style>
+<text x="28" y="38" font-size="24" font-weight="bold">External runtime</text>
+<text x="28" y="65" class="note">Ours: mean with sample SD where defined; explicit formal rounds only</text>
+<rect x="28" y="82" width="18" height="12" rx="2" fill="#1b7097"/><text x="54" y="93" class="note">Ours</text>
+<rect x="115" y="82" width="18" height="12" rx="2" fill="#aeb8c4"/><text x="141" y="93" class="note">Paper reference (no paper SD supplied)</text>
+<line x1="265.00" y1="112" x2="265.00" y2="695" stroke="#e4e9ef"/>
+<text x="265.00" y="715" text-anchor="middle" class="axis">0</text>
+<line x1="401.00" y1="112" x2="401.00" y2="695" stroke="#e4e9ef"/>
+<text x="401.00" y="715" text-anchor="middle" class="axis">237.35</text>
+<line x1="537.00" y1="112" x2="537.00" y2="695" stroke="#e4e9ef"/>
+<text x="537.00" y="715" text-anchor="middle" class="axis">474.699</text>
+<line x1="673.00" y1="112" x2="673.00" y2="695" stroke="#e4e9ef"/>
+<text x="673.00" y="715" text-anchor="middle" class="axis">712.049</text>
+<line x1="809.00" y1="112" x2="809.00" y2="695" stroke="#e4e9ef"/>
+<text x="809.00" y="715" text-anchor="middle" class="axis">949.398</text>
+<line x1="945.00" y1="112" x2="945.00" y2="695" stroke="#e4e9ef"/>
+<text x="945.00" y="715" text-anchor="middle" class="axis">1186.75</text>
+<text x="28" y="141" font-size="14" font-weight="bold">reorder_3 / Parallel</text>
+<text x="28" y="160" class="note">valid 3/3; detected 3; censored 0</text>
+<rect class="ours-bar" data-status="VALID" data-value="1.7725162043333333" x="265" y="126" width="1.0156" height="17" rx="2" fill="#1b7097"/>
+<path d="M 265.986 134 H 266.046 M 265.986 129 V 139 M 266.046 129 V 139" fill="none" stroke="#17324d" stroke-width="1.5"/>
+<text x="274.02" y="140" class="note">1.77252 +/- 0.0522724 (n=3)</text>
+<text x="270" y="166" class="note" data-status="NOT_REPORTED">NOT REPORTED</text>
+<text x="28" y="211" font-size="14" font-weight="bold">reorder_3 / Serial</text>
+<text x="28" y="230" class="note">valid 3/3; detected 3; censored 0</text>
+<rect class="ours-bar" data-status="VALID" data-value="2.507423010666667" x="265" y="196" width="1.4367" height="17" rx="2" fill="#1b7097"/>
+<path d="M 266.365 204 H 266.509 M 266.365 199 V 209 M 266.509 199 V 209" fill="none" stroke="#17324d" stroke-width="1.5"/>
+<text x="274.44" y="210" class="note">2.50742 +/- 0.1259 (n=3)</text>
+<text x="270" y="236" class="note" data-status="NOT_REPORTED">NOT REPORTED</text>
+<text x="28" y="281" font-size="14" font-weight="bold">reorder_4 / Parallel</text>
+<text x="28" y="300" class="note">valid 3/3; detected 3; censored 0</text>
+<rect class="ours-bar" data-status="VALID" data-value="4.161028537666667" x="265" y="266" width="2.3842" height="17" rx="2" fill="#1b7097"/>
+<path d="M 267.176 274 H 267.593 M 267.176 269 V 279 M 267.593 269 V 279" fill="none" stroke="#17324d" stroke-width="1.5"/>
+<text x="275.38" y="280" class="note">4.16103 +/- 0.363831 (n=3)</text>
+<text x="270" y="306" class="note" data-status="NOT_REPORTED">NOT REPORTED</text>
+<text x="28" y="351" font-size="14" font-weight="bold">reorder_4 / Serial</text>
+<text x="28" y="370" class="note">valid 3/3; detected 3; censored 0</text>
+<rect class="ours-bar" data-status="VALID" data-value="24.957501394666668" x="265" y="336" width="14.3005" height="17" rx="2" fill="#1b7097"/>
+<path d="M 278.363 344 H 280.238 M 278.363 339 V 349 M 280.238 339 V 349" fill="none" stroke="#17324d" stroke-width="1.5"/>
+<text x="287.30" y="350" class="note">24.9575 +/- 1.63612 (n=3)</text>
+<text x="270" y="376" class="note" data-status="NOT_REPORTED">NOT REPORTED</text>
+<text x="28" y="421" font-size="14" font-weight="bold">reorder_5 / Parallel</text>
+<text x="28" y="440" class="note">valid 3/3; detected 3; censored 0</text>
+<rect class="ours-bar" data-status="VALID" data-value="9.172563514" x="265" y="406" width="5.2558" height="17" rx="2" fill="#1b7097"/>
+<path d="M 269.795 414 H 270.717 M 269.795 409 V 419 M 270.717 409 V 419" fill="none" stroke="#17324d" stroke-width="1.5"/>
+<text x="278.26" y="420" class="note">9.17256 +/- 0.804349 (n=3)</text>
+<text x="270" y="446" class="note" data-status="NOT_REPORTED">NOT REPORTED</text>
+<text x="28" y="491" font-size="14" font-weight="bold">reorder_5 / Serial</text>
+<text x="28" y="510" class="note">valid 3/3; detected 3; censored 0</text>
+<rect class="ours-bar" data-status="VALID" data-value="345.507717253" x="265" y="476" width="197.9740" height="17" rx="2" fill="#1b7097"/>
+<path d="M 455.809 484 H 470.139 M 455.809 479 V 489 M 470.139 479 V 489" fill="none" stroke="#17324d" stroke-width="1.5"/>
+<text x="470.97" y="490" class="note">345.508 +/- 12.5041 (n=3)</text>
+<text x="270" y="516" class="note" data-status="NOT_REPORTED">NOT REPORTED</text>
+<text x="28" y="561" font-size="14" font-weight="bold">reorder_10 / Parallel</text>
+<text x="28" y="580" class="note">valid 3/3; detected 3; censored 0</text>
+<rect class="ours-bar" data-status="VALID" data-value="108.76118835433334" x="265" y="546" width="62.3196" height="17" rx="2" fill="#1b7097"/>
+<path d="M 317.941 554 H 336.698 M 317.941 549 V 559 M 336.698 549 V 559" fill="none" stroke="#17324d" stroke-width="1.5"/>
+<text x="335.32" y="560" class="note">108.761 +/- 16.3682 (n=3)</text>
+<text x="270" y="586" class="note" data-status="NOT_REPORTED">NOT REPORTED</text>
+<text x="28" y="631" font-size="14" font-weight="bold">reorder_10 / Serial</text>
+<text x="28" y="650" class="note">valid 3/3; detected 0; censored 3</text>
+<rect class="ours-bar" data-status="VALID" data-value="524.9403206226667" x="265" y="616" width="300.7879" height="17" rx="2" fill="#1b7097"/>
+<path d="M 265.000 624 H 894.630 M 265.000 619 V 629 M 894.630 619 V 629" fill="none" stroke="#17324d" stroke-width="1.5"/>
+<text x="573.79" y="630" class="note">524.94 +/- 573.9 (n=3)</text>
+<text x="270" y="656" class="note" data-status="NOT_REPORTED">NOT REPORTED</text>
+<text x="605" y="744" text-anchor="middle" class="note">seconds; linear scale</text>
+<text x="28" y="773" class="note">ND is not 10000 or zero. First-error means are conditional on detection; valid zero error counts remain zero.</text>
+</svg>

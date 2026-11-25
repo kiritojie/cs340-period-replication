@@ -1,0 +1,199 @@
+{
+  "schema": "rq1-readability-audit-v1",
+  "status": "PASS",
+  "review_date": "2026-11-25",
+  "actions": "Archive/document/navigation changes only; no target, compiler, container or live experiment execution; no Git mutations",
+  "before": {
+    "files": 240,
+    "bytes": 15492369
+  },
+  "duplicate_analysis": {
+    "sha_groups": 54,
+    "files_in_duplicate_groups": 119,
+    "redundant_copies": 65,
+    "redundant_bytes": 644810
+  },
+  "protected": {
+    "source_files": {
+      "files": 83,
+      "mismatches": 0
+    },
+    "teammate_data": {
+      "files": 504,
+      "mismatches": 0
+    },
+    "original_manifests": {
+      "files": 63,
+      "mismatches": 0
+    },
+    "frozen_harness": {
+      "files": 64,
+      "mismatches": 0
+    }
+  },
+  "baseline_payload_preserved": {
+    "exact_old_files": 240,
+    "currently_identical": 229,
+    "historical_snapshot_used": 11
+  },
+  "packages": [
+    {
+      "path": "docs/evidence/table2-rq1-evidence-20261125.zip",
+      "bytes": 12752967,
+      "sha256": "8e0540ed36a3a9b2e5b38158fed42280c724aeb30ef4d2b57b7aa262b7c54fec",
+      "verified_members": 6769,
+      "restorable_members": 6769
+    },
+    {
+      "path": "docs/evidence/table2-rq1-history-20261125.zip",
+      "bytes": 4962185,
+      "sha256": "5ffce594291b2cbcc3bce0ff1ae1117ca1bc2cf87c135cc6bf709b7d9618da0d",
+      "verified_members": 220,
+      "restorable_members": 197
+    }
+  ],
+  "isolated_restoration": {
+    "repository_files": 6966,
+    "overwrite_existing_files": false,
+    "original_manifest_trees": [
+      {
+        "path": "docs/results/table2-rq1-recovered-session-20261124T180224Z-210n7nbf",
+        "status": "PASS",
+        "manifests": 56,
+        "entries": 16527
+      },
+      {
+        "path": "docs/results/table2-rq1-batch-20261124T185640Z-re9h7z8a",
+        "status": "PASS",
+        "manifests": 3,
+        "entries": 80
+      },
+      {
+        "path": "docs/frozen/table2-rq1-reorder3-pilot-20261124",
+        "status": "PASS",
+        "manifests": 1,
+        "entries": 58
+      },
+      {
+        "path": "docs/frozen/table2-rq1-reorder3-formal-20261124",
+        "status": "PASS",
+        "manifests": 2,
+        "entries": 19
+      },
+      {
+        "path": "docs/frozen/table2-rq1-twelve-formal-20261124",
+        "status": "PASS",
+        "manifests": 1,
+        "entries": 4
+      }
+    ],
+    "total_original_manifests": 63,
+    "total_original_manifest_entries": 16688,
+    "frozen_pilot_prerequisite": "PASS",
+    "pilot_manifest_scope": "The three original declared-entry manifests pass the existing frozen-pilot gate. The permission-stage parent predates the pilot subdirectory; do not require it to cover later-added child files or reseal it."
+  },
+  "offline_report_regeneration": {
+    "valid_formal_rounds": 24,
+    "invalid_attempts": 0,
+    "budget_censored_rounds": 3,
+    "group_fields_compared": 240,
+    "max_numeric_difference": 1.1102230246251565e-16
+  },
+  "five_SVGs_from_regenerated_groups": "Exact text equality after normal text newline decoding; pixel rendering not claimed",
+  "preservation": "Original raw files and manifests unchanged; altered editable documents have exact before-readability snapshots; original text ZIP unchanged",
+  "limitations": [
+    "Offline prerequisites and report regeneration verified; no new live environment execution was performed.",
+    "Historical recovery still depends on original retained host/container state."
+  ],
+  "navigation": {
+    "checked_local_links": 173,
+    "checked_anchors": 21,
+    "new_broken_links": [],
+    "links_to_ignored_files": [],
+    "preserved_teammate_remote_links": [
+      [
+        "README.md",
+        "docs/results/extension-cpu-affinity-merged/stats-summary.md"
+      ],
+      [
+        "README.md",
+        "docs/results/extension-cpu-affinity-merged/rounds-summary.tsv"
+      ],
+      [
+        "README.md",
+        "docs/results/extension-cpu-affinity-merged/SHA256SUMS"
+      ],
+      [
+        "README.md",
+        "docs/results/table2-comparison/table2-paper-vs-ours.md"
+      ],
+      [
+        "README.md",
+        "docs/results/extension-cpu-affinity-merged/stats-summary.md"
+      ],
+      [
+        "README.md",
+        "docs/results/extension-cpu-affinity-merged/traces/sigsegv-0x18-backtrace.txt"
+      ],
+      [
+        "README.md",
+        "patches/period-sched-deadline-failfast.patch"
+      ],
+      [
+        "README.md",
+        "docs/results/extension-cpu-affinity-merged/patch-verification/verification-summary.tsv"
+      ],
+      [
+        "README.md",
+        "docs/results/extension-cpu-affinity-merged/stats-summary.md"
+      ],
+      [
+        "README.md",
+        "docs/results/extension-cpu-affinity-merged/stats-summary.md"
+      ],
+      [
+        "README.md",
+        "docs/results/table2-comparison/table2-paper-vs-ours.md"
+      ]
+    ],
+    "original_README_non_navigation_lines_preserved": 103
+  },
+  "git": {
+    "HEAD": "68c83295633d0a2c623bb62d2757ce9ce9f7b591",
+    "index_changes": 0,
+    "commit_or_push": false,
+    "working_diff_whitespace": "PASS"
+  },
+  "after": {
+    "files": 121,
+    "bytes": 19408585,
+    "file_reduction": 119,
+    "file_reduction_percent": 49.583333333333336,
+    "categories": {
+      "README and Git rules": {
+        "files": 3,
+        "bytes": 30349
+      },
+      "Code, configuration and tests": {
+        "files": 71,
+        "bytes": 893993
+      },
+      "Raw evidence and historical archives": {
+        "files": 2,
+        "bytes": 17715152
+      },
+      "Visible frozen identities": {
+        "files": 3,
+        "bytes": 485414
+      },
+      "Final batch, statistics and charts": {
+        "files": 26,
+        "bytes": 147663
+      },
+      "Report, navigation and audit documents": {
+        "files": 16,
+        "bytes": 136014
+      }
+    }
+  }
+}

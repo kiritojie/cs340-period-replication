@@ -1,0 +1,232 @@
+{
+  "entries": 16527,
+  "manifest_counts": [
+    {
+      "entries": 262,
+      "manifest": "batch-adapt-20261124T164926Z-ga9y2h3v/SHA256SUMS"
+    },
+    {
+      "entries": 192,
+      "manifest": "batch-adapt-20261124T164926Z-ga9y2h3v/native-evidence/SHA256SUMS"
+    },
+    {
+      "entries": 31,
+      "manifest": "batch-adapt-20261124T164926Z-ga9y2h3v/native-evidence/adaptation-01-parallel/SHA256SUMS"
+    },
+    {
+      "entries": 32,
+      "manifest": "batch-adapt-20261124T164926Z-ga9y2h3v/native-evidence/adaptation-01-reference/SHA256SUMS"
+    },
+    {
+      "entries": 109,
+      "manifest": "batch-adapt-20261124T164926Z-ga9y2h3v/native-evidence/adaptation-01-serial/SHA256SUMS"
+    },
+    {
+      "entries": 1004,
+      "manifest": "batch-adapt-20261124T165627Z-bn7rgkx3/SHA256SUMS"
+    },
+    {
+      "entries": 934,
+      "manifest": "batch-adapt-20261124T165627Z-bn7rgkx3/native-evidence/SHA256SUMS"
+    },
+    {
+      "entries": 39,
+      "manifest": "batch-adapt-20261124T165627Z-bn7rgkx3/native-evidence/adaptation-01-parallel/SHA256SUMS"
+    },
+    {
+      "entries": 40,
+      "manifest": "batch-adapt-20261124T165627Z-bn7rgkx3/native-evidence/adaptation-01-reference/SHA256SUMS"
+    },
+    {
+      "entries": 835,
+      "manifest": "batch-adapt-20261124T165627Z-bn7rgkx3/native-evidence/adaptation-01-serial/SHA256SUMS"
+    },
+    {
+      "entries": 328,
+      "manifest": "batch-adapt-20261124T192351Z-bfqlkndd/SHA256SUMS"
+    },
+    {
+      "entries": 258,
+      "manifest": "batch-adapt-20261124T192351Z-bfqlkndd/native-evidence/SHA256SUMS"
+    },
+    {
+      "entries": 109,
+      "manifest": "batch-adapt-20261124T192351Z-bfqlkndd/native-evidence/adaptation-01-parallel/SHA256SUMS"
+    },
+    {
+      "entries": 110,
+      "manifest": "batch-adapt-20261124T192351Z-bfqlkndd/native-evidence/adaptation-01-reference/SHA256SUMS"
+    },
+    {
+      "entries": 19,
+      "manifest": "batch-adapt-20261124T192351Z-bfqlkndd/native-evidence/adaptation-01-serial/SHA256SUMS"
+    },
+    {
+      "entries": 171,
+      "manifest": "batch-build-20261124T164833Z-9s6vsrmd/SHA256SUMS"
+    },
+    {
+      "entries": 91,
+      "manifest": "batch-build-20261124T164833Z-9s6vsrmd/native-evidence/SHA256SUMS"
+    },
+    {
+      "entries": 171,
+      "manifest": "batch-build-20261124T165430Z-vxarxss0/SHA256SUMS"
+    },
+    {
+      "entries": 91,
+      "manifest": "batch-build-20261124T165430Z-vxarxss0/native-evidence/SHA256SUMS"
+    },
+    {
+      "entries": 171,
+      "manifest": "batch-build-20261124T191043Z-1owby3c7/SHA256SUMS"
+    },
+    {
+      "entries": 91,
+      "manifest": "batch-build-20261124T191043Z-1owby3c7/native-evidence/SHA256SUMS"
+    },
+    {
+      "entries": 512,
+      "manifest": "batch-formal-20261124T165114Z-rgf4h0aw/SHA256SUMS"
+    },
+    {
+      "entries": 442,
+      "manifest": "batch-formal-20261124T165114Z-rgf4h0aw/native-evidence/SHA256SUMS"
+    },
+    {
+      "entries": 31,
+      "manifest": "batch-formal-20261124T165114Z-rgf4h0aw/native-evidence/formal-01-parallel/SHA256SUMS"
+    },
+    {
+      "entries": 109,
+      "manifest": "batch-formal-20261124T165114Z-rgf4h0aw/native-evidence/formal-01-serial/SHA256SUMS"
+    },
+    {
+      "entries": 31,
+      "manifest": "batch-formal-20261124T165114Z-rgf4h0aw/native-evidence/formal-02-parallel/SHA256SUMS"
+    },
+    {
+      "entries": 109,
+      "manifest": "batch-formal-20261124T165114Z-rgf4h0aw/native-evidence/formal-02-serial/SHA256SUMS"
+    },
+    {
+      "entries": 31,
+      "manifest": "batch-formal-20261124T165114Z-rgf4h0aw/native-evidence/formal-03-parallel/SHA256SUMS"
+    },
+    {
+      "entries": 109,
+      "manifest": "batch-formal-20261124T165114Z-rgf4h0aw/native-evidence/formal-03-serial/SHA256SUMS"
+    },
+    {
+      "entries": 476,
+      "manifest": "batch-formal-20261124T194424Z-hycbv3t6/SHA256SUMS"
+    },
+    {
+      "entries": 406,
+      "manifest": "batch-formal-20261124T194424Z-hycbv3t6/native-evidence/SHA256SUMS"
+    },
+    {
+      "entries": 109,
+      "manifest": "batch-formal-20261124T194424Z-hycbv3t6/native-evidence/formal-01-parallel/SHA256SUMS"
+    },
+    {
+      "entries": 19,
+      "manifest": "batch-formal-20261124T194424Z-hycbv3t6/native-evidence/formal-01-serial/SHA256SUMS"
+    },
+    {
+      "entries": 109,
+      "manifest": "batch-formal-20261124T194424Z-hycbv3t6/native-evidence/formal-02-parallel/SHA256SUMS"
+    },
+    {
+      "entries": 19,
+      "manifest": "batch-formal-20261124T194424Z-hycbv3t6/native-evidence/formal-02-serial/SHA256SUMS"
+    },
+    {
+      "entries": 109,
+      "manifest": "batch-formal-20261124T194424Z-hycbv3t6/native-evidence/formal-03-parallel/SHA256SUMS"
+    },
+    {
+      "entries": 19,
+      "manifest": "batch-formal-20261124T194424Z-hycbv3t6/native-evidence/formal-03-serial/SHA256SUMS"
+    },
+    {
+      "entries": 254,
+      "manifest": "batch-reorder3-20261124T162519Z-2khil0on/SHA256SUMS"
+    },
+    {
+      "entries": 184,
+      "manifest": "batch-reorder3-20261124T162519Z-2khil0on/native-evidence/SHA256SUMS"
+    },
+    {
+      "entries": 25,
+      "manifest": "batch-reorder3-20261124T162519Z-2khil0on/native-evidence/formal-01-parallel/SHA256SUMS"
+    },
+    {
+      "entries": 29,
+      "manifest": "batch-reorder3-20261124T162519Z-2khil0on/native-evidence/formal-01-serial/SHA256SUMS"
+    },
+    {
+      "entries": 25,
+      "manifest": "batch-reorder3-20261124T162519Z-2khil0on/native-evidence/formal-02-parallel/SHA256SUMS"
+    },
+    {
+      "entries": 29,
+      "manifest": "batch-reorder3-20261124T162519Z-2khil0on/native-evidence/formal-02-serial/SHA256SUMS"
+    },
+    {
+      "entries": 25,
+      "manifest": "batch-reorder3-20261124T162519Z-2khil0on/native-evidence/formal-03-parallel/SHA256SUMS"
+    },
+    {
+      "entries": 29,
+      "manifest": "batch-reorder3-20261124T162519Z-2khil0on/native-evidence/formal-03-serial/SHA256SUMS"
+    },
+    {
+      "entries": 152,
+      "manifest": "prepare/SHA256SUMS"
+    },
+    {
+      "entries": 53,
+      "manifest": "prepare/native-evidence/SHA256SUMS"
+    },
+    {
+      "entries": 2646,
+      "manifest": "recovered-formal5-20261124T180224Z-za3mmb51/SHA256SUMS"
+    },
+    {
+      "entries": 2644,
+      "manifest": "recovered-formal5-20261124T180224Z-za3mmb51/native-evidence/SHA256SUMS"
+    },
+    {
+      "entries": 39,
+      "manifest": "recovered-formal5-20261124T180224Z-za3mmb51/native-evidence/formal-01-parallel/SHA256SUMS"
+    },
+    {
+      "entries": 835,
+      "manifest": "recovered-formal5-20261124T180224Z-za3mmb51/native-evidence/formal-01-serial/SHA256SUMS"
+    },
+    {
+      "entries": 39,
+      "manifest": "recovered-formal5-20261124T180224Z-za3mmb51/native-evidence/formal-02-parallel/SHA256SUMS"
+    },
+    {
+      "entries": 835,
+      "manifest": "recovered-formal5-20261124T180224Z-za3mmb51/native-evidence/formal-02-serial/SHA256SUMS"
+    },
+    {
+      "entries": 39,
+      "manifest": "recovered-formal5-20261124T180224Z-za3mmb51/native-evidence/formal-03-parallel/SHA256SUMS"
+    },
+    {
+      "entries": 835,
+      "manifest": "recovered-formal5-20261124T180224Z-za3mmb51/native-evidence/formal-03-serial/SHA256SUMS"
+    },
+    {
+      "entries": 82,
+      "manifest": "recovery-control/SHA256SUMS"
+    }
+  ],
+  "manifests": 56,
+  "root": "/mnt/e/cs340-period-replication/docs/results/table2-rq1-recovered-session-20261124T180224Z-210n7nbf",
+  "status": "PASS"
+}

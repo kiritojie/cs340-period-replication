@@ -77,3 +77,36 @@ venv/
 
 # Keep the three original, sub-KiB Table 2 error-schedule archives.
 !/docs/results/table2-reorder3/run-0[1-3]-depth3/raw-output.tar.gz
+
+# Expanded local RQ1 history is retained in place. Submit the curated archive
+# below instead of duplicate sessions, build binaries and preparation copies.
+/docs/results/table2-abi-compatibility-20261124/
+/docs/results/table2-cleanup-fix-*/
+/docs/results/table2-permission-compatibility-*/
+/docs/results/table2-permission-stage-*/
+/docs/results/table2-rootful-resume-*/
+/docs/results/table2-scheduler-pilot-20261124/
+/docs/results/table2-rq1-*/
+!/docs/results/table2-rq1-batch-20261124T185640Z-re9h7z8a/
+# Narrow exception: this reviewed text-evidence archive contains no executables
+# or compiler/cache intermediates. Other archive ignore rules remain in force.
+!/docs/evidence/table2-rq1-evidence-20261125.zip
+
+# Readability pass: unchanged historical snapshots remain local and are preserved
+# in table2-rq1-history-20261125.zip. Keep the three FREEZE identities visible.
+/docs/frozen/table2-rq1-*/harness/
+/docs/frozen/table2-rq1-*/statistics/
+/docs/frozen/table2-rq1-*/README.md
+/docs/frozen/table2-rq1-*/SHA256SUMS
+/docs/frozen/table2-rq1-twelve-formal-20261124/group-statistics.csv
+/docs/frozen/table2-rq1-twelve-formal-20261124/per-round.csv
+/docs/patches/table2-*.patch
+/docs/results/table2-rq1-batch-20261124T185640Z-re9h7z8a/launcher/
+/docs/results/table2-rq1-batch-20261124T185640Z-re9h7z8a/preflight/
+/docs/table2-abi-compatibility.md
+/docs/table2-permission-stages.md
+/docs/table2-scheduler-pilot.md
+/docs/table2-rq1-finalization-20261125/inventory-details.json
+/docs/table2-rq1-finalization-20261125/git-provenance.json
+/docs/table2-rq1-finalization-20261125/final-checks.json
+!/docs/evidence/table2-rq1-history-20261125.zip
