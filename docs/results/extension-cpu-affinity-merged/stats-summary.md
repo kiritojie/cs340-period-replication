@@ -151,17 +151,19 @@ sched_setattr(0, {size=48, sched_policy=SCHED_DEADLINE, ..., sched_runtime=49564
 - **驱动端（`run_PDS.py:493, 757`）**：在预运行与主调度循环捕获子进程退出码 `125` 或 `stderr` 中的 `sched_setattr error`，打印明确 `[FATAL] SCHED_DEADLINE admission failed` 诊断并以非零退出码 `rc=2` 立即终止，消除静默假阴性。
 - **补丁边界说明**：该最小补丁专门修复 `SCHED_DEADLINE` 准入失败（`EPERM`）链路，未改动 `run_PDS.py` 原有第 108/360/507 行对普通目标程序 `-11`（`SIGSEGV`）的过滤逻辑；退出码 `125` 仅作为 `sched.h` 与 `run_PDS.py` 之间的内部约定，对外由驱动统一转为 `rc=2`（与 `timeout` 的退出码 `125` 区分）。
 
-### 修复前后验证覆盖矩阵（`reorder_5_bad` 与 `reorder_10_bad` 逐档对照）
+### 修复前后验证覆盖矩阵（`reorder_5_bad` 与 `reorder_10_bad` 全 7 档实测对照）
 
-| 程序 | 掩码（核数） | 修复前实测（32 轮主表） | 修复后实测（`patch-verification/`） | 覆盖状态说明 |
+全部 7 个配置均已完成修复前后实测（补跑脚本 [scripts/patch_matrix_verify.sh](../../../scripts/patch_matrix_verify.sh)，原始数据见 [matrix-verification-summary.tsv](patch-verification/matrix-verification-summary.tsv) 与 [matrix-binary-identity.txt](patch-verification/matrix-binary-identity.txt)）：
+
+| 程序 | 掩码（核数） | 修复前实测（32 轮主表） | 修复后实测（`patch-verification/`） | 验证结论 |
 | --- | :---: | --- | --- | --- |
-| `reorder_5_bad` | `0`（1 核） | 5 轮：`rc=0` 伪通过，0 错误，242.76 ± 6.39 s | **未实测** | 与 `0-3` 走同一 `sched_setattr EPERM` 预运行拦截路径，但本仓库未逐档重跑 |
-| `reorder_5_bad` | `0-1`（2 核） | 5 轮：`rc=0` 伪通过，0 错误，241.06 ± 1.85 s | **未实测** | 同上，未逐档重跑 |
-| `reorder_5_bad` | **`0-3`（4 核）** | 5 轮：`rc=0` 伪通过，0 错误，240.29 ± 0.80 s | **3 轮实测**：**`rc=2`（Fail-Fast）**，0 调度拦截，**0.33–0.75 s**（快 ~440×） | 已实测验证（[verification-summary.tsv](patch-verification/verification-summary.tsv)） |
-| `reorder_5_bad` | **`0-7`（8 核）** | 5 轮：`rc=0`，20.00 ± 0.00 错误，17.44 ± 1.98 s | **5+5 轮干净 A/B**：补丁后 **20.00 ± 0.00** 错误 / **16.59 ± 0.50 s** vs. 未打补丁 **19.80 ± 0.45** / **16.43 ± 2.63 s** | 已实测确认零回归（[ab-verification-summary.tsv](patch-verification/ab-verification-summary.tsv)） |
-| `reorder_10_bad` | `0`（1 核） | 5 轮：`rc=124` 全超时（600 s，推进 566–569 调度） | **未实测** | 未对 `reorder_10_bad` 单独重跑补丁验证 |
-| `reorder_10_bad` | `0-3`（4 核） | 2 轮：`rc=124` 全超时（600 s，推进 557–567 调度） | **未实测** | 同上 |
-| `reorder_10_bad` | `0-7`（8 核） | 5 轮：`rc=0`，87.60 ± 2.07 错误，115.68 ± 17.14 s | **未实测** | 同上；补丁仅修改错误退出分支，正常路径不触及 |
+| `reorder_5_bad` | **`0`（1 核）** | 5 轮：`rc=0` 伪通过，0 错误，242.76 ± 6.39 s | **3 轮实测**：**`rc=2`（Fail-Fast）**，0 调度拦截，**0.195–0.243 s**（快 ~1150×） | 已实测消除静默假阴性 |
+| `reorder_5_bad` | **`0-1`（2 核）** | 5 轮：`rc=0` 伪通过，0 错误，241.06 ± 1.85 s | **3 轮实测**：**`rc=2`（Fail-Fast）**，0 调度拦截，**0.168–0.175 s**（快 ~1400×） | 已实测消除静默假阴性 |
+| `reorder_5_bad` | **`0-3`（4 核）** | 5 轮：`rc=0` 伪通过，0 错误，240.29 ± 0.80 s | **3 轮实测**：**`rc=2`（Fail-Fast）**，0 调度拦截，**0.33–0.75 s**（快 ~440×） | 已实测消除静默假阴性 |
+| `reorder_5_bad` | **`0-7`（8 核）** | 5 轮：`rc=0`，20.00 ± 0.00 错误，17.44 ± 1.98 s | **5+5 轮干净 A/B**：补丁后 **20.00 ± 0.00** 错误 / **16.59 ± 0.50 s** vs. 未打补丁 **19.80 ± 0.45** / **16.43 ± 2.63 s** | 已实测确认零回归 |
+| `reorder_10_bad` | **`0`（1 核）** | 5 轮：`rc=124` 全超时（600 s，推进 566–569 调度） | **3 轮实测**：**`rc=2`（Fail-Fast）**，0 调度拦截，**0.201–0.218 s**（快 ~2800×） | 已实测消除 600 s 空转超时 |
+| `reorder_10_bad` | **`0-3`（4 核）** | 2 轮：`rc=124` 全超时（600 s，推进 557–567 调度） | **3 轮实测**：**`rc=2`（Fail-Fast）**，0 调度拦截，**0.171–0.199 s**（快 ~3200×） | 已实测消除 600 s 空转超时 |
+| `reorder_10_bad` | **`0-7`（8 核）** | 5 轮：`rc=0`，87.60 ± 2.07 错误，115.68 ± 17.14 s | **3 轮实测**：**`rc=0`**，2350 调度，错误 **90.00 ± 2.00**（90/88/92），耗时 162.63 ± 47.39 s | 已实测确认零回归 |
 
 > 另注：在 `wcventure/period:stable` 容器内以 `git apply` 干净合入补丁、重新编译 `DBDSFunction.o` 与 `reorder_5_bad`（未打补丁 sha256 `346c4e50…d67501`，打补丁后 sha256 `7ed93e66…f8a922a`，见 [ab-binary-identity.txt](patch-verification/ab-binary-identity.txt)）后，还保留了首次高负载时段的 3+1 轮 8 核对照（补丁后 8/13/8，`Runtime` 1034–1439 ns vs. 未打补丁 7，`Runtime` 1189 ns，22.8–49.8 s），与干净 A/B 组未打补丁 R4（19 错误、`Runtime=1113 ns`）一并支持错误数下降与低 `Runtime` 校准/宿主机负载相关，非补丁回归。此前一次 A/B 尝试因中止不彻底存在后台重叠容器污染，已整体作废并由 [patch_ab_verify.sh](../../../scripts/patch_ab_verify.sh) 的本次干净重跑替代。
 

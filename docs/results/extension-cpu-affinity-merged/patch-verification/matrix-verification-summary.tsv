@@ -1,0 +1,16 @@
+program	case	round	cpu_mask	rc	schedules	error_interleavings	timeouts	first_error	dry_run_runtime	wall_s
+reorder_5_bad	patched_r5_subset_0	R1	0	2	0	NA	NA	NA	NA	0.243
+reorder_5_bad	patched_r5_subset_0	R2	0	2	0	NA	NA	NA	NA	0.195
+reorder_5_bad	patched_r5_subset_0	R3	0	2	0	NA	NA	NA	NA	0.195
+reorder_5_bad	patched_r5_subset_0-1	R1	0-1	2	0	NA	NA	NA	NA	0.168
+reorder_5_bad	patched_r5_subset_0-1	R2	0-1	2	0	NA	NA	NA	NA	0.171
+reorder_5_bad	patched_r5_subset_0-1	R3	0-1	2	0	NA	NA	NA	NA	0.175
+reorder_10_bad	patched_r10_subset_0	R1	0	2	0	NA	NA	NA	NA	0.214
+reorder_10_bad	patched_r10_subset_0	R2	0	2	0	NA	NA	NA	NA	0.201
+reorder_10_bad	patched_r10_subset_0	R3	0	2	0	NA	NA	NA	NA	0.218
+reorder_10_bad	patched_r10_subset_0-3	R1	0-3	2	0	NA	NA	NA	NA	0.182
+reorder_10_bad	patched_r10_subset_0-3	R2	0-3	2	0	NA	NA	NA	NA	0.171
+reorder_10_bad	patched_r10_subset_0-3	R3	0-3	2	0	NA	NA	NA	NA	0.199
+reorder_10_bad	patched_r10_full_0-7	R1	0-7	0	2350	90	0	27	9430	186.577
+reorder_10_bad	patched_r10_full_0-7	R2	0-7	0	2350	88	2	42	8940	193.274
+reorder_10_bad	patched_r10_full_0-7	R3	0-7	0	2350	92	0	27	1070	108.053
