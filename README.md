@@ -25,6 +25,8 @@ Cheng Wen 等，*Controlled Concurrency Testing via Periodical Scheduling*，ICS
 
 ### 核心指标速览（Paper vs. Ours）
 
+**Table 2 英文结果。** 四档线程数的 40 轮对照、均值与样本标准差及可追溯证据见[英文对照表与图](docs/results/table2-comparison/table2-paper-vs-ours.md)。
+
 | 实验模块 | 样本规模 | 论文基准（PERIOD） | 本组实测 | 状态与说明 |
 | --- | --- | --- | --- | --- |
 | 工具验收 `doubleFree` | 首次 + 重跑 | 调度 6 / 首次第 3 / 错误 4 | 调度 6 / 首次第 3 / 错误 4，0 超时 | ASan 回放确认 `double-free` |
@@ -119,7 +121,7 @@ mkdir -p docs/results
 | --- | --- | --- |
 | `1240011062` | 叶浩铭 | 仓库初始化、第一周算法与源码分析、第二周文档与采集脚本完善、第三周 `CS.reorder_3_bad` 本地三轮正式复现（[第三周报告](docs/week3-independent-reproduction.md)） |
 | `1240010243` | 查舒翔 | 跨宿主机独立重建复现、Table 1 全部 10 个 CVE 十轮复现与负对照、`strace -f` 工作线程 `SCHED_DEADLINE` 系统调用取证、Table 2 `CS.reorder` 四档线程缩放十轮复现、Extension CPU 亲和性单变量扩展实验与 `EPERM → SIGSEGV` 根因取证（[跨机器报告](docs/week3-cross-host-reorder3.md) · [Table 1 报告](docs/table1-cve-reproduction.md) · [取证报告](docs/worker-thread-syscall-evidence.md) · [Table 2 第一段](docs/table2-segment1-reorder.md) · [Extension 汇总](docs/results/extension-cpu-affinity-merged/stats-summary.md)） |
-| `1240011385` | 李志杰 | 项目首页与证据导航整理、`doubleFree` 日志提取与独立统计核对工作流（[日志统计文档](docs/log-statistics.md) · [独立统计核对](docs/results/doublefree-log-check-2026-11-19.md)） |
+| `1240011385` | 李志杰 | 项目首页与证据导航整理、`doubleFree` 日志提取与独立统计核对工作流（[日志统计文档](docs/log-statistics.md) · [独立统计核对](docs/results/doublefree-log-check-2026-11-19.md)）；复核 Table 2 四档的 40 轮归档记录与论文原表，计算均值和样本标准差，制作英文 Paper vs. Ours 对照表和图（[Table 2 数据核对与制图](docs/results/table2-comparison/table2-paper-vs-ours.md)） |
 | `1240010368` | 罗韬 | 第二周 `doubleFree` 环境搭建、首次运行与 ASan 回放、重跑证据包归档（[第二周记录](docs/week2-doublefree.md)） |
 
 提交作者与时间以 Git 历史为准。
