@@ -70,6 +70,19 @@ sched_setattr(0, {size=48, sched_policy=SCHED_DEADLINE, ..., sched_runtime=49564
 
 **方法学注记（重要）**：直接用 `Dry_Run=0 DBDS_Run=1 ./reorder_5_bad` 跑裸二进制（不带 dry-run 校准）时，`set_sched_dl()` 收到的参数是 `runtime=0, deadline=0, period=0`，4 核与 8 核**都**返回 `-1 EINVAL`，无法区分核数——该路径不可用于本实验的取证，必须先经 `run_PDS.py` 校准。
 
+## 结果四：源码级崩溃链与静默假阴性定位
+
+对与归档逐字节一致的 `reorder_5_bad`（sha256 `346c4e50…d67501`，内置 `DBDSFunction.o` 含完整 DWARF 调试信息）在 `taskset -c 0-3` 下通过 `SA_SIGINFO` 捕获崩溃现场，并结合 `addr2line` 与 `objdump` 反汇编完整还原了 `EPERM → 1 s 阻塞 → SIGSEGV (0x18) → 静默假阴性` 的源码级因果链（完整栈帧与反汇编见 [traces/sigsegv-0x18-backtrace.txt](traces/sigsegv-0x18-backtrace.txt)）：
+
+1. **工作线程调用 `exit(-1)`**：`setThread`（`reorder_bad.c:70`）→ `instr_PthreadCall`（`DBDSFunction.cpp:492`）→ `setDeadLineSched`（`DBDSFunction.cpp:225`）→ `set_sched_dl`（`sched.h:113-116`）。`sched_setattr(SCHED_DEADLINE)` 返回 `-1 EPERM` 后，第 116 行直接调用 `exit(-1)`，导致未执行到第 504 行的 `set_tid_to_run(0)`。
+2. **精确解释 ~1.07 s/调度与 `si_utime ≈ 100`**：`exit(-1)` 触发 `__run_exit_handlers`，先析构全局 C++ 对象（含全局 `std::map mapTid`），随后经 `_dl_fini` 调用 `__attribute__((destructor))` 函数 `traceEnd()`（`DBDSFunction.cpp:344`）。因尚未进入 `pthread_join`，`joinable == 0`，`traceEnd()` 第 348–351 行执行 `usleep(1000000)`（休眠 1.00 秒）；同一时刻主线程卡在 `before_pthread_create()` 第 510 行 `while(get_tid_to_run() != 0);` 空转 1.00 秒，恰好对应 `SIGCHLD` 记录的 `si_utime ≈ 100`（1.00 s 用户态 CPU 时间）与每调度 ~1.07 s 耗时。
+3. **精确解释 `SIGSEGV (si_addr=0x18)`**：`usleep` 结束后，`traceEnd()` 第 354 行遍历**已被析构**的全局 `mapTid`（`for(Tiditer = mapTid.begin(); Tiditer != mapTid.end(); Tiditer++)`，构成析构后使用 Use-After-Destruction）。`operator++`（`stl_tree.h:295`）进入 `libstdc++.so.6` 的 `_ZSt18_Rb_tree_incrementPSt18_Rb_tree_node_base`：偏移 `+0x20` 处 `mov 0x8(%rdi), %rax` 读出空父指针 `RAX = 0x0`，紧接着 `+0x24` 处执行 `cmp 0x18(%rax), %rdi`，解引用 `0x0 + 0x18 = 0x18` 触发 `SIGSEGV (SEGV_MAPERR)`。
+4. **精确解释 100% 静默假阴性**：归档 4 核 `stdout.log` 尾部明确记录了 `1 status found: [-11]`（全部 225 次子进程均因 `SIGSEGV` 返回 `-11`），但 `tool/DBDS/run_PDS.py` 第 **108 行**（`record_error_message`）与第 **360 行**（dry-run 检查）显式写死了：
+   ```python
+   if(process.returncode!=0 and process.returncode!=1 and process.returncode!=6 and process.returncode!=-11):
+   ```
+   **直接排除了 `-11`（`SIGSEGV`）**，且第 493–494 行的预运行阶段未检查返回码（导致 `kpNumArray` 保持全 `0`）。因此驱动既不报错也不中止，最终以 `rc=0`、0 错误、0 超时静默结束。
+
 ## 结论
 
 1. **根因（内核规则 + strace 实测）：真子集亲和性掩码违反 Linux `SCHED_DEADLINE` root domain 准入约束，触发 `EPERM → SIGSEGV`，且驱动静默吞掉异常。** 按 Linux 内核文档 `Documentation/scheduler/sched-deadline.rst` 第 5 节（*Bandwidth management*），`SCHED_DEADLINE` 任务的 CPU 亲和性掩码必须覆盖其所在的整个 root domain，否则内核以 `EPERM` 拒绝。实测 4 核真子集（`0-3`）下 226/226 次 `sched_setattr` 全部返回 `-1 EPERM`，且紧接着在 `si_addr=0x18` 处触发 `SIGSEGV` 杀掉整个子进程——因此每次调度仅第 1 个工作线程执行到 `sched_setattr`（共 226 次），其余 4 个线程未及运行；而在完整 root domain（`0-7`，8 核）下全部 5 个工作线程均返回 `0`（共 1,130 次 `= 5 × 226`）。子进程每次崩溃前在 `SIGCHLD` 记录 `si_utime ≈ 100`（约 1.00 秒），精确解释了真子集掩码下约 1.07 秒/调度的固定耗时；更致命的是，外层 `run_PDS.py` 未将该 `SIGSEGV` 识别为调度器致命失效，在 `reorder_5_bad` 上仍输出 `rc=0`、225/225 调度、0 超时、0 错误，构成 **100% 静默假阴性（Silent False Negative）**。
@@ -88,4 +101,4 @@ sched_setattr(0, {size=48, sched_policy=SCHED_DEADLINE, ..., sched_runtime=49564
 | `extension-cpu-affinity-mask0-7/` | `reorder_10` 8 核（`0-7`）5 轮（有效） |
 | `extension-cpu-affinity-reorder5/` | `reorder_5` 1/2/4 核各 5 轮（驱动 `rc=0`，实为静默假阴性）；另含提前中止的 `cpus-6_mask-0-5/round-1` 半截目录，未计入 32 轮统计 |
 | `extension-cpu-affinity-reorder5-mask0-7/` | `reorder_5` 8 核（`0-7`）5 轮（有效） |
-| `extension-cpu-affinity-merged/` | 本汇总（32 轮合并 TSV + 本文件 + `traces/` 下两份 `sched_setattr` 原始 trace） |
+| `extension-cpu-affinity-merged/` | 本汇总（32 轮合并 TSV + 本文件 + `traces/` 下两份 `sched_setattr` 原始 trace 与源码级 `SIGSEGV (0x18)` 取证 `sigsegv-0x18-backtrace.txt`） |

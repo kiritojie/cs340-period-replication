@@ -1,0 +1,70 @@
+# Source-Level Forensics: SIGSEGV (si_addr=0x18) & Silent False Negative in run_PDS.py
+# Captured: 2026-11-25 (UTC+8) inside wcventure/period:stable (--privileged)
+# Target binary: /workdir/PERIOD/evaluation/CS/reorder_5/reorder_5_bad
+# Binary SHA-256: 346c4e503fb419e1a64c6f7a36975a5c6e047cc393aaf0b8fdac25b67ad67501
+# Affinity mask: taskset -c 0-3 (proper subset of 8-CPU root domain 0-7)
+
+=== 1. Runtime Crash Capture (SA_SIGINFO + backtrace via LD_PRELOAD) ===
+sched_setattr error
+: Operation not permitted
+[SEGV_CATCH] pid=108 tid=109 sig=11 si_code=1 si_addr=0x18 RIP=0x7ec95d77cfb4 RSP=0x7ec95cd2aae8 RAX=(nil) RDI=0x7ec9580008d0 RSI=(nil) RBX=0x7ec95e2ab060
+[SEGV_CATCH] dladdr(RIP): file=/usr/lib/x86_64-linux-gnu/libstdc++.so.6 sym=_ZSt18_Rb_tree_incrementPSt18_Rb_tree_node_base+36 (base=0x7ec95d6d3000)
+[SEGV_CATCH] backtrace (14 frames):
+/tmp/segv_catch.so(+0x9ce)[0x7ec95de7f9ce]
+/lib/x86_64-linux-gnu/libpthread.so.0(+0x12980)[0x7ec95dc72980]
+/usr/lib/x86_64-linux-gnu/libstdc++.so.6(_ZSt18_Rb_tree_incrementPSt18_Rb_tree_node_base+0x24)[0x7ec95d77cfb4]
+./reorder_5_bad(_ZNSt17_Rb_tree_iteratorISt4pairIKljEEppEi+0x26)[0x410536]
+./reorder_5_bad(_Z8traceEndv+0x171)[0x40f0e1]
+/lib64/ld-linux-x86-64.so.2(+0x10d13)[0x7ec95e091d13]
+/lib/x86_64-linux-gnu/libc.so.6(+0x43161)[0x7ec95cd6f161]
+/lib/x86_64-linux-gnu/libc.so.6(+0x4325a)[0x7ec95cd6f25a]
+./reorder_5_bad(_Z12set_sched_dlyyy+0x8a)[0x40deba]
+./reorder_5_bad(_Z16setDeadLineSchedm+0x76f)[0x40e79f]
+./reorder_5_bad(_Z17instr_PthreadCallPv+0x37d)[0x40f98d]
+./reorder_5_bad(setThread+0x27)[0x418ee7]
+/lib/x86_64-linux-gnu/libpthread.so.0(+0x76db)[0x7ec95dc676db]
+/lib/x86_64-linux-gnu/libc.so.6(clone+0x3f)[0x7ec95ce4d71f]
+
+=== 2. addr2line -e ./reorder_5_bad -f -C -i -p ===
+0x410536 -> std::_Rb_tree_iterator<std::pair<long const, unsigned int> >::operator++(int) at /usr/lib/gcc/x86_64-linux-gnu/7.5.0/../../../../include/c++/7.5.0/bits/stl_tree.h:295
+0x40f0e1 -> traceEnd() at /workdir/PERIOD/tool/staticAnalysis/DBDS-INSTRU/llvm-mode/DBDSFunction.cpp:354
+0x40deba -> set_sched_dl(unsigned long long, unsigned long long, unsigned long long) at /workdir/PERIOD/tool/staticAnalysis/DBDS-INSTRU/llvm-mode/./sched.h:118
+0x40e79f -> setDeadLineSched(unsigned long) at /workdir/PERIOD/tool/staticAnalysis/DBDS-INSTRU/llvm-mode/DBDSFunction.cpp:227
+0x40f98d -> instr_PthreadCall(void*) at /workdir/PERIOD/tool/staticAnalysis/DBDS-INSTRU/llvm-mode/DBDSFunction.cpp:494
+0x418ee7 -> setThread at /workdir/PERIOD/evaluation/CS/reorder_5/reorder_bad.c:70
+
+=== 3. Faulting Instruction Disassembly (libstdc++.so.6) ===
+00000000000a9f90 <_ZSt18_Rb_tree_incrementPSt18_Rb_tree_node_base@@GLIBCXX_3.4>:
+   a9fb0: 48 8b 47 08    mov    0x8(%rdi),%rax    # rax = node->_M_parent (NULL = 0x0 after mapTid destruction)
+   a9fb4: 48 3b 78 18    cmp    0x18(%rax),%rdi   # RIP (+0x24): dereferences 0x0 + 0x18 = 0x18 -> SIGSEGV (SEGV_MAPERR)
+
+=== 4. Exact PERIOD Source Lines ===
+(a) tool/staticAnalysis/DBDS-INSTRU/llvm-mode/sched.h:113-117
+  113  ret = sched_setattr(0, &attr, flags);
+  114  if (ret < 0) {
+  115      perror("sched_setattr error\n");
+  116      exit(-1);
+  117  }
+
+(b) tool/staticAnalysis/DBDS-INSTRU/llvm-mode/DBDSFunction.cpp:344-354, 491-513
+  344  void __attribute__((destructor)) traceEnd(void) {
+  348      if (joinable == 0) {
+  349          printf("[DEBUG] found potential thread leak\n");
+  350          usleep(1000000);   // 1.00s sleep while main thread spins at line 510 -> explains ~1.07s/sched & si_utime~100
+  351      }
+  354      for(Tiditer = mapTid.begin(), pidNum = 0; Tiditer != mapTid.end(); Tiditer++, pidNum++) // use-after-destruction of global mapTid
+  ...
+  492      setDeadLineSched(DBDSruntime); // calls exit(-1) on EPERM before line 504 set_tid_to_run(0)
+  504      set_tid_to_run(0);
+  ...
+  510      while(get_tid_to_run() != 0);  // main thread spin-wait during traceEnd() usleep(1000000)
+
+(c) tool/DBDS/run_PDS.py:104-108, 360, 493-494 (Silent False Negative)
+  104  if(not process.returncode in statusL):
+  105      statusL.append(process.returncode)   # archived 4-core stdout.log prints: "1 status found: [-11]"
+  108  if(process.returncode!=0 and process.returncode!=1 and process.returncode!=6 and process.returncode!=-11): #save result
+       # Explicitly ignores returncode == -11 (SIGSEGV)!
+  360  if(process.returncode!=0 and process.returncode!=1 and process.returncode!=6 and process.returncode!=-11):
+       # Dry-run check also ignores -11 (SIGSEGV).
+  493  process = subprocess.Popen(PRE_DBDS_Command, close_fds=True)
+  494  process.communicate()  # returncode unchecked; leaves kpNumArray all zeros on failure.
