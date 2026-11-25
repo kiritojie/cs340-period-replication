@@ -1,0 +1,6 @@
+[DEBUG] The ConConfig file was successfully opened.
+[DEBUG] The file is /workdir/PERIOD/evaluation/CS/reorder_5/ConConfig.reorder_5_bad
+[DEBUG]
+[DEBUG] Instrumentation for reorder_bad.c:71
+[DEBUG] Instrumentation for reorder_bad.c:72
+[DEBUG] Instrumentation for reorder_bad.c:78

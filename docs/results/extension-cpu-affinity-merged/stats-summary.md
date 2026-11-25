@@ -83,6 +83,22 @@ sched_setattr(0, {size=48, sched_policy=SCHED_DEADLINE, ..., sched_runtime=49564
    ```
    **直接排除了 `-11`（`SIGSEGV`）**，且第 493–494 行的预运行阶段未检查返回码（导致 `kpNumArray` 保持全 `0`）。因此驱动既不报错也不中止，最终以 `rc=0`、0 错误、0 超时静默结束。
 
+## 结果五：最小修复补丁与前后对照验证（发现 → 定位 → 修复 → 验证闭环）
+
+针对结果四定位的两处根因，编写了仅改动 2 个文件（`+12 / -3`）的最小 fail-fast 补丁 [patches/period-sched-deadline-failfast.patch](../../../patches/period-sched-deadline-failfast.patch)：
+
+- **运行时（`sched.h:116`）**：将 `exit(-1)` 改为 `_exit(125)`，避免从工作线程触发全局 C++ 析构与 `traceEnd()` 的 1 秒 `usleep` 及 Use-After-Destruction `SIGSEGV (0x18)`，以专用退出码 `125` 立即结束子进程。
+- **驱动端（`run_PDS.py:493, 757`）**：在预运行与主调度循环捕获子进程退出码 `125` 或 `stderr` 中的 `sched_setattr error`，打印明确 `[FATAL] SCHED_DEADLINE admission failed` 诊断并以非零退出码 `rc=2` 立即终止，消除静默假阴性。
+
+在 `wcventure/period:stable` 容器内以 `git apply` 干净合入补丁、重新编译 `DBDSFunction.o` 与 `reorder_5_bad`（补丁后二进制 sha256 `7ed93e66…f8a922a`），进行补丁前后对照验证（原始日志与汇总表见 [patch-verification/verification-summary.tsv](patch-verification/verification-summary.tsv)）：
+
+| 场景（`reorder_5_bad`，`-y -d 3`） | 轮次 | 退出码 `rc` | 探索调度数 | 行为与结果 | 单轮耗时 |
+| --- | :---: | :---: | :---: | --- | :---: |
+| **未打补丁 · 真子集 4 核（`0-3`）** | 5 轮 | **`0`（伪通过）** | 225 | 每次调度触发 1 s 阻塞 + `SIGSEGV (0x18)`，静默输出 0 错误 | **240.29 ± 0.80 s** |
+| **打补丁后 · 真子集 4 核（`0-3`）** | 3 轮 | **`2`（Fail-Fast）** | 0（预运行拦截） | 立即输出 `[FATAL] SCHED_DEADLINE admission failed (rc=125)`，无 `SIGSEGV`、无静默漏报 | **0.33–0.75 s**（快 ~440×） |
+| **打补丁后 · 完整 8 核（`0-7`）** | 3 轮 | **`0`** | 225 × 3 | 正常探索全部 225 调度，检出错误交错 8 / 13 / 8（`Runtime` 校准 1034–1439 ns） | 33.7–49.8 s |
+| **同期未打补丁 · 完整 8 核（`0-7`，同负载对照）** | 1 轮 | **`0`** | 225 | 检出错误交错 7（`Runtime` 校准 1189 ns），确认上述 8 核错误数差异系当次宿主机负载/低 `Runtime` 校准所致，非补丁回归 | 22.8 s |
+
 ## 结论
 
 1. **根因（内核规则 + strace 实测）：真子集亲和性掩码违反 Linux `SCHED_DEADLINE` root domain 准入约束，触发 `EPERM → SIGSEGV`，且驱动静默吞掉异常。** 按 Linux 内核文档 `Documentation/scheduler/sched-deadline.rst` 第 5 节（*Bandwidth management*），`SCHED_DEADLINE` 任务的 CPU 亲和性掩码必须覆盖其所在的整个 root domain，否则内核以 `EPERM` 拒绝。实测 4 核真子集（`0-3`）下 226/226 次 `sched_setattr` 全部返回 `-1 EPERM`，且紧接着在 `si_addr=0x18` 处触发 `SIGSEGV` 杀掉整个子进程——因此每次调度仅第 1 个工作线程执行到 `sched_setattr`（共 226 次），其余 4 个线程未及运行；而在完整 root domain（`0-7`，8 核）下全部 5 个工作线程均返回 `0`（共 1,130 次 `= 5 × 226`）。子进程每次崩溃前在 `SIGCHLD` 记录 `si_utime ≈ 100`（约 1.00 秒），精确解释了真子集掩码下约 1.07 秒/调度的固定耗时；更致命的是，外层 `run_PDS.py` 未将该 `SIGSEGV` 识别为调度器致命失效，在 `reorder_5_bad` 上仍输出 `rc=0`、225/225 调度、0 超时、0 错误，构成 **100% 静默假阴性（Silent False Negative）**。
@@ -101,4 +117,4 @@ sched_setattr(0, {size=48, sched_policy=SCHED_DEADLINE, ..., sched_runtime=49564
 | `extension-cpu-affinity-mask0-7/` | `reorder_10` 8 核（`0-7`）5 轮（有效） |
 | `extension-cpu-affinity-reorder5/` | `reorder_5` 1/2/4 核各 5 轮（驱动 `rc=0`，实为静默假阴性）；另含提前中止的 `cpus-6_mask-0-5/round-1` 半截目录，未计入 32 轮统计 |
 | `extension-cpu-affinity-reorder5-mask0-7/` | `reorder_5` 8 核（`0-7`）5 轮（有效） |
-| `extension-cpu-affinity-merged/` | 本汇总（32 轮合并 TSV + 本文件 + `traces/` 下两份 `sched_setattr` 原始 trace 与源码级 `SIGSEGV (0x18)` 取证 `sigsegv-0x18-backtrace.txt`） |
+| `extension-cpu-affinity-merged/` | 本汇总（32 轮合并 TSV + 本文件 + `traces/` 下两份 `sched_setattr` 原始 trace 与源码级 `SIGSEGV (0x18)` 取证 + `patch-verification/` 下最小补丁验证日志） |

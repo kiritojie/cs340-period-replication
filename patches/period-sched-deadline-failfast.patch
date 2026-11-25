@@ -1,0 +1,44 @@
+diff --git a/tool/DBDS/run_PDS.py b/tool/DBDS/run_PDS.py
+index 3d234cb..06d9dd7 100755
+--- a/tool/DBDS/run_PDS.py
++++ b/tool/DBDS/run_PDS.py
+@@ -490,8 +490,13 @@ while returnNormal < 3:
+         print("\n\033[4;36mPerform DBDS Run again due to increasing number of Key Points!\033[0m")
+ 
+     memmove(ADDR + sizeof(c_ulonglong) + sizeof(c_uint)*2, byref(c_uint(N-1)), sizeof(c_uint)) # tell the program how many periods we used. The program can yield those unrealted thread to the last period
+-    process = subprocess.Popen(PRE_DBDS_Command, close_fds=True)
+-    process.communicate()
++    process = subprocess.Popen(PRE_DBDS_Command, close_fds=True, stderr=subprocess.PIPE)
++    _, pre_err = process.communicate()
++    if pre_err:
++        sys.stderr.write(pre_err.decode("utf-8", errors="replace"))
++    if process.returncode == 125 or (pre_err and b"sched_setattr error" in pre_err):
++        print("\033[31m[FATAL] SCHED_DEADLINE admission failed (rc=%d). Check CPU affinity mask (must cover full root domain) and CAP_SYS_NICE.\033[0m" % process.returncode)
++        sys.exit(2)
+     
+     # get more info from share memory
+     get_info_from_share_memory(P,A,B,T,kpNumArray,kpYieldArray,kpLocArray,kpOrderArray)
+@@ -751,6 +756,9 @@ for iterPeriod in range(2, period_limit+1):
+                         stdoutdata, stderrdata = process.communicate(timeout=subprocessTimeout)
+                     else:
+                         process.communicate(timeout=subprocessTimeout)
++                    if process.returncode == 125 or (recordERR and stderrdata and b"sched_setattr error" in stderrdata):
++                        print("\033[31m[FATAL] SCHED_DEADLINE admission failed during schedule %d (rc=%d). Aborting to prevent silent false negatives.\033[0m" % (rounds, process.returncode))
++                        sys.exit(2)
+                 
+                     # get info from share memory
+                     get_info_from_share_memory(None,A,B,T,kpNumArray,kpYieldArray,kpLocArray,kpOrderArray)
+diff --git a/tool/staticAnalysis/DBDS-INSTRU/llvm-mode/sched.h b/tool/staticAnalysis/DBDS-INSTRU/llvm-mode/sched.h
+index 77ed648..9a5655b 100644
+--- a/tool/staticAnalysis/DBDS-INSTRU/llvm-mode/sched.h
++++ b/tool/staticAnalysis/DBDS-INSTRU/llvm-mode/sched.h
+@@ -113,7 +113,8 @@ int set_sched_dl(__u64 runtime, __u64 deadline, __u64 period) {
+     ret = sched_setattr(0, &attr, flags);
+     if (ret < 0) {
+         perror("sched_setattr error\n");
+-        exit(-1);
++        /* Avoid exit() running global C++ dtors + traceEnd() UAD SIGSEGV / 1s usleep */
++        _exit(125);
+     }
+ 	return ret;
+ }
