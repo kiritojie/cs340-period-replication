@@ -1,0 +1,9 @@
+program	round	wsl_cores	cpu_mask	rc	gate_pass	schedules	error_interleavings	timeouts	first_error	dry_run_runtime	internal_time_s	external_wall_s
+reorder_5_bad	R1	4	0-3	0	1	0225	20	0	12	8540	21.636	21.817
+reorder_5_bad	R2	4	0-3	0	1	0225	20	0	12	9310	21.683	21.840
+reorder_5_bad	R3	4	0-3	0	1	0225	20	0	12	1015	13.111	13.273
+reorder_5_bad	R4	4	0-3	0	1	0225	20	0	12	7680	16.717	16.884
+reorder_5_bad	R5	4	0-3	0	1	0225	20	0	12	8050	17.984	18.145
+reorder_10_bad	R1	4	0-3	0	1	2350	89	0	27	1338	96.449	96.612
+reorder_10_bad	R2	4	0-3	0	1	2350	90	0	27	1256	90.678	90.847
+reorder_10_bad	R3	4	0-3	0	1	2350	90	0	27	1018	93.153	93.337

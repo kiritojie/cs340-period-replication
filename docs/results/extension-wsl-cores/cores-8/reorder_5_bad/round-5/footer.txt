@@ -1,0 +1,7 @@
+Runtime: 8330
+ThreadNum:  5
+kpNumArray: 2 2 2 2 1 
+Total Error Interleavings: 20
+Total Timeouts Interleavings: 0
+Round	0			225
+Time	00:00:00.00000		00:00:16.27531

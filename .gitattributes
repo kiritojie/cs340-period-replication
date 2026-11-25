@@ -65,6 +65,7 @@ docs/evidence/table2-rq1-evidence-20261125.zip -text
 docs/evidence/table2-rq1-history-20261125.zip -text
 # Preserve teammates' CPU Affinity evidence on Windows checkouts.
 docs/results/extension-cpu-affinity*/** -text
+docs/results/extension-wsl-cores/** -text
 # Union with remote main: top-level executable scripts remain LF.
 # These patterns do not match nested vendor snapshots, which remain -text.
 scripts/*.sh text eol=lf

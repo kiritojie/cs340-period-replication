@@ -1,0 +1,9 @@
+utc_started        : 2026-11-25T05:50:25Z
+kernel             : 6.18.58.1-microsoft-standard-WSL2
+container          : 947525ba51f0
+nproc_available    : 8
+default_affinity   : 0-7
+deadline_probe_rc  : 0
+period_git_head    : b6f72a7b06d01ffa7114b640312873ec2578a5ea
+r5_rounds          : 5
+r10_rounds         : 3
