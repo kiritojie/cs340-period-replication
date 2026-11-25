@@ -44,6 +44,9 @@ run_benchmark() {
   local prog="$2"
   local rounds="$3"
   local timeout_sec="$4"
+  if [ "$rounds" -le 0 ]; then
+    return 0
+  fi
   local bench_dir="$ROOT_DIR/evaluation/CS/$bench_sub"
   local prog_out="$CORES_DIR/$prog"
   mkdir -p "$prog_out"

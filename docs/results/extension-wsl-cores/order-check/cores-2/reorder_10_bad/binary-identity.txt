@@ -1,3 +1,0 @@
-binary_path=/workdir/PERIOD/evaluation/CS/reorder_10/reorder_10_bad
-binary_sha256=329744a03fd533079b9b5b2ed654a50cf45100d05e43e6cb999155543c6a14e1
-keypoints_lines=3
