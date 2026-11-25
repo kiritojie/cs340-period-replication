@@ -8,7 +8,7 @@ bugDepth: 3
 [4;36mPerform DBDS Run with default system scheduling![0m
 
 --------------------------------------
-Runtime: 2287
+Runtime: 5120
 ThreadNum:  5
 MaxKpNum:  2
 TupleScheduling: 0
@@ -46,9 +46,11 @@ Targeting bugs that bug depth = 2 . Iterate for 3 periods
 [4;36mtest 0018:[0m [[2], [3, 3], [0, 0, 1, 1, 2, 4]]
 [4;36mtest 0019:[0m [[3], [2, 2], [0, 0, 1, 1, 3, 4]]
 [4;36mtest 0020:[0m [[2], [4], [0, 0, 1, 1, 2, 3, 3]]
-[4;36mtest 0021:[0m [[3], [4], [0, 0, 1, 1, 2, 2, 3]]
 [31m	[Error Found]: NO.3 assertion failed[0m
-[31m	The interleavings saved in out_reorder_5_bad_1/Errors/000003_0000021_assertion-failed [0m
+[31m	The interleavings saved in out_reorder_5_bad_1/Errors/000003_0000020_assertion-failed [0m
+[4;36mtest 0021:[0m [[3], [4], [0, 0, 1, 1, 2, 2, 3]]
+[31m	[Error Found]: NO.4 assertion failed[0m
+[31m	The interleavings saved in out_reorder_5_bad_1/Errors/000004_0000021_assertion-failed [0m
 [4;36mtest 0022:[0m [[0, 0], [1, 1], [2, 2, 3, 3, 4]]
 [4;36mtest 0023:[0m [[0, 0], [2, 2], [1, 1, 3, 3, 4]]
 [4;36mtest 0024:[0m [[1, 1], [0, 0], [2, 2, 3, 3, 4]]
@@ -119,17 +121,19 @@ Targeting bugs that bug depth = 3 . Iterate for 4 periods
 [4;36mtest 0088:[0m [[0], [1, 1], [4], [0, 2, 2, 3, 3]]
 [4;36mtest 0089:[0m [[0, 0], [1], [4], [1, 2, 2, 3, 3]]
 [4;36mtest 0090:[0m [[0], [4], [0], [1, 1, 2, 2, 3, 3]]
+[31m	[Error Found]: NO.5 assertion failed[0m
+[31m	The interleavings saved in out_reorder_5_bad_1/Errors/000005_0000090_assertion-failed [0m
 [4;36mtest 0091:[0m [[0], [4], [1, 1], [0, 2, 2, 3, 3]]
-[31m	[Error Found]: NO.4 assertion failed[0m
-[31m	The interleavings saved in out_reorder_5_bad_1/Errors/000004_0000091_assertion-failed [0m
+[31m	[Error Found]: NO.6 assertion failed[0m
+[31m	The interleavings saved in out_reorder_5_bad_1/Errors/000006_0000091_assertion-failed [0m
 [4;36mtest 0092:[0m [[1, 1], [0], [4], [0, 2, 2, 3, 3]]
 [4;36mtest 0093:[0m [[1], [0, 0], [4], [1, 2, 2, 3, 3]]
 [4;36mtest 0094:[0m [[1], [4], [0, 0], [1, 2, 2, 3, 3]]
-[31m	[Error Found]: NO.5 assertion failed[0m
-[31m	The interleavings saved in out_reorder_5_bad_1/Errors/000005_0000094_assertion-failed [0m
+[31m	[Error Found]: NO.7 assertion failed[0m
+[31m	The interleavings saved in out_reorder_5_bad_1/Errors/000007_0000094_assertion-failed [0m
 [4;36mtest 0095:[0m [[1], [4], [1], [0, 0, 2, 2, 3, 3]]
-[31m	[Error Found]: NO.6 assertion failed[0m
-[31m	The interleavings saved in out_reorder_5_bad_1/Errors/000006_0000095_assertion-failed [0m
+[31m	[Error Found]: NO.8 assertion failed[0m
+[31m	The interleavings saved in out_reorder_5_bad_1/Errors/000008_0000095_assertion-failed [0m
 [4;36mtest 0096:[0m [[4], [0], [1, 1], [0, 2, 2, 3, 3]]
 [4;36mtest 0097:[0m [[4], [1], [0, 0], [1, 2, 2, 3, 3]]
 [4;36mtest 0098:[0m [[0], [2, 2], [3, 3], [0, 1, 1, 4]]
@@ -149,29 +153,31 @@ Targeting bugs that bug depth = 3 . Iterate for 4 periods
 [4;36mtest 0112:[0m [[0], [2, 2], [4], [0, 1, 1, 3, 3]]
 [4;36mtest 0113:[0m [[0, 0], [2], [4], [1, 1, 2, 3, 3]]
 [4;36mtest 0114:[0m [[0], [4], [2, 2], [0, 1, 1, 3, 3]]
-[31m	[Error Found]: NO.7 assertion failed[0m
-[31m	The interleavings saved in out_reorder_5_bad_1/Errors/000007_0000114_assertion-failed [0m
+[31m	[Error Found]: NO.9 assertion failed[0m
+[31m	The interleavings saved in out_reorder_5_bad_1/Errors/000009_0000114_assertion-failed [0m
 [4;36mtest 0115:[0m [[2, 2], [0], [4], [0, 1, 1, 3, 3]]
 [4;36mtest 0116:[0m [[2], [0, 0], [4], [1, 1, 2, 3, 3]]
 [4;36mtest 0117:[0m [[2], [4], [0, 0], [1, 1, 2, 3, 3]]
-[31m	[Error Found]: NO.8 assertion failed[0m
-[31m	The interleavings saved in out_reorder_5_bad_1/Errors/000008_0000117_assertion-failed [0m
+[31m	[Error Found]: NO.10 assertion failed[0m
+[31m	The interleavings saved in out_reorder_5_bad_1/Errors/000010_0000117_assertion-failed [0m
 [4;36mtest 0118:[0m [[2], [4], [2], [0, 0, 1, 1, 3, 3]]
-[31m	[Error Found]: NO.9 assertion failed[0m
-[31m	The interleavings saved in out_reorder_5_bad_1/Errors/000009_0000118_assertion-failed [0m
+[31m	[Error Found]: NO.11 assertion failed[0m
+[31m	The interleavings saved in out_reorder_5_bad_1/Errors/000011_0000118_assertion-failed [0m
 [4;36mtest 0119:[0m [[4], [0], [2, 2], [0, 1, 1, 3, 3]]
 [4;36mtest 0120:[0m [[4], [2], [0, 0], [1, 1, 2, 3, 3]]
 [4;36mtest 0121:[0m [[0], [3, 3], [4], [0, 1, 1, 2, 2]]
 [4;36mtest 0122:[0m [[0, 0], [3], [4], [1, 1, 2, 2, 3]]
 [4;36mtest 0123:[0m [[0], [4], [3, 3], [0, 1, 1, 2, 2]]
-[31m	[Error Found]: NO.10 assertion failed[0m
-[31m	The interleavings saved in out_reorder_5_bad_1/Errors/000010_0000123_assertion-failed [0m
+[31m	[Error Found]: NO.12 assertion failed[0m
+[31m	The interleavings saved in out_reorder_5_bad_1/Errors/000012_0000123_assertion-failed [0m
 [4;36mtest 0124:[0m [[3, 3], [0], [4], [0, 1, 1, 2, 2]]
 [4;36mtest 0125:[0m [[3], [0, 0], [4], [1, 1, 2, 2, 3]]
 [4;36mtest 0126:[0m [[3], [4], [0, 0], [1, 1, 2, 2, 3]]
+[31m	[Error Found]: NO.13 assertion failed[0m
+[31m	The interleavings saved in out_reorder_5_bad_1/Errors/000013_0000126_assertion-failed [0m
 [4;36mtest 0127:[0m [[3], [4], [3], [0, 0, 1, 1, 2, 2]]
-[31m	[Error Found]: NO.11 assertion failed[0m
-[31m	The interleavings saved in out_reorder_5_bad_1/Errors/000011_0000127_assertion-failed [0m
+[31m	[Error Found]: NO.14 assertion failed[0m
+[31m	The interleavings saved in out_reorder_5_bad_1/Errors/000014_0000127_assertion-failed [0m
 [4;36mtest 0128:[0m [[4], [0], [3, 3], [0, 1, 1, 2, 2]]
 [4;36mtest 0129:[0m [[4], [3], [0, 0], [1, 1, 2, 2, 3]]
 [4;36mtest 0130:[0m [[1], [2, 2], [3, 3], [0, 0, 1, 4]]
@@ -189,35 +195,37 @@ Targeting bugs that bug depth = 3 . Iterate for 4 periods
 [4;36mtest 0142:[0m [[1], [2, 2], [4], [0, 0, 1, 3, 3]]
 [4;36mtest 0143:[0m [[1, 1], [2], [4], [0, 0, 2, 3, 3]]
 [4;36mtest 0144:[0m [[1], [4], [2, 2], [0, 0, 1, 3, 3]]
-[31m	[Error Found]: NO.12 assertion failed[0m
-[31m	The interleavings saved in out_reorder_5_bad_1/Errors/000012_0000144_assertion-failed [0m
+[31m	[Error Found]: NO.15 assertion failed[0m
+[31m	The interleavings saved in out_reorder_5_bad_1/Errors/000015_0000144_assertion-failed [0m
 [4;36mtest 0145:[0m [[2, 2], [1], [4], [0, 0, 1, 3, 3]]
 [4;36mtest 0146:[0m [[2], [1, 1], [4], [0, 0, 2, 3, 3]]
 [4;36mtest 0147:[0m [[2], [4], [1, 1], [0, 0, 2, 3, 3]]
-[31m	[Error Found]: NO.13 assertion failed[0m
-[31m	The interleavings saved in out_reorder_5_bad_1/Errors/000013_0000147_assertion-failed [0m
+[31m	[Error Found]: NO.16 assertion failed[0m
+[31m	The interleavings saved in out_reorder_5_bad_1/Errors/000016_0000147_assertion-failed [0m
 [4;36mtest 0148:[0m [[4], [1], [2, 2], [0, 0, 1, 3, 3]]
 [4;36mtest 0149:[0m [[4], [2], [1, 1], [0, 0, 2, 3, 3]]
 [4;36mtest 0150:[0m [[1], [3, 3], [4], [0, 0, 1, 2, 2]]
 [4;36mtest 0151:[0m [[1, 1], [3], [4], [0, 0, 2, 2, 3]]
 [4;36mtest 0152:[0m [[1], [4], [3, 3], [0, 0, 1, 2, 2]]
-[31m	[Error Found]: NO.14 assertion failed[0m
-[31m	The interleavings saved in out_reorder_5_bad_1/Errors/000014_0000152_assertion-failed [0m
+[31m	[Error Found]: NO.17 assertion failed[0m
+[31m	The interleavings saved in out_reorder_5_bad_1/Errors/000017_0000152_assertion-failed [0m
 [4;36mtest 0153:[0m [[3, 3], [1], [4], [0, 0, 1, 2, 2]]
 [4;36mtest 0154:[0m [[3], [1, 1], [4], [0, 0, 2, 2, 3]]
 [4;36mtest 0155:[0m [[3], [4], [1, 1], [0, 0, 2, 2, 3]]
+[31m	[Error Found]: NO.18 assertion failed[0m
+[31m	The interleavings saved in out_reorder_5_bad_1/Errors/000018_0000155_assertion-failed [0m
 [4;36mtest 0156:[0m [[4], [1], [3, 3], [0, 0, 1, 2, 2]]
 [4;36mtest 0157:[0m [[4], [3], [1, 1], [0, 0, 2, 2, 3]]
 [4;36mtest 0158:[0m [[2], [3, 3], [4], [0, 0, 1, 1, 2]]
 [4;36mtest 0159:[0m [[2, 2], [3], [4], [0, 0, 1, 1, 3]]
 [4;36mtest 0160:[0m [[2], [4], [3, 3], [0, 0, 1, 1, 2]]
-[31m	[Error Found]: NO.15 assertion failed[0m
-[31m	The interleavings saved in out_reorder_5_bad_1/Errors/000015_0000160_assertion-failed [0m
+[31m	[Error Found]: NO.19 assertion failed[0m
+[31m	The interleavings saved in out_reorder_5_bad_1/Errors/000019_0000160_assertion-failed [0m
 [4;36mtest 0161:[0m [[3, 3], [2], [4], [0, 0, 1, 1, 2]]
 [4;36mtest 0162:[0m [[3], [2, 2], [4], [0, 0, 1, 1, 3]]
 [4;36mtest 0163:[0m [[3], [4], [2, 2], [0, 0, 1, 1, 3]]
-[31m	[Error Found]: NO.16 assertion failed[0m
-[31m	The interleavings saved in out_reorder_5_bad_1/Errors/000016_0000163_assertion-failed [0m
+[31m	[Error Found]: NO.20 assertion failed[0m
+[31m	The interleavings saved in out_reorder_5_bad_1/Errors/000020_0000163_assertion-failed [0m
 [4;36mtest 0164:[0m [[4], [2], [3, 3], [0, 0, 1, 1, 2]]
 [4;36mtest 0165:[0m [[4], [3], [2, 2], [0, 0, 1, 1, 3]]
 [4;36mtest 0166:[0m [[0, 0], [1, 1], [2, 2], [3, 3, 4]]
@@ -283,7 +291,7 @@ Targeting bugs that bug depth = 3 . Iterate for 4 periods
 [4;36mEnd Testing!
 [0m
 [1;35m
-Total Error Interleavings: 16
+Total Error Interleavings: 20
 Total Timeouts Interleavings: 0
 2 status found:
 	 [0, -6]
@@ -291,5 +299,5 @@ Total Timeouts Interleavings: 0
 --------------------------------------------------
 	Last New Find		Total
 Round	0			225
-Time	00:00:00.00000		00:00:18.80663
+Time	00:00:00.00000		00:00:20.21765
 [0m

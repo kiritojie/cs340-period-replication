@@ -45,10 +45,12 @@ def main():
     groups = defaultdict(list)
     with open(sys.argv[1], "r", encoding="utf-8") as fh:
         reader = csv.DictReader(fh, delimiter="\t")
-        has_program = "program" in (reader.fieldnames or [])
+        fields = reader.fieldnames or []
+        has_program = "program" in fields
+        core_col = "cpu_count" if "cpu_count" in fields else "wsl_cores"
         for row in reader:
             prog = row["program"] if has_program else ""
-            key = (prog, int(row["cpu_count"]), row["cpu_mask"])
+            key = (prog, int(row[core_col]), row["cpu_mask"])
             groups[key].append(row)
 
     if has_program:

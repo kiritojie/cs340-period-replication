@@ -91,15 +91,15 @@ sched_setattr(0, {size=48, sched_policy=SCHED_DEADLINE, ..., sched_runtime=49564
 - **驱动端（`run_PDS.py:493, 757`）**：在预运行与主调度循环捕获子进程退出码 `125` 或 `stderr` 中的 `sched_setattr error`，打印明确 `[FATAL] SCHED_DEADLINE admission failed` 诊断并以非零退出码 `rc=2` 立即终止，消除静默假阴性。
 - **补丁边界说明**：该最小补丁专门修复 `SCHED_DEADLINE` 准入失败（`EPERM`）链路，未改动 `run_PDS.py` 原有第 108/360/507 行对普通目标程序 `-11`（`SIGSEGV`）的过滤逻辑；退出码 `125` 仅作为 `sched.h` 与 `run_PDS.py` 之间的内部约定，对外由驱动统一转为 `rc=2`（与 `timeout` 的退出码 `125` 区分）。
 
-在 `wcventure/period:stable` 容器内以 `git apply` 干净合入补丁、重新编译 `DBDSFunction.o` 与 `reorder_5_bad`（未打补丁二进制 sha256 `346c4e50…d67501`，补丁后二进制 sha256 `7ed93e66…f8a922a`），先后完成首次验证（[patch-verification/verification-summary.tsv](patch-verification/verification-summary.tsv)）与低负载时段的 **5+5 轮交替 A/B 零回归验证**（[patch-verification/ab-verification-summary.tsv](patch-verification/ab-verification-summary.tsv)、[ab-binary-identity.txt](patch-verification/ab-binary-identity.txt)）：
+在 `wcventure/period:stable` 容器内以 `git apply` 干净合入补丁、重新编译 `DBDSFunction.o` 与 `reorder_5_bad`（未打补丁二进制 sha256 `346c4e50…d67501`，补丁后二进制 sha256 `7ed93e66…f8a922a`），先后完成首次验证（[patch-verification/verification-summary.tsv](patch-verification/verification-summary.tsv)）与由 [scripts/patch_ab_verify.sh](../../../scripts/patch_ab_verify.sh) 在确认无残留容器后执行的 **5+5 轮交替 A/B 零回归验证**（[patch-verification/ab-verification-summary.tsv](patch-verification/ab-verification-summary.tsv)、[ab-binary-identity.txt](patch-verification/ab-binary-identity.txt)；注：此前一次 A/B 尝试因中止不彻底存在后台重叠容器污染，已整体作废并由本次干净重跑替代）：
 
 | 场景（`reorder_5_bad`，`-y -d 3`） | 轮次 | 退出码 `rc` | 探索调度数 | 行为与结果 | 单轮耗时 |
 | --- | :---: | :---: | :---: | --- | :---: |
 | **未打补丁 · 真子集 4 核（`0-3`）** | 5 轮 | **`0`（伪通过）** | 225 | 每次调度触发 1 s 阻塞 + `SIGSEGV (0x18)`，静默输出 0 错误 | **240.29 ± 0.80 s** |
 | **打补丁后 · 真子集 4 核（`0-3`）** | 3 轮 | **`2`（Fail-Fast）** | 0（预运行拦截） | 立即输出 `[FATAL] SCHED_DEADLINE admission failed (rc=125)`，无 `SIGSEGV`、无静默漏报 | **0.33–0.75 s**（快 ~440×） |
-| **A/B 交替 · 未打补丁 · 完整 8 核（`0-7`）** | 5 轮 | **`0`** | 225 × 5 | 错误交错 **19.20 ± 1.79**（16/20/20/20/20，首次命中 12，0 超时；R1 因 `Runtime=2287 ns` 偏低为 16） | **17.43 ± 1.50 s** |
-| **A/B 交替 · 打补丁后 · 完整 8 核（`0-7`）** | 5 轮 | **`0`** | 225 × 5 | 错误交错 **20.00 ± 0.00**（5/5 轮精确命中 20、首次命中 12、0 超时，`Runtime` 5560–8540 ns） | **16.41 ± 1.57 s** |
-| **首次高负载时段 · 打补丁/未打补丁 · 8 核（`0-7`）** | 3 + 1 轮 | **`0`** | 225 × 4 | 补丁后 8/13/8（`Runtime` 1034–1439 ns）vs. 未打补丁 7（`Runtime` 1189 ns），与 A/B 组 R1 一并证实错误数下降仅由低 `Runtime` 校准/宿主机负载引起，非补丁回归 | 22.8–49.8 s |
+| **A/B 交替 · 未打补丁 · 完整 8 核（`0-7`）** | 5 轮 | **`0`** | 225 × 5 | 错误交错 **19.80 ± 0.45**（20/20/20/19/20，首次命中 12，0 超时；R4 因 `Runtime=1113 ns` 偏低为 19） | **16.43 ± 2.63 s** |
+| **A/B 交替 · 打补丁后 · 完整 8 核（`0-7`）** | 5 轮 | **`0`** | 225 × 5 | 错误交错 **20.00 ± 0.00**（5/5 轮精确命中 20、首次命中 12、0 超时，`Runtime` 6090–8600 ns） | **16.59 ± 0.50 s** |
+| **首次高负载时段 · 打补丁/未打补丁 · 8 核（`0-7`）** | 3 + 1 轮 | **`0`** | 225 × 4 | 补丁后 8/13/8（`Runtime` 1034–1439 ns）vs. 未打补丁 7（`Runtime` 1189 ns），与 A/B 组 R4 一并支持错误数下降与低 `Runtime` 校准/宿主机负载相关，非补丁回归 | 22.8–49.8 s |
 
 ## 结论
 

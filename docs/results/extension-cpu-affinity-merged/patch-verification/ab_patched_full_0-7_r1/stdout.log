@@ -8,7 +8,7 @@ bugDepth: 3
 [4;36mPerform DBDS Run with default system scheduling![0m
 
 --------------------------------------
-Runtime: 6740
+Runtime: 6090
 ThreadNum:  5
 MaxKpNum:  2
 TupleScheduling: 0
@@ -299,5 +299,5 @@ Total Timeouts Interleavings: 0
 --------------------------------------------------
 	Last New Find		Total
 Round	0			225
-Time	00:00:00.00000		00:00:18.64335
+Time	00:00:00.00000		00:00:16.57164
 [0m
