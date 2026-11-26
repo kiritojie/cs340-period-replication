@@ -4,7 +4,7 @@ CS340 操作系统课程小组项目，复现 PERIOD 论文中的部分实验。
 
 Cheng Wen 等，*Controlled Concurrency Testing via Periodical Scheduling*，ICSE 2022。[论文 PDF](https://wcventure.github.io/pdf/ICSE2022_PERIOD.pdf) · [DOI](https://doi.org/10.1145/3510003.3510178) · [官方源码](https://github.com/wcventure/PERIOD)
 
-[Table 2 RQ1 成果入口](docs/table2-rq1-finalization-20261125/README.md) · [实验结果](#实验结果) · [复现入口](#复现入口) · [正式复现范围](#正式复现范围) · [更新历史](#更新历史) · [组员分工](#组员分工与贡献)
+[Table 2 RQ1 成果入口](docs/table2-rq1-finalization-20261125/README.md) · [项目进度](#项目进度) · [实验结果](#实验结果) · [仓库结构](#仓库结构) · [复现入口](#复现入口) · [正式复现范围](#正式复现范围) · [更新历史](#更新历史) · [组员分工](#组员分工与贡献)
 
 ## 项目进度
 
@@ -65,11 +65,59 @@ Cheng Wen 等，*Controlled Concurrency Testing via Periodical Scheduling*，ICS
 
 **Claim Verdict：RQ1 在本次四档 cohort 内得到支持，Table 2 为部分数值复现。** 原始 24 轮、SHA256、纳入标准及五类图数值审核通过；不外推到全部 36 个程序或论文性能结论。[最终英文报告](docs/table2-rq1-finalization-20261125/FINAL_REPORT.md) · [逐轮审核](docs/table2-rq1-finalization-20261125/audit-details.json) · [完整 Paper vs. Ours](docs/table2-rq1-finalization-20261125/paper-vs-ours.csv) · [提交与同步说明](docs/table2-rq1-finalization-20261125/SUBMISSION.md)
 
+## 仓库结构
+
+```text
+cs340-period-replication/
+├── README.md                              # 项目总览、Paper vs. Ours 速览与导航
+├── patches/                               # 上游 PERIOD 最小修复补丁与说明
+│   ├── README.md                          # 补丁动机、应用方式与全 7 档验证索引
+│   └── period-sched-deadline-failfast.patch
+├── scripts/                               # 复现、采集、统计、门禁审计与显著性检验脚本
+│   ├── check_environment.sh               # 环境盘点脚本
+│   ├── cve_*.sh / cve_stats.py            # Table 1 全量 10 CVE 复现与统计
+│   ├── extension_cpu_affinity.sh          # Extension Part 1 亲和性采集（含收紧门禁）
+│   ├── extension_cpu_merge.py             # 原始批次自动合并与门禁重算
+│   ├── extension_cpu_stats.py             # 统一 Mean±SD / Median 统计（兼容 cpu_count / wsl_cores）
+│   ├── patch_ab_verify.sh                 # 补丁 8 核 5+5 轮干净交替 A/B 验证
+│   ├── patch_matrix_verify.sh             # 补丁全 7 档（reorder_5 + reorder_10）矩阵验证
+│   ├── extension_wsl_cores.sh / .ps1      # Extension Part 2 WSL2 真实 root domain 核数对照
+│   └── extension_wsl_significance.py      # 零依赖精确双侧 Mann–Whitney U + Cliff's delta
+├── docs/                                  # 阶段报告、源码分析与审计归档
+│   ├── table1-cve-reproduction.md         # Table 1 (RQ2) 10 CVE × 10 轮报告
+│   ├── table2-segment1-reorder.md         # Table 2 第一段 40 次零方差复现报告
+│   ├── table2-rq1-finalization-20261125/  # Table 2 RQ1 Parallel vs. Serial 24 轮最终报告
+│   ├── worker-thread-syscall-evidence.md  # strace -f 工作线程调度取证报告
+│   └── results/                           # 全量原始日志、TSV、trace 与 SHA256SUMS
+│       ├── extension-cpu-affinity-merged/ # Extension Part 1 32 轮汇总 + trace + 补丁验证
+│       └── extension-wsl-cores/           # Extension Part 2 24+6 轮真实核数汇总与逆序复核
+├── config/ & orchestration/ & tests/      # Table 2 RQ1 协议配置、编排与单元测试
+```
+
 ## 复现入口
 
 1. 核对已验证的 x86_64 Linux 路线。[环境检查](#环境检查) · [首次运行环境记录](docs/results/environment.txt)
 2. 从项目 Release 获取固定镜像归档 `PERIOD-amd64.oci.tar`。第二周重跑包收录镜像身份、阶段日志、原始错误调度和采集脚本。[镜像发布页](https://github.com/kiritojie/cs340-period-replication/releases/tag/doublefree-evidence-20261115) · [重跑证据包](docs/results/PERIOD_doubleFree_rerun_evidence-verified.zip)
 3. 查阅 11 月 14 日的证据缺口与拟定补采步骤，以及 11 月 15 日实际完成的补采。[审计与补采方案](docs/week2-reproducibility.md) · [实际补采记录](docs/week2-doublefree.md#2026-11-15-重跑与补采)
+4. 复现 Extension 最小补丁与统计审计：参见 [patches/README.md](patches/README.md) 与 [Extension 亲和性汇总](docs/results/extension-cpu-affinity-merged/stats-summary.md)。
+
+<details>
+<summary><strong>一键验证 Extension 统计表与精确显著性检验（无需容器）</strong></summary>
+
+```bash
+# 1. 从 5 个原始目录重算 32 轮合并 TSV（含收紧门禁与 internal_time_s 回填）
+python3 scripts/extension_cpu_merge.py
+python3 scripts/extension_cpu_stats.py docs/results/extension-cpu-affinity-merged/rounds-summary.tsv
+
+# 2. 复现 WSL2 真实核数对照统计表（24 轮主扫描 + 6 轮 2->8 逆序复核）
+python3 scripts/extension_cpu_stats.py docs/results/extension-wsl-cores/rounds-summary.tsv
+python3 scripts/extension_cpu_stats.py docs/results/extension-wsl-cores/order-check/rounds-summary.tsv
+
+# 3. 复现精确双侧 Mann-Whitney U 检验与 Cliff's delta（纯标准库，无第三方依赖）
+python3 scripts/extension_wsl_significance.py docs/results/extension-wsl-cores
+```
+
+</details>
 
 ## 正式复现范围
 
@@ -133,13 +181,15 @@ mkdir -p docs/results
 | 2026-11-23 | 完成 Table 2 首个可控分段（`CS.reorder` 线程缩放行）：3/4/5/10 线程四档各 10 轮共 40 次运行，论文该行四个调度数 27 / 100 / 225 / 2350 **逐次精确命中、零方差**，达到论文自身样本量；错误交错数仅 10 线程档波动（89/90/93）。单轮 55 秒、全段 12.6 分钟，证明按行分段可控。[Table 2 第一段报告](docs/table2-segment1-reorder.md) |
 | 2026-11-24 | 同步修订 `README.md` 正式复现范围（对齐 Table 2 已覆盖 4 个程序与 Fig. 7 排除说明），新增 Paper vs. Ours 核心结果速览表与组员分工贡献表。 |
 | 2026-11-24 | 合并 `feat/extension-cpu-affinity` 分支至 `main`：完成 CPU 亲和性单变量 Extension 实验（1/2/4/8 核共 32 轮）及 `strace` 根因取证（真子集掩码 `EPERM → SIGSEGV` 引发 100% 静默假阴性）。[Extension 汇总报告](docs/results/extension-cpu-affinity-merged/stats-summary.md) |
+| 2026-11-25 | 完成 Table 2 RQ1 24 轮 Parallel/Serial 正式对照与最终英文报告（[最终报告](docs/table2-rq1-finalization-20261125/FINAL_REPORT.md)）及英文 Paper vs. Ours 制图（[对照表与图](docs/results/table2-comparison/table2-paper-vs-ours.md)）。 |
+| 2026-11-25 | 完成 Extension 源码/汇编级 `SIGSEGV (0x18)` 定位与 2 文件最小 fail-fast 补丁（[补丁说明](patches/README.md)），补齐全 7 档实测矩阵（`reorder_5` 1/2/4/8 核 + `reorder_10` 1/4/8 核，含 5+5 轮干净 A/B 零回归）；并完成 30 轮 `.wslconfig` 真实 root domain 核数对照（2/4/8 核 + 2→8 逆序复核）与精确双侧 Mann–Whitney U 检验（`reorder_5` $p=0.00575$，[真实核数报告](docs/results/extension-wsl-cores/stats-summary.md)）。 |
 
 ## 组员分工与贡献
 
 | 学号 | 成员 | 主要贡献与代表记录 |
 | --- | --- | --- |
 | `1240011062` | 叶浩铭 | 仓库初始化、第一周算法与源码分析、第二周文档与采集脚本完善、第三周 `CS.reorder_3_bad` 本地三轮正式复现（[第三周报告](docs/week3-independent-reproduction.md)）；完成 ABI 差异审计与统一驱动适配、A1/B 回归、Table 2 — RQ1 四档 Parallel/Serial 24 轮正式对照、reorder_5 原始证据恢复及最终审计报告（[最终报告](docs/table2-rq1-finalization-20261125/FINAL_REPORT.md)） |
-| `1240010243` | 查舒翔 | 跨宿主机独立重建复现、Table 1 全部 10 个 CVE 十轮复现与负对照、`strace -f` 工作线程 `SCHED_DEADLINE` 系统调用取证、Table 2 `CS.reorder` 四档线程缩放十轮复现、Extension CPU 亲和性单变量扩展实验与 `EPERM → SIGSEGV` 根因取证（[跨机器报告](docs/week3-cross-host-reorder3.md) · [Table 1 报告](docs/table1-cve-reproduction.md) · [取证报告](docs/worker-thread-syscall-evidence.md) · [Table 2 第一段](docs/table2-segment1-reorder.md) · [Extension 汇总](docs/results/extension-cpu-affinity-merged/stats-summary.md)） |
+| `1240010243` | 查舒翔 | 跨宿主机独立重建复现、Table 1 全部 10 个 CVE 十轮复现与负对照、`strace -f` 工作线程 `SCHED_DEADLINE` 系统调用取证、Table 2 `CS.reorder` 四档线程缩放十轮复现、Extension CPU 亲和性实验（32 轮）与 `EPERM → SIGSEGV (0x18)` 源码/汇编级取证、2 文件最小 fail-fast 补丁与全 7 档实测验证、WSL2 真实 root domain 核数对照（30 轮）与精确 Mann–Whitney U 检验（[跨机器报告](docs/week3-cross-host-reorder3.md) · [Table 1 报告](docs/table1-cve-reproduction.md) · [取证报告](docs/worker-thread-syscall-evidence.md) · [Table 2 第一段](docs/table2-segment1-reorder.md) · [亲和性汇总](docs/results/extension-cpu-affinity-merged/stats-summary.md) · [最小补丁](patches/README.md) · [真实核数报告](docs/results/extension-wsl-cores/stats-summary.md)） |
 | `1240011385` | 李志杰 | 项目首页与证据导航整理、`doubleFree` 日志提取与独立统计核对工作流（[日志统计文档](docs/log-statistics.md) · [独立统计核对](docs/results/doublefree-log-check-2026-11-19.md)）；复核 Table 2 四档的 40 轮归档记录与论文原表，计算均值和样本标准差，制作英文 Paper vs. Ours 对照表和图（[Table 2 数据核对与制图](docs/results/table2-comparison/table2-paper-vs-ours.md)） |
 | `1240010368` | 罗韬 | 第二周 `doubleFree` 环境搭建、首次运行与 ASan 回放、重跑证据包归档（[第二周记录](docs/week2-doublefree.md)） |
 
